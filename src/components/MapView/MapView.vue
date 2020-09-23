@@ -1,11 +1,12 @@
 <template>
   <div class="container">
     <GmapMap
+      ref="gmap"
       style="width: 100vw; height: 100%;"
       :zoom="3"
       :center="{ lat: 0, lng: 0 }"
       :options="{
-        zoomControl: true,
+        zoomControl: false,
         minZoom: 2,
         restriction: {
           latLngBounds: {
@@ -16,7 +17,8 @@
           },
           strictBounds: true,
         },
-        styles: this.mapStyles,
+        styles: mapStyles,
+        disableDefaultUI: true,
       }"
     >
       <GmapMarker
@@ -25,22 +27,34 @@
         :position="marker.position"
       />
       <GmapMarker
-        v-if="this.place"
-        label="★"
+        ref="usernameInput"
+        :icon="userLocationMarker"
+        :clickable="true"
         :position="{
-          lat: this.place.geometry.location.lat(),
-          lng: this.place.geometry.location.lng(),
+          lat: 0,
+          lng: 0,
         }"
+        @click="onclickMarker('haha')"
+        @mouseover="mouseOver('mouseover')"
+        @mouseout="mouseLeave('mouseleave')"
       />
     </GmapMap>
   </div>
 </template>
 
 <script>
+// import BlueMarker from './BlueMarker';
+// import { TopBar } from 'src/components';
+
 export default {
   name: 'MapView',
   data() {
     return {
+      userLocationMarker: {
+        url: require('src/assets/images/blue_marker.webp'),
+        // size: { width: 40, height: 40, f: 'px', b: 'px' },
+        // scaledSize: { width: 35, height: 35, f: 'px', b: 'px' },
+      },
       markers: [],
       place: null,
       mapStyles: [
@@ -181,6 +195,22 @@ export default {
         },
       ],
     };
+  },
+  methods: {
+    onclickMarker(msg) {
+      console.log('Click', msg);
+    },
+    mouseOver(data) {
+      console.log(data);
+      const placeHolder = require('src/assets/images/ph_blue_marker.webp');
+      // this.userLocationMarker.url = require('src/assets/images/ph_blue_marker.webp');
+      // this.$refs.usernameInput.$markerObject.setAnimation(google.maps.Animation.BOUNCE);
+      console.log(this.$refs.usernameInput);
+    },
+    mouseLeave(data) {
+      console.log(data);
+      this.userLocationMarker.url = require('src/assets/images/blue_marker.webp');
+    },
   },
 };
 </script>
