@@ -1,8 +1,8 @@
 import Vue from 'vue';
 import App from './App.vue';
-import * as VueGoogleMaps from 'vue2-google-maps';
+import * as GmapVue from 'gmap-vue'
 
-Vue.use(VueGoogleMaps, {
+Vue.use(GmapVue, {
   load: {
     key: process.env.VUE_APP_GMAP_API_KEY,
     libraries: 'places,drawing', // This is required if you use the Autocomplete plugin
