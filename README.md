@@ -29,3 +29,4 @@ yarn lint
 - [ ] Style for map: center viewport, 4 theme, make the map fit viewport
 - [ ] Add marker by search, by drop marker
 - [ ] Add post as call out and lazyload image
+- [ ] Restructure code, split plugins
