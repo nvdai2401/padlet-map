@@ -1,6 +1,6 @@
 <template>
   <div class="container">
-    <GmapMap
+    <gmap-map
       ref="gmap"
       style="width: 100vw; height: 100%;"
       class="gmap-container"
@@ -8,12 +8,12 @@
       :center="{ lat: 0, lng: 0 }"
       :options="mapOptions"
     >
-      <GmapMarker
+      <gmap-marker
         v-for="(marker, index) in markers"
         :key="index"
         :position="marker.position"
       />
-      <GmapMarker
+      <gmap-marker
         ref="marker"
         :icon="userLocationMarker"
         :clickable="true"
@@ -29,14 +29,15 @@
           :opened="infoWindowVisible"
           @closeclick="infoWindowVisible = false"
         >
-          hello
+          <post />
         </gmap-info-window>
-      </GmapMarker>
-    </GmapMap>
+      </gmap-marker>
+    </gmap-map>
   </div>
 </template>
 
 <script>
+import { Post } from './components';
 import {
   defaultLatLngBounds,
   viewportLatLngBounds,
@@ -46,11 +47,14 @@ import {
 import { gmapApi } from 'gmap-vue';
 
 export default {
-  name: 'MapView',
+  name: 'map-view',
+  components: {
+    post: Post,
+  },
   data() {
     return {
       userLocationMarker: {
-        url: require('src/assets/images/blue_marker.webp'),
+        url: require('src/assets/images/markers/blue_marker.webp'),
       },
       infoWindowVisible: false,
       markers: [],
@@ -89,7 +93,7 @@ export default {
     },
     mouseOver(data) {
       console.log(data);
-      const placeHolder = require('src/assets/images/ph_blue_marker.webp');
+      const placeHolder = require('src/assets/images/markers/ph_blue_marker.webp');
       this.userLocationMarker = {
         url: placeHolder,
       };
@@ -97,7 +101,7 @@ export default {
     mouseLeave(data) {
       console.log(data);
       this.userLocationMarker = {
-        url: require('src/assets/images/blue_marker.webp'),
+        url: require('src/assets/images/markers/blue_marker.webp'),
       };
     },
   },
