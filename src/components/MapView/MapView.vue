@@ -6,14 +6,7 @@
       class="gmap-container"
       :zoom="3"
       :center="{ lat: 0, lng: 0 }"
-      :options="{
-        backgroundColor: '#192331',
-        zoomControl: false,
-        minZoom: 2,
-        restriction: restriction,
-        styles: mapStyles,
-        disableDefaultUI: true,
-      }"
+      :options="mapOptions"
     >
       <GmapMarker
         v-for="(marker, index) in markers"
@@ -44,187 +37,61 @@
 </template>
 
 <script>
-// import BlueMarker from './BlueMarker';
+import {
+  defaultLatLngBounds,
+  viewportLatLngBounds,
+  styles,
+  restriction,
+} from './mapProperty';
 import { gmapApi } from 'gmap-vue';
+
 export default {
   name: 'MapView',
   data() {
     return {
       userLocationMarker: {
         url: require('src/assets/images/blue_marker.webp'),
-        // size: { width: 40, height: 40, f: 'px', b: 'px' },
-        // scaledSize: { width: 35, height: 35, f: 'px', b: 'px' },
       },
       infoWindowVisible: false,
       markers: [],
       place: null,
-      restriction: {
-        latLngBounds: {
-          north: 85,
-          south: -85,
-          west: -180,
-          east: 180,
-        },
-        strictBounds: true,
-      },
-      mapStyles: [
-        {
-          featureType: 'all',
-          elementType: 'geometry',
-          stylers: [
-            {
-              color: '#202c3e',
-            },
-          ],
-        },
-        {
-          featureType: 'all',
-          elementType: 'labels.text.fill',
-          stylers: [
-            {
-              gamma: 0.01,
-            },
-            {
-              lightness: 20,
-            },
-            {
-              weight: '1.39',
-            },
-            {
-              color: '#ffffff',
-            },
-          ],
-        },
-        {
-          featureType: 'all',
-          elementType: 'labels.text.stroke',
-          stylers: [
-            {
-              weight: '0.96',
-            },
-            {
-              saturation: '9',
-            },
-            {
-              visibility: 'on',
-            },
-            {
-              color: '#000000',
-            },
-          ],
-        },
-        {
-          featureType: 'all',
-          elementType: 'labels.icon',
-          stylers: [
-            {
-              visibility: 'off',
-            },
-          ],
-        },
-        {
-          featureType: 'landscape',
-          elementType: 'geometry',
-          stylers: [
-            {
-              lightness: 30,
-            },
-            {
-              saturation: '9',
-            },
-            {
-              color: '#29446b',
-            },
-          ],
-        },
-        {
-          featureType: 'poi',
-          elementType: 'geometry',
-          stylers: [
-            {
-              saturation: 20,
-            },
-          ],
-        },
-        {
-          featureType: 'poi.park',
-          elementType: 'geometry',
-          stylers: [
-            {
-              lightness: 20,
-            },
-            {
-              saturation: -20,
-            },
-          ],
-        },
-        {
-          featureType: 'road',
-          elementType: 'geometry',
-          stylers: [
-            {
-              lightness: 10,
-            },
-            {
-              saturation: -30,
-            },
-          ],
-        },
-        {
-          featureType: 'road',
-          elementType: 'geometry.fill',
-          stylers: [
-            {
-              color: '#193a55',
-            },
-          ],
-        },
-        {
-          featureType: 'road',
-          elementType: 'geometry.stroke',
-          stylers: [
-            {
-              saturation: 25,
-            },
-            {
-              lightness: 25,
-            },
-            {
-              weight: '0.01',
-            },
-          ],
-        },
-        {
-          featureType: 'water',
-          elementType: 'all',
-          stylers: [
-            {
-              lightness: -20,
-            },
-          ],
-        },
-      ],
+      mapOptions: null,
     };
   },
   computed: {
     google: gmapApi,
   },
+  created() {
+    this.mapOptions = {
+      backgroundColor: '#192331',
+      zoomControl: false,
+      minZoom: 2,
+      restriction: restriction,
+      styles: styles,
+      disableDefaultUI: true,
+    };
+  },
   methods: {
     onclickMarker(msg) {
-      console.log('Click', msg);
-      this.infoWindowVisible = true;
+      let restriction = {
+        ...this.mapOptions.restriction,
+        latLngBounds: viewportLatLngBounds,
+      };
+      this.infoWindowVisible = !this.infoWindowVisible;
+      if (this.infoWindowVisible) {
+        restriction = {
+          ...this.mapOptions.restriction,
+          latLngBounds: defaultLatLngBounds,
+        };
+      }
 
-      const placeHolder = require('src/assets/images/red_marker.webp');
-      this.userLocationMarker.url = placeHolder;
-      // this.$refs.usernameInput.$markerObject.setAnimation(google.maps.Animation.BOUNCE);
-      this.$refs.marker.$markerObject.icon.url = placeHolder;
-      console.log('google', this.$refs.marker.$markerObject);
+      this.mapOptions = { ...this.mapOptions, restriction };
     },
     mouseOver(data) {
       console.log(data);
       const placeHolder = require('src/assets/images/ph_blue_marker.webp');
       this.userLocationMarker = {
-        url: require('src/assets/images/ph_blue_marker.webp'),
+        url: placeHolder,
       };
     },
     mouseLeave(data) {
@@ -240,9 +107,5 @@ export default {
 <style lang="scss" scoped>
 .container {
   height: 90vh;
-}
-
-.gmap-container {
-  // background-color: red;
 }
 </style>

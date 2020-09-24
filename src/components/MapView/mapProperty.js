@@ -1,4 +1,13 @@
-export const mapStyle = [
+const defaultLatLngBounds = {
+  north: 180,
+  south: -180,
+  west: -180,
+  east: 180,
+};
+
+const viewportLatLngBounds = { north: 85, south: -85, west: -180, east: 180 };
+
+const styles = [
   {
     featureType: 'all',
     elementType: 'geometry',
@@ -135,3 +144,10 @@ export const mapStyle = [
     ],
   },
 ];
+
+const restriction = {
+  latLngBounds: viewportLatLngBounds,
+  strictBounds: true,
+};
+
+export { defaultLatLngBounds, viewportLatLngBounds, styles, restriction };
