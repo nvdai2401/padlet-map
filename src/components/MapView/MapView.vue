@@ -14,12 +14,14 @@
         :position="marker.position"
       />
       <gmap-marker
-        ref="marker"
+        v-for="{ id, attributes } in markers"
+        :key="id"
+        ref="markers"
         :icon="userLocationMarker"
         :clickable="true"
         :position="{
-          lat: 0,
-          lng: 0,
+          lat: attributes.location_point.latitude,
+          lng: attributes.location_point.longitude,
         }"
         @click="onclickMarker('haha')"
         @mouseover="mouseOver('mouseover')"
@@ -74,6 +76,11 @@ export default {
       styles: styles,
       disableDefaultUI: true,
     };
+  },
+  async mounted() {
+    const { data } = await this.axios.get('/posts');
+    console.log(data);
+    this.markers = data;
   },
   methods: {
     onclickMarker(msg) {

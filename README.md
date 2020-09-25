@@ -30,3 +30,4 @@ yarn lint
 - [ ] Add marker by search, by drop marker
 - [ ] Add post as call out and lazyload image
 - [ ] Restructure code, split plugins
+- [ ] Handle logs, errors
