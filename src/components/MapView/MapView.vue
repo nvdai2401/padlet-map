@@ -9,29 +9,24 @@
       :options="mapOptions"
     >
       <gmap-marker
-        v-for="(marker, index) in markers"
-        :key="index"
-        :position="marker.position"
-      />
-      <gmap-marker
-        v-for="{ id, attributes } in markers"
-        :key="id"
+        v-for="marker in Object.values(markers)"
+        :key="marker.id"
         ref="markers"
         :icon="userLocationMarker"
         :clickable="true"
         :position="{
-          lat: attributes.location_point.latitude,
-          lng: attributes.location_point.longitude,
+          lat: marker.location_point.latitude,
+          lng: marker.location_point.longitude,
         }"
-        @click="onclickMarker('haha')"
+        @click="onclickMarker(marker.id)"
         @mouseover="mouseOver('mouseover')"
         @mouseout="mouseLeave('mouseleave')"
       >
         <gmap-info-window
-          :opened="infoWindowVisible"
-          @closeclick="infoWindowVisible = false"
+          :opened="marker.is_post_visible"
+          @closeclick="is_post_visible = false"
         >
-          <post />
+          <post :post-info="marker" />
         </gmap-info-window>
       </gmap-marker>
     </gmap-map>
@@ -59,13 +54,38 @@ export default {
         url: require('src/assets/images/markers/blue_marker.webp'),
       },
       infoWindowVisible: false,
-      markers: [],
+      markers: {},
       place: null,
       mapOptions: null,
+      activePost: null,
     };
   },
   computed: {
     google: gmapApi,
+  },
+  watch: {
+    activePost(newPostId, oldPostId) {
+      // TODO: Hide old post
+      console.log('newPostId, oldPostId', newPostId, oldPostId);
+      const postId = newPostId ? newPostId : oldPostId;
+      const restriction = {
+        ...this.mapOptions.restriction,
+        latLngBounds: viewportLatLngBounds,
+      };
+
+      if (this.markers[postId].is_post_visible) {
+        restriction.latLngBounds = defaultLatLngBounds;
+      }
+      this.mapOptions = { ...this.mapOptions, restriction };
+
+      if (oldPostId) {
+        this.markers[oldPostId].is_post_visible = false;
+      }
+      if (!newPostId) return;
+
+      this.markers[postId].is_post_visible = !this.markers[postId]
+        .is_post_visible;
+    },
   },
   created() {
     this.mapOptions = {
@@ -79,24 +99,25 @@ export default {
   },
   async mounted() {
     const { data } = await this.axios.get('/posts');
-    console.log(data);
-    this.markers = data;
+    const markers = {};
+    for (let item of data) {
+      markers[item.id] = { ...item.attributes, is_post_visible: false };
+    }
+    this.markers = markers;
   },
   methods: {
-    onclickMarker(msg) {
-      let restriction = {
-        ...this.mapOptions.restriction,
-        latLngBounds: viewportLatLngBounds,
-      };
-      this.infoWindowVisible = !this.infoWindowVisible;
-      if (this.infoWindowVisible) {
-        restriction = {
-          ...this.mapOptions.restriction,
-          latLngBounds: defaultLatLngBounds,
-        };
+    hideAllMarkers() {
+      for (let id of Object.keys(this.markers)) {
+        this.markers[id].is_post_visible = false;
       }
-
-      this.mapOptions = { ...this.mapOptions, restriction };
+    },
+    onclickMarker(postId) {
+      console.log(this.activePost, postId);
+      if (this.activePost === postId) {
+        this.activePost = null;
+        return;
+      }
+      this.activePost = postId;
     },
     mouseOver(data) {
       console.log(data);
