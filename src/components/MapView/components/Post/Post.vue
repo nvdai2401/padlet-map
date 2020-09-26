@@ -1,10 +1,6 @@
 <template>
   <div class="root">
-    <img
-      :src="require('src/assets/images/posts/lotus.jpg')"
-      loading="lazy"
-      class="post-image"
-    />
+    <img :src="postInfo.attachment" loading="lazy" class="post-image" />
     <h3 class="post-header ">
       {{ postInfo.headline }}
     </h3>

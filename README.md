@@ -31,3 +31,4 @@ yarn lint
 - [ ] Add post as call out and lazyload image
 - [ ] Restructure code, split plugins
 - [ ] Handle logs, errors
+- [ ] Set width and height of image by adding width and height in data

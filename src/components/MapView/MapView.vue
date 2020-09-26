@@ -6,6 +6,7 @@
       :zoom="3"
       :center="{ lat: 0, lng: 0 }"
       :options="mapOptions"
+      @click="handleOnClickMap"
     >
       <gmap-marker
         v-for="marker in Object.values(markers)"
@@ -20,8 +21,8 @@
           lng: marker.location_point.longitude,
         }"
         @click="onclickMarker(marker.id)"
-        @mouseover="mouseOver(marker.id)"
-        @mouseout="mouseLeave(marker.id)"
+        @mouseover="handleOnMouseOverMarker(marker.id)"
+        @mouseout="handleOnMouseOutMaker(marker.id)"
       >
         <gmap-info-window
           :opened="marker.is_post_visible"
@@ -95,7 +96,7 @@ export default {
   async mounted() {
     const data = await getMarkers();
     const markers = {};
-    
+
     for (let item of data) {
       markers[item.id] = { ...item.attributes, is_post_visible: false };
     }
@@ -109,14 +110,17 @@ export default {
       }
       this.activePost = postId;
     },
-    mouseOver(postId) {
+    handleOnMouseOverMarker(postId) {
       this.activeMarkerColor = this.markers[postId].color;
       this.markers[postId].color =
         PLACEHOLDER_PREFIX + this.markers[postId].color;
     },
-    mouseLeave(postId) {
+    handleOnMouseOutMaker(postId) {
       this.markers[postId].color = this.activeMarkerColor;
       this.activeMarkerColor = '';
+    },
+    handleOnClickMap() {
+      this.activePost = null;
     },
   },
 };
