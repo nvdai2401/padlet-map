@@ -2,7 +2,6 @@
   <div class="container">
     <gmap-map
       ref="gmap"
-      style="width: 100vw; height: 100%;"
       class="gmap-container"
       :zoom="3"
       :center="{ lat: 0, lng: 0 }"
@@ -12,15 +11,17 @@
         v-for="marker in Object.values(markers)"
         :key="marker.id"
         ref="markers"
-        :icon="userLocationMarker"
+        :icon="{
+          url: require(`src/assets/images/markers/${marker.color}_marker.webp`),
+        }"
         :clickable="true"
         :position="{
           lat: marker.location_point.latitude,
           lng: marker.location_point.longitude,
         }"
         @click="onclickMarker(marker.id)"
-        @mouseover="mouseOver('mouseover')"
-        @mouseout="mouseLeave('mouseleave')"
+        @mouseover="mouseOver(marker.id)"
+        @mouseout="mouseLeave(marker.id)"
       >
         <gmap-info-window
           :opened="marker.is_post_visible"
@@ -41,7 +42,9 @@ import {
   styles,
   restriction,
 } from './mapProperty';
-import { gmapApi } from 'gmap-vue';
+import { getMarkers } from 'src/api';
+
+const PLACEHOLDER_PREFIX = 'ph_';
 
 export default {
   name: 'map-view',
@@ -50,41 +53,33 @@ export default {
   },
   data() {
     return {
-      userLocationMarker: {
-        url: require('src/assets/images/markers/blue_marker.webp'),
-      },
       infoWindowVisible: false,
       markers: {},
       place: null,
       mapOptions: null,
       activePost: null,
+      activeMarkerColor: '',
     };
-  },
-  computed: {
-    google: gmapApi,
   },
   watch: {
     activePost(newPostId, oldPostId) {
-      // TODO: Hide old post
-      console.log('newPostId, oldPostId', newPostId, oldPostId);
-      const postId = newPostId ? newPostId : oldPostId;
       const restriction = {
         ...this.mapOptions.restriction,
         latLngBounds: viewportLatLngBounds,
       };
-
-      if (this.markers[postId].is_post_visible) {
-        restriction.latLngBounds = defaultLatLngBounds;
-      }
-      this.mapOptions = { ...this.mapOptions, restriction };
-
+      // Hide old post
       if (oldPostId) {
         this.markers[oldPostId].is_post_visible = false;
       }
-      if (!newPostId) return;
-
-      this.markers[postId].is_post_visible = !this.markers[postId]
-        .is_post_visible;
+      // Hide current post and update map bounds to fit the viewport when click its marker
+      if (!newPostId) {
+        this.mapOptions = { ...this.mapOptions, restriction };
+        return;
+      }
+      // Show post and change map bounds to default when click a marker
+      this.markers[newPostId].is_post_visible = true;
+      restriction.latLngBounds = defaultLatLngBounds;
+      this.mapOptions = { ...this.mapOptions, restriction };
     },
   },
   created() {
@@ -98,39 +93,30 @@ export default {
     };
   },
   async mounted() {
-    const { data } = await this.axios.get('/posts');
+    const data = await getMarkers();
     const markers = {};
+    
     for (let item of data) {
       markers[item.id] = { ...item.attributes, is_post_visible: false };
     }
     this.markers = markers;
   },
   methods: {
-    hideAllMarkers() {
-      for (let id of Object.keys(this.markers)) {
-        this.markers[id].is_post_visible = false;
-      }
-    },
     onclickMarker(postId) {
-      console.log(this.activePost, postId);
       if (this.activePost === postId) {
         this.activePost = null;
         return;
       }
       this.activePost = postId;
     },
-    mouseOver(data) {
-      console.log(data);
-      const placeHolder = require('src/assets/images/markers/ph_blue_marker.webp');
-      this.userLocationMarker = {
-        url: placeHolder,
-      };
+    mouseOver(postId) {
+      this.activeMarkerColor = this.markers[postId].color;
+      this.markers[postId].color =
+        PLACEHOLDER_PREFIX + this.markers[postId].color;
     },
-    mouseLeave(data) {
-      console.log(data);
-      this.userLocationMarker = {
-        url: require('src/assets/images/markers/blue_marker.webp'),
-      };
+    mouseLeave(postId) {
+      this.markers[postId].color = this.activeMarkerColor;
+      this.activeMarkerColor = '';
     },
   },
 };
@@ -139,5 +125,10 @@ export default {
 <style lang="scss" scoped>
 .container {
   height: 90vh;
+}
+
+.gmap-container {
+  width: 100vw;
+  height: 100%;
 }
 </style>

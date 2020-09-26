@@ -26,7 +26,7 @@ yarn lint
 
 ### Todo
 
-- [ ] Style for map: center viewport, 4 theme, make the map fit viewport
+- [x] Style for map: center viewport, 4 theme, make the map fit viewport
 - [ ] Add marker by search, by drop marker, change marker dynamically when hover
 - [ ] Add post as call out and lazyload image
 - [ ] Restructure code, split plugins
