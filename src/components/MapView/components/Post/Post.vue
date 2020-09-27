@@ -25,6 +25,9 @@ $max-post-height: 600px;
   display: flex;
   flex-direction: column;
   max-height: 600px;
+  :hover {
+    cursor: pointer;
+  }
 }
 
 .post-header {
