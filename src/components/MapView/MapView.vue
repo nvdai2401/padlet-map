@@ -28,7 +28,7 @@
           :opened="marker.is_post_visible"
           @closeclick="is_post_visible = false"
         >
-          <post :post-info="marker" />
+          <post v-if="marker.is_post_visible" :post-info="marker" />
         </gmap-info-window>
       </gmap-marker>
     </gmap-map>
@@ -36,19 +36,19 @@
 </template>
 
 <script>
-import { Post } from './components';
+import { Post } from "./components";
 import {
   defaultLatLngBounds,
   viewportLatLngBounds,
   styles,
   restriction,
-} from './mapProperty';
-import { getMarkers } from 'src/api';
+} from "./mapProperty";
+import { getMarkers } from "src/api";
 
-const PLACEHOLDER_PREFIX = 'ph_';
+const PLACEHOLDER_PREFIX = "ph_";
 
 export default {
-  name: 'map-view',
+  name: "map-view",
   components: {
     post: Post,
   },
@@ -59,7 +59,7 @@ export default {
       place: null,
       mapOptions: null,
       activePost: null,
-      activeMarkerColor: '',
+      activeMarkerColor: "",
     };
   },
   watch: {
@@ -85,7 +85,7 @@ export default {
   },
   created() {
     this.mapOptions = {
-      backgroundColor: '#192331',
+      backgroundColor: "#192331",
       zoomControl: false,
       minZoom: 2,
       restriction: restriction,
@@ -117,7 +117,7 @@ export default {
     },
     handleOnMouseOutMaker(postId) {
       this.markers[postId].color = this.activeMarkerColor;
-      this.activeMarkerColor = '';
+      this.activeMarkerColor = "";
     },
     handleOnClickMap() {
       this.activePost = null;

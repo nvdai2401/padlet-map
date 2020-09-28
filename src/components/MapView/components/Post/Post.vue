@@ -1,32 +1,113 @@
 <template>
-  <div class="root">
+  <div class="root" @click.stop="actionListVisible = false">
     <img :src="postInfo.attachment" loading="lazy" class="post-image" />
-    <h3 class="post-header ">
+    <h3 class="post-header">
       {{ postInfo.headline }}
     </h3>
     <div class="post-content" v-html="postInfo.body"></div>
+    <div class="more-actions-button" @click.stop="actionListVisible = true">
+      <font-awesome-icon :icon="['fas', 'ellipsis-v']" />
+    </div>
+
+    <ul v-if="actionListVisible" class="more-actions-list">
+      <li>
+        <font-awesome-icon :icon="['fas', 'expand']" />
+        <span>Expand post</span>
+      </li>
+      <li>
+        <font-awesome-icon :icon="['far', 'map']" />
+        <span>Open in Google Map</span>
+      </li>
+    </ul>
   </div>
 </template>
 
 <script>
 export default {
-  name: 'post',
+  name: "post",
   props: {
     postInfo: Object,
+  },
+  data() {
+    return {
+      actionListVisible: false,
+    };
   },
 };
 </script>
 
 <style lang="scss" scoped>
-$max-post-height: 600px;
 .root {
   width: 100%;
   position: relative;
+  z-index: 1;
   display: flex;
   flex-direction: column;
   max-height: 600px;
-  :hover {
+
+  .more-actions-button {
+    visibility: hidden;
+    opacity: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: absolute;
+    top: 6px;
+    right: 6px;
+    z-index: 2;
+    width: 35px;
+    height: 30px;
+    border: 1px solid #24252c;
+    border-radius: 6px;
+    background-color: #24252c;
+    transition: all 0.15s ease-out;
+
+    svg {
+      color: #ffffff;
+    }
+  }
+
+  svg {
+    width: 20px !important;
+    height: 15px;
+  }
+
+  .more-actions-list {
+    position: absolute;
+    top: 0;
+    right: 0;
+    z-index: 3000;
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.19), 0 6px 6px rgba(0, 0, 0, 0.23);
+    width: 90%;
+    text-align: left;
+    padding: 3px 0;
+    border-radius: 6px;
+    background-color: #ffffff;
+    transition: all 0.15s ease-out;
+
+    li {
+      padding: 12px;
+      font-size: 0.875rem;
+      display: flex;
+      align-items: center;
+      transition: all 0.1s ease-out;
+      span {
+        margin-left: 6px;
+      }
+
+      &:hover {
+        background: rgba(0, 0, 0, 0.05);
+      }
+    }
+  }
+
+  &:hover {
     cursor: pointer;
+
+    .more-actions-button {
+      visibility: visible;
+      opacity: 1;
+    }
   }
 }
 
@@ -64,7 +145,7 @@ $max-post-height: 600px;
     overflow: hidden !important;
   }
 
-  button[title='Close'] {
+  button[title="Close"] {
     display: none !important;
   }
 }
