@@ -14,7 +14,7 @@
         <font-awesome-icon :icon="['fas', 'expand']" />
         <span>Expand post</span>
       </li>
-      <li>
+      <li @click="openLinkInGmap">
         <font-awesome-icon :icon="['far', 'map']" />
         <span>Open in Google Map</span>
       </li>
@@ -32,6 +32,14 @@ export default {
     return {
       actionListVisible: false,
     };
+  },
+  methods: {
+    openLinkInGmap() {
+      window.open(
+        `https://www.google.com/maps/search/?api=1&query=${this.postInfo.location_name}`,
+        "_blank"
+      );
+    },
   },
 };
 </script>
