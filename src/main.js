@@ -1,7 +1,6 @@
 import Vue from 'vue';
 import App from './App.vue';
-import 'src/plugins/gmapVue';
-import 'src/plugins/axios';
+import 'src/plugins';
 
 Vue.config.productionTip = false;
 
