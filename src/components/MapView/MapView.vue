@@ -43,7 +43,13 @@
     <button class="button map-center-control" @click="fitBounds">
       <font-awesome-icon :icon="['fas', 'expand']" />
     </button>
-    <post-preview v-if="postPreviewVisible" :posts="markers" />
+    <transition-group tag="div" name="slide">
+      <post-preview
+        v-if="postPreviewVisible && Object.keys(markers).length > 0"
+        :posts="markers"
+        key="post-preview"
+      />
+    </transition-group>
   </div>
 </template>
 
@@ -202,5 +208,16 @@ export default {
   svg {
     height: 22px;
   }
+}
+
+.slide-leave-active,
+.slide-enter-active {
+  transition: 0.3s;
+}
+.slide-enter {
+  transform: translate(100%, 0);
+}
+.slide-leave-to {
+  transform: translate(100%, 0);
 }
 </style>

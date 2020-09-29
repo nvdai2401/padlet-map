@@ -32,6 +32,8 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+@import "src/assets/styles/scrollbar_custom.scss";
+
 .post-preview {
   max-height: calc(100% - 96px);
   width: 320px;
@@ -43,6 +45,7 @@ export default {
   border-radius: 6px;
   display: flex;
   flex-direction: column;
+  padding-bottom: 16px;
 
   .post-count {
     color: hsla(0, 0%, 100%, 0.7);
