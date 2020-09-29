@@ -150,4 +150,25 @@ const restriction = {
   strictBounds: true,
 };
 
-export { defaultLatLngBounds, viewportLatLngBounds, styles, restriction };
+const DEFAULT_CENTER = { lat: 20, lng: 20 };
+const DEFAULT_ZOOM = 2;
+
+const options = {
+  backgroundColor: '#192331',
+  zoomControl: true,
+  controlSize: 30,
+  minZoom: DEFAULT_ZOOM,
+  restriction: restriction,
+  styles: styles,
+  disableDefaultUI: true,
+};
+
+export {
+  defaultLatLngBounds,
+  viewportLatLngBounds,
+  styles,
+  restriction,
+  options,
+  DEFAULT_CENTER,
+  DEFAULT_ZOOM,
+};

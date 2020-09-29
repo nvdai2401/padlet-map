@@ -1,10 +1,10 @@
 <template>
-  <div class="container">
+  <div class="map-view">
     <gmap-map
       ref="gmap"
       class="gmap-container"
-      :zoom="3"
-      :center="{ lat: 0, lng: 0 }"
+      :zoom="initialZoom"
+      :center="center"
       :options="mapOptions"
       @click="handleOnClickMap"
     >
@@ -32,6 +32,14 @@
         </gmap-info-window>
       </gmap-marker>
     </gmap-map>
+
+    <button class="button preview-posts-toggle-button">
+      <font-awesome-icon :icon="['fas', 'bars']" />
+    </button>
+
+    <button class="button map-center-control" @click="alignMapCenter">
+      <font-awesome-icon :icon="['fas', 'expand']" />
+    </button>
   </div>
 </template>
 
@@ -40,8 +48,9 @@ import { Post } from "./components";
 import {
   defaultLatLngBounds,
   viewportLatLngBounds,
-  styles,
-  restriction,
+  options,
+  DEFAULT_CENTER,
+  DEFAULT_ZOOM,
 } from "./mapProperty";
 import { getMarkers } from "src/api";
 
@@ -54,9 +63,10 @@ export default {
   },
   data() {
     return {
+      initialZoom: DEFAULT_ZOOM,
+      center: DEFAULT_CENTER,
       infoWindowVisible: false,
       markers: {},
-      place: null,
       mapOptions: null,
       activePost: null,
       activeMarkerColor: "",
@@ -84,14 +94,7 @@ export default {
     },
   },
   created() {
-    this.mapOptions = {
-      backgroundColor: "#192331",
-      zoomControl: false,
-      minZoom: 2,
-      restriction: restriction,
-      styles: styles,
-      disableDefaultUI: true,
-    };
+    this.mapOptions = options;
   },
   async mounted() {
     const data = await getMarkers();
@@ -122,17 +125,75 @@ export default {
     handleOnClickMap() {
       this.activePost = null;
     },
+    alignMapCenter() {
+      this.$refs.gmap.$mapPromise.then((map) => {
+        var bounds = new google.maps.LatLngBounds();
+        Object.values(this.markers)
+          .reverse()
+          .forEach((marker) => {
+            bounds.extend(
+              new google.maps.LatLng(
+                marker.location_point.latitude,
+                marker.location_point.longitude
+              )
+            );
+          });
+        map.fitBounds(bounds);
+      });
+    },
   },
 };
 </script>
 
 <style lang="scss" scoped>
-.container {
+.map-view {
   height: 90vh;
+  position: relative;
 }
 
 .gmap-container {
   width: 100vw;
   height: 100%;
+}
+
+.button {
+  position: absolute;
+  z-index: 3000;
+  width: 30px;
+  height: 30px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #666666;
+  border-radius: 2px;
+  background-color: #ffffff;
+  transition: all 0.15s ease-out;
+  cursor: pointer;
+  border: 0;
+  outline: unset;
+
+  &:hover {
+    svg {
+      color: #000000;
+    }
+  }
+}
+
+.preview-posts-toggle-button {
+  bottom: 120px;
+  right: 7px;
+
+  svg {
+    height: 18px;
+  }
+}
+
+.map-center-control {
+  bottom: 86px;
+  right: 7px;
+
+  svg {
+    height: 22px;
+  }
 }
 </style>

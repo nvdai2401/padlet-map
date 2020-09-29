@@ -1,5 +1,5 @@
 <template>
-  <div class="root" @click.stop="actionListVisible = false">
+  <div class="post" @click.stop="actionListVisible = false">
     <img :src="postInfo.attachment" loading="lazy" class="post-image" />
     <h3 class="post-header">
       {{ postInfo.headline }}
@@ -45,7 +45,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.root {
+.post {
   width: 100%;
   position: relative;
   z-index: 1;
