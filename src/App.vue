@@ -19,7 +19,7 @@ export default {
 
 <style lang="scss">
 @import "src/assets/styles/reset";
-// @import "src/assets/styles/gmap_custom";
+@import "src/assets/styles/gmap_custom";
 
 #app {
   font-family: Avenir, Helvetica, Arial, sans-serif;

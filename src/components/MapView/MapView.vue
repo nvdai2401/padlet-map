@@ -33,18 +33,22 @@
       </gmap-marker>
     </gmap-map>
 
-    <button class="button preview-posts-toggle-button">
+    <button
+      class="button post-preview-toggle-button"
+      @click="postPreviewVisible = !postPreviewVisible"
+    >
       <font-awesome-icon :icon="['fas', 'bars']" />
     </button>
 
-    <button class="button map-center-control" @click="alignMapCenter">
+    <button class="button map-center-control" @click="fitBounds">
       <font-awesome-icon :icon="['fas', 'expand']" />
     </button>
+    <post-preview v-if="postPreviewVisible" :posts="markers" />
   </div>
 </template>
 
 <script>
-import { Post } from "./components";
+import { Post, PostPreview } from "./components";
 import {
   defaultLatLngBounds,
   viewportLatLngBounds,
@@ -60,12 +64,14 @@ export default {
   name: "map-view",
   components: {
     post: Post,
+    "post-preview": PostPreview,
   },
   data() {
     return {
       initialZoom: DEFAULT_ZOOM,
       center: DEFAULT_CENTER,
       infoWindowVisible: false,
+      postPreviewVisible: false,
       markers: {},
       mapOptions: null,
       activePost: null,
@@ -104,6 +110,7 @@ export default {
       markers[item.id] = { ...item.attributes, is_post_visible: false };
     }
     this.markers = markers;
+    this.fitBounds();
   },
   methods: {
     onclickMarker(postId) {
@@ -125,7 +132,7 @@ export default {
     handleOnClickMap() {
       this.activePost = null;
     },
-    alignMapCenter() {
+    fitBounds() {
       this.$refs.gmap.$mapPromise.then((map) => {
         var bounds = new google.maps.LatLngBounds();
         Object.values(this.markers)
@@ -179,7 +186,7 @@ export default {
   }
 }
 
-.preview-posts-toggle-button {
+.post-preview-toggle-button {
   bottom: 120px;
   right: 7px;
 

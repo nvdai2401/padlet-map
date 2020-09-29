@@ -141,20 +141,3 @@ export default {
   line-height: 1.5rem;
 }
 </style>
-
-<style lang="scss">
-.gm-style .gm-style-iw-c {
-  max-width: 254px !important;
-  max-height: 600px !important;
-  padding: 0 !important;
-  border-radius: 12px;
-
-  .gm-style-iw-d {
-    overflow: hidden !important;
-  }
-
-  button[title="Close"] {
-    display: none !important;
-  }
-}
-</style>
