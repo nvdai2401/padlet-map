@@ -3,7 +3,11 @@
     <div class="post-count">{{ Object.keys(posts).length }} posts</div>
     <div class="post-list">
       <div v-for="(post, index) in Object.values(posts)" :key="post.id">
-        <mini-post :post="post" />
+        <mini-post
+          :post="post"
+          @mouseover.native="onMouseOver(post.id)"
+          @mouseout.native="onMouseOut(post.id)"
+        />
         <div
           v-if="index !== Object.keys(posts).length - 1"
           class="divider"
@@ -20,6 +24,8 @@ export default {
   name: "post-preview",
   props: {
     posts: Object,
+    onMouseOver: Function,
+    onMouseOut: Function,
   },
   components: {
     "mini-post": MiniPost,

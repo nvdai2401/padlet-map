@@ -46,8 +46,10 @@
     <transition-group tag="div" name="slide">
       <post-preview
         v-if="postPreviewVisible && Object.keys(markers).length > 0"
-        :posts="markers"
         key="post-preview"
+        :posts="markers"
+        :onMouseOver="handleOnMouseOverMarker"
+        :onMouseOut="handleOnMouseOutMaker"
       />
     </transition-group>
   </div>
@@ -63,8 +65,6 @@ import {
   DEFAULT_ZOOM,
 } from "./mapProperty";
 import { getMarkers } from "src/api";
-
-const PLACEHOLDER_PREFIX = "ph_";
 
 export default {
   name: "map-view",
@@ -82,6 +82,7 @@ export default {
       mapOptions: null,
       activePost: null,
       activeMarkerColor: "",
+      focusedPost: null,
     };
   },
   watch: {
@@ -127,13 +128,18 @@ export default {
       this.activePost = postId;
     },
     handleOnMouseOverMarker(postId) {
-      this.activeMarkerColor = this.markers[postId].color;
-      this.markers[postId].color =
-        PLACEHOLDER_PREFIX + this.markers[postId].color;
+      if (postId !== this.focusedPost) {
+        const PLACEHOLDER_PREFIX = "ph_";
+        this.focusedPost = postId;
+        this.activeMarkerColor = this.markers[postId].color;
+        this.markers[postId].color =
+          PLACEHOLDER_PREFIX + this.markers[postId].color;
+      }
     },
     handleOnMouseOutMaker(postId) {
       this.markers[postId].color = this.activeMarkerColor;
       this.activeMarkerColor = "";
+      this.focusedPost = null;
     },
     handleOnClickMap() {
       this.activePost = null;
