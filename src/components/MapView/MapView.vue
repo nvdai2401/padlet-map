@@ -20,9 +20,9 @@
           lat: marker.location_point.latitude,
           lng: marker.location_point.longitude,
         }"
-        @click="onclickMarker(marker.id)"
-        @mouseover="handleOnMouseOverMarker(marker.id)"
-        @mouseout="handleOnMouseOutMaker(marker.id)"
+        @click="handleOnClick(marker.id)"
+        @mouseover="handleOnMouseOver(marker.id)"
+        @mouseout="handleOnMouseOut(marker.id)"
       >
         <gmap-info-window
           :opened="marker.is_post_visible"
@@ -48,8 +48,9 @@
         v-if="postPreviewVisible && Object.keys(markers).length > 0"
         key="post-preview"
         :posts="markers"
-        :onMouseOver="handleOnMouseOverMarker"
-        :onMouseOut="handleOnMouseOutMaker"
+        :onClick="handleOnClick"
+        :onMouseOver="handleOnMouseOver"
+        :onMouseOut="handleOnMouseOut"
       />
     </transition-group>
   </div>
@@ -82,7 +83,7 @@ export default {
       mapOptions: null,
       activePost: null,
       activeMarkerColor: "",
-      focusedPost: null,
+      focusedPost: "",
     };
   },
   watch: {
@@ -120,14 +121,14 @@ export default {
     this.fitBounds();
   },
   methods: {
-    onclickMarker(postId) {
+    handleOnClick(postId) {
       if (this.activePost === postId) {
         this.activePost = null;
         return;
       }
       this.activePost = postId;
     },
-    handleOnMouseOverMarker(postId) {
+    handleOnMouseOver(postId) {
       if (postId !== this.focusedPost) {
         const PLACEHOLDER_PREFIX = "ph_";
         this.focusedPost = postId;
@@ -136,10 +137,10 @@ export default {
           PLACEHOLDER_PREFIX + this.markers[postId].color;
       }
     },
-    handleOnMouseOutMaker(postId) {
+    handleOnMouseOut(postId) {
       this.markers[postId].color = this.activeMarkerColor;
       this.activeMarkerColor = "";
-      this.focusedPost = null;
+      this.focusedPost = "";
     },
     handleOnClickMap() {
       this.activePost = null;

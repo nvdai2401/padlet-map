@@ -7,6 +7,7 @@
           :post="post"
           @mouseover.native="onMouseOver(post.id)"
           @mouseout.native="onMouseOut(post.id)"
+          @click.native="onClick(post.id)"
         />
         <div
           v-if="index !== Object.keys(posts).length - 1"
@@ -26,6 +27,7 @@ export default {
     posts: Object,
     onMouseOver: Function,
     onMouseOut: Function,
+    onClick: Function,
   },
   components: {
     "mini-post": MiniPost,
