@@ -55,6 +55,10 @@ export default {
   flex-direction: column;
   padding-bottom: 16px;
 
+  .post-list {
+    overflow: auto;
+  }
+
   .post-count {
     color: hsla(0, 0%, 100%, 0.7);
     font-weight: 600;
@@ -62,13 +66,10 @@ export default {
     text-align: left;
     font-size: 0.875rem;
   }
-}
 
-.post-list {
-  overflow: auto;
-}
-.divider {
-  margin: 0 16px;
-  border-top: 1px solid #333333;
+  .divider {
+    margin: 0 16px;
+    border-top: 1px solid #333333;
+  }
 }
 </style>

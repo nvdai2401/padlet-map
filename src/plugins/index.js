@@ -1,3 +1,4 @@
-import './axios';
-import './gmapVue';
-import './fontAwesome';
+import './Axios';
+import './GmapVue';
+import './FontAwesome';
+import './VueAwesomeSwiper';

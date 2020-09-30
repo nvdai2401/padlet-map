@@ -34,4 +34,4 @@ yarn lint
 - [ ] Handle logs, errors
 - [ ] Set width and height of image by adding width and height in data
 - [ ] Custom view control
-- [ ] Lazy loading map
+- [ ] Lazy loading map, responsive map
