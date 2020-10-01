@@ -7,9 +7,24 @@ import {
   faExpand,
   faEllipsisV,
   faBars,
+  faChevronLeft,
+  faChevronRight,
+  faStepBackward,
+  faStepForward,
+  faTimes,
 } from '@fortawesome/free-solid-svg-icons';
 
-library.add(faMap, faExpand, faEllipsisV, faBars);
+library.add(
+  faMap,
+  faExpand,
+  faEllipsisV,
+  faBars,
+  faChevronLeft,
+  faChevronRight,
+  faStepBackward,
+  faStepForward,
+  faTimes,
+);
 
 config.autoAddCss = false;
 Vue.component('font-awesome-icon', FontAwesomeIcon);
