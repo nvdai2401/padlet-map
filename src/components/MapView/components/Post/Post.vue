@@ -10,7 +10,7 @@
     </div>
 
     <ul v-if="actionListVisible" class="more-actions-list">
-      <li>
+      <li @click="onExpandPost">
         <font-awesome-icon :icon="['fas', 'expand']" />
         <span>Expand post</span>
       </li>
@@ -27,6 +27,7 @@ export default {
   name: "post",
   props: {
     postInfo: Object,
+    onExpandPost: Function,
   },
   data() {
     return {

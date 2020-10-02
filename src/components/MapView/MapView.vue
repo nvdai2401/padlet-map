@@ -28,7 +28,11 @@
           :opened="marker.is_post_visible"
           @closeclick="is_post_visible = false"
         >
-          <post v-if="marker.is_post_visible" :post-info="marker" />
+          <post
+            v-if="marker.is_post_visible"
+            :post-info="marker"
+            :onExpandPost="handleOnExpandPost"
+          />
         </gmap-info-window>
       </gmap-marker>
     </gmap-map>
@@ -54,27 +58,33 @@
       />
     </transition-group>
 
-    <post-expanded />
+    <post-expanded
+      v-if="postExpandedVisible"
+      :open="postExpandedVisible"
+      :postId="activePost"
+      :postList="markers"
+      :onClose="handleOnClosePostExpanded"
+    />
   </div>
 </template>
 
 <script>
-import { Post, PostPreview, PostExpanded } from './components';
+import { Post, PostPreview, PostExpanded } from "./components";
 import {
   defaultLatLngBounds,
   viewportLatLngBounds,
   options,
   DEFAULT_CENTER,
   DEFAULT_ZOOM,
-} from './mapProperty';
-import { getMarkers } from 'src/api';
+} from "./mapProperty";
+import { getMarkers } from "src/api";
 
 export default {
-  name: 'map-view',
+  name: "map-view",
   components: {
     post: Post,
-    'post-preview': PostPreview,
-    'post-expanded': PostExpanded,
+    "post-preview": PostPreview,
+    "post-expanded": PostExpanded,
   },
   data() {
     return {
@@ -85,8 +95,9 @@ export default {
       markers: {},
       mapOptions: null,
       activePost: null,
-      activeMarkerColor: '',
-      focusedPost: '',
+      activeMarkerColor: "",
+      focusedPost: "",
+      postExpandedVisible: false,
     };
   },
   watch: {
@@ -133,7 +144,7 @@ export default {
     },
     handleOnMouseOver(postId) {
       if (postId !== this.focusedPost) {
-        const PLACEHOLDER_PREFIX = 'ph_';
+        const PLACEHOLDER_PREFIX = "ph_";
         this.focusedPost = postId;
         this.activeMarkerColor = this.markers[postId].color;
         this.markers[postId].color =
@@ -142,8 +153,8 @@ export default {
     },
     handleOnMouseOut(postId) {
       this.markers[postId].color = this.activeMarkerColor;
-      this.activeMarkerColor = '';
-      this.focusedPost = '';
+      this.activeMarkerColor = "";
+      this.focusedPost = "";
     },
     handleOnClickMap() {
       this.activePost = null;
@@ -157,12 +168,19 @@ export default {
             bounds.extend(
               new google.maps.LatLng(
                 marker.location_point.latitude,
-                marker.location_point.longitude,
-              ),
+                marker.location_point.longitude
+              )
             );
           });
         map.fitBounds(bounds);
       });
+    },
+    handleOnExpandPost() {
+      this.postExpandedVisible = true;
+    },
+    handleOnClosePostExpanded() {
+      this.postExpandedVisible = false;
+      this.activePost = null;
     },
   },
 };

@@ -1,7 +1,7 @@
 <template>
   <div class="post-expanded">
     <div class="toolbar">
-      <div class="post-index">9/13</div>
+      <div class="post-index">{{ currentIndex + 1 }}/13</div>
       <div class="nav-buttons">
         <button>
           <font-awesome-icon :icon="['fas', 'step-backward']" />
@@ -17,13 +17,18 @@
         </button>
       </div>
       <div class="close-button">
-        <button>
+        <button @click="onClose">
           <font-awesome-icon :icon="['fas', 'times']" />
         </button>
       </div>
     </div>
     <div class="content">
-      <img :src="postInfo.attachment" loading="lazy" class="post-image" />
+      <img
+        :src="postInfo.attachment"
+        :alt="postInfo.headline"
+        loading="lazy"
+        class="post-image"
+      />
       <h3 class="post-header">
         {{ postInfo.headline }}
       </h3>
@@ -37,16 +42,21 @@ import { PostSlider } from "./components";
 
 export default {
   name: "post-expanded",
+  props: {
+    postId: Number,
+    postList: Object,
+    onClose: Function,
+  },
   components: {},
   data() {
     return {
-      postInfo: {
-        attachment:
-          "https://binoclare.files.wordpress.com/2013/05/osaka-castle-hdr.jpg",
-        headline: "Japan",
-        body: "<div>Came here to learn pottery in 2011.</div>",
-      },
+      postInfo: {},
+      currentIndex: 0,
     };
+  },
+  mounted() {
+    this.postInfo = this.postList[this.postId];
+    this.currentIndex = Object.keys(this.postList).indexOf(String(this.postId));
   },
 };
 </script>
@@ -100,27 +110,29 @@ export default {
     width: 720px;
     height: 90%;
     background-color: #ffffff;
-    border-radius: 6px;
+    border-radius: 12px;
     margin-top: 24px;
+    display: flex;
+    flex-direction: column;
 
     .post-header {
       font-size: 2rem;
-      font-weight: 500;
+      font-weight: 600;
       text-align: left;
-      padding: 24px 24px 0 24px;
+      padding: 24px;
       line-height: 1.5rem;
     }
 
     .post-image {
       width: 100%;
+      border-radius: 12px 12px 0 0;
+      background-color: #ffffff;
     }
 
     .post-content {
-      height: calc(100% - 200px);
       overflow: auto;
-      padding: 24px;
+      padding: 0 24px;
       margin-bottom: 12px;
-      text-align: left;
       font-size: 0.875rem;
       line-height: 1.5rem;
     }

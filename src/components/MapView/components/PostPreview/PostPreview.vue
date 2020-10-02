@@ -40,7 +40,6 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-@import "src/assets/styles/scrollbar_custom.scss";
 
 .post-preview {
   max-height: calc(100% - 96px);
