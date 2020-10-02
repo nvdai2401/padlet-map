@@ -3,16 +3,22 @@
     <div class="toolbar">
       <div class="post-index">{{ currentIndex + 1 }}/13</div>
       <div class="nav-buttons">
-        <button>
+        <button @click="currentIndex = 0" :disabled="currentIndex === 0">
           <font-awesome-icon :icon="['fas', 'step-backward']" />
         </button>
-        <button>
+        <button @click="currentIndex -= 1" :disabled="currentIndex === 0">
           <font-awesome-icon :icon="['fas', 'chevron-left']" />
         </button>
-        <button>
+        <button
+          @click="currentIndex += 1"
+          :disabled="currentIndex === postIds.length - 1"
+        >
           <font-awesome-icon :icon="['fas', 'chevron-right']" />
         </button>
-        <button>
+        <button
+          @click="currentIndex = postIds.length - 1"
+          :disabled="currentIndex === postIds.length - 1"
+        >
           <font-awesome-icon :icon="['fas', 'step-forward']" />
         </button>
       </div>
@@ -32,14 +38,12 @@
       <h3 class="post-header">
         {{ postInfo.headline }}
       </h3>
-      <div class="post-content" v-html="postInfo.body"></div>
+      <div class="post-body" v-html="postInfo.body"></div>
     </div>
   </div>
 </template>
 
 <script>
-import { PostSlider } from "./components";
-
 export default {
   name: "post-expanded",
   props: {
@@ -52,12 +56,23 @@ export default {
     return {
       postInfo: {},
       currentIndex: 0,
+      postIds: [],
     };
+  },
+  watch: {
+    currentIndex(newValue) {
+      if (newValue < 0 || newValue >= this.postIds.length) return;
+      this.postInfo = {};
+      this.currentIndex = newValue;
+      this.postInfo = this.postList[this.postIds[this.currentIndex]];
+    },
   },
   mounted() {
     this.postInfo = this.postList[this.postId];
-    this.currentIndex = Object.keys(this.postList).indexOf(String(this.postId));
+    this.postIds = Object.keys(this.postList);
+    this.currentIndex = this.postIds.indexOf(String(this.postId));
   },
+  methods: {},
 };
 </script>
 
@@ -102,6 +117,11 @@ export default {
         &:last-child {
           margin-right: 0;
         }
+
+        &:disabled {
+          opacity: 0.3;
+          cursor: not-allowed;
+        }
       }
     }
   }
@@ -129,7 +149,7 @@ export default {
       background-color: #ffffff;
     }
 
-    .post-content {
+    .post-body {
       overflow: auto;
       padding: 0 24px;
       margin-bottom: 12px;
