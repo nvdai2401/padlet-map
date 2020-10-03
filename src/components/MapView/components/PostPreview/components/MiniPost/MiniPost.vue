@@ -7,14 +7,20 @@
       <span class="subtitle" v-html="post.body"></span>
     </div>
     <div class="post-image">
-      <img :src="post.attachment" :alt="post.subject" />
+      <img
+        :src="post.attachment + '?tr=w-112'"
+        :alt="post.subject"
+        width="56px"
+        height="56px"
+        loading="lazy"
+      />
     </div>
   </div>
 </template>
 
 <script>
 export default {
-  name: "mini-post",
+  name: 'mini-post',
   props: {
     post: Object,
   },
@@ -31,7 +37,7 @@ export default {
   justify-content: space-between;
   padding: 12px 16px;
   cursor: pointer;
-  transition: all 0.15s ease-out;
+  transition: all 0.1s ease-out;
 
   .post-title {
     display: flex;

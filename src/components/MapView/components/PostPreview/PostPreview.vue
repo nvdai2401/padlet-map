@@ -19,10 +19,10 @@
 </template>
 
 <script>
-import { MiniPost } from "./components";
+import { MiniPost } from './components';
 
 export default {
-  name: "post-preview",
+  name: 'post-preview',
   props: {
     posts: Object,
     onMouseOver: Function,
@@ -30,7 +30,7 @@ export default {
     onClick: Function,
   },
   components: {
-    "mini-post": MiniPost,
+    'mini-post': MiniPost,
   },
   data() {
     return {};
@@ -40,7 +40,6 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-
 .post-preview {
   max-height: calc(100% - 96px);
   width: 320px;
@@ -53,7 +52,8 @@ export default {
   display: flex;
   flex-direction: column;
   padding-bottom: 16px;
-
+  backdrop-filter: blur(10px);
+  
   .post-list {
     overflow: auto;
   }

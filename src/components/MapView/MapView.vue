@@ -9,9 +9,9 @@
       @click="handleOnClickMap"
     >
       <gmap-marker
+        ref="markers"
         v-for="marker in Object.values(markers)"
         :key="marker.id"
-        ref="markers"
         :icon="{
           url: require(`src/assets/images/markers/${marker.color}_marker.webp`),
         }"
@@ -49,7 +49,7 @@
     </button>
     <transition-group tag="div" name="slide">
       <post-preview
-        v-if="postPreviewVisible && Object.keys(markers).length > 0"
+        v-show="postPreviewVisible && Object.keys(markers).length > 0"
         key="post-preview"
         :posts="markers"
         :onClick="handleOnClick"

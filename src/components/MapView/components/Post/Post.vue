@@ -1,6 +1,14 @@
 <template>
   <div class="post" @click.stop="actionListVisible = false">
-    <img :src="postInfo.attachment" loading="lazy" class="post-image" />
+    <img
+      :src="postInfo.attachment + '?tr=w-254'"
+      :alt="postInfo.headline"
+      width="254px"
+      :height="placeholer.height"
+      loading="lazy"
+      :style="{ backgroundColor: placeholer.bgColor }"
+      class="post-image"
+    />
     <h3 class="post-header">
       {{ postInfo.headline }}
     </h3>
@@ -23,8 +31,10 @@
 </template>
 
 <script>
+const POST_WIDTH = 254;
+
 export default {
-  name: "post",
+  name: 'post',
   props: {
     postInfo: Object,
     onExpandPost: Function,
@@ -32,14 +42,30 @@ export default {
   data() {
     return {
       actionListVisible: false,
+      placeholer: {
+        bgColor: '#ffffff',
+        height: '100%',
+      },
     };
+  },
+  mounted() {
+    this.updatePlaceholder();
   },
   methods: {
     openLinkInGmap() {
       window.open(
         `https://www.google.com/maps/search/?api=1&query=${this.postInfo.location_name}`,
-        "_blank"
+        '_blank',
       );
+    },
+    updatePlaceholder() {
+      const placeholer = this.postInfo.preview_image;
+      this.placeholer = {
+        bgColor: `rgb(${placeholer.dominant_color.join(',')})`,
+        height:
+          Math.floor(placeholer.height / (placeholer.width / POST_WIDTH)) +
+          'px',
+      };
     },
   },
 };
@@ -47,12 +73,12 @@ export default {
 
 <style lang="scss" scoped>
 .post {
-  width: 100%;
+  width: 254px;
+  max-height: 600px;
   position: relative;
   z-index: 1;
   display: flex;
   flex-direction: column;
-  max-height: 600px;
 
   .more-actions-button {
     visibility: hidden;

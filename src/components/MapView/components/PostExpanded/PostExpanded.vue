@@ -33,12 +33,12 @@
       <spinner v-if="loading" />
       <template v-else>
         <img
-          :src="postInfo.attachment"
+          :src="postInfo.attachment + '?tr=w-720'"
           :alt="postInfo.headline"
           width="720px"
-          :height="previewImage.height"
+          :height="placeholer.height"
           loading="lazy"
-          :style="{ backgroundColor: previewImage.bgColor }"
+          :style="{ backgroundColor: placeholer.bgColor }"
           class="post-image"
         />
         <h3 class="post-header">
@@ -68,7 +68,7 @@ export default {
     return {
       postInfo: {},
       currentIndex: 0,
-      previewImage: {
+      placeholer: {
         bgColor: '#ffffff',
         height: '100%',
       },
@@ -81,7 +81,7 @@ export default {
       this.currentIndex = newValue;
       this.loading = true;
       await this.fetchPost();
-      this.updatePreviewImage();
+      this.updatePlaceholder();
       this.loading = false;
     },
   },
@@ -93,11 +93,15 @@ export default {
       const postData = await getPostInfo(this.posts[this.currentIndex]);
       this.postInfo = postData.attributes;
     },
-    updatePreviewImage() {
-      const previewImage = this.postInfo.preview_image;
-      this.previewImage = {
-        bgColor: `rgb(${previewImage.dominant_color.join(',')})`,
-        height: previewImage.height / (previewImage.width / 720) + 'px',
+    updatePlaceholder() {
+      const POST_EXPANDED_WIDTH = 720;
+      const placeholer = this.postInfo.preview_image;
+      this.placeholer = {
+        bgColor: `rgb(${placeholer.dominant_color.join(',')})`,
+        height:
+          Math.floor(
+            placeholer.height / (placeholer.width / POST_EXPANDED_WIDTH),
+          ) + 'px',
       };
     },
   },
