@@ -11,4 +11,13 @@ const getMarkers = async () => {
   }
 };
 
-export { getMarkers };
+const getPostInfo = async (id) => {
+  try {
+    const { data } = await axios.get(`/posts/${id}`);
+    return data;
+  } catch (error) {
+    throw new Error(error.message);
+  }
+};
+
+export { getMarkers, getPostInfo };

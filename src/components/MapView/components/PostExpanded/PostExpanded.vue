@@ -1,7 +1,7 @@
 <template>
   <div class="post-expanded">
     <div class="toolbar">
-      <div class="post-index">{{ currentIndex + 1 }}/13</div>
+      <div class="post-index">{{ currentIndex + 1 }}/{{ posts.length }}</div>
       <div class="nav-buttons">
         <button @click="currentIndex = 0" :disabled="currentIndex === 0">
           <font-awesome-icon :icon="['fas', 'step-backward']" />
@@ -11,13 +11,13 @@
         </button>
         <button
           @click="currentIndex += 1"
-          :disabled="currentIndex === postIds.length - 1"
+          :disabled="currentIndex === posts.length - 1"
         >
           <font-awesome-icon :icon="['fas', 'chevron-right']" />
         </button>
         <button
-          @click="currentIndex = postIds.length - 1"
-          :disabled="currentIndex === postIds.length - 1"
+          @click="currentIndex = posts.length - 1"
+          :disabled="currentIndex === posts.length - 1"
         >
           <font-awesome-icon :icon="['fas', 'step-forward']" />
         </button>
@@ -28,51 +28,79 @@
         </button>
       </div>
     </div>
+
     <div class="content">
-      <img
-        :src="postInfo.attachment"
-        :alt="postInfo.headline"
-        loading="lazy"
-        class="post-image"
-      />
-      <h3 class="post-header">
-        {{ postInfo.headline }}
-      </h3>
-      <div class="post-body" v-html="postInfo.body"></div>
+      <spinner v-if="loading" />
+      <template v-else>
+        <img
+          :src="postInfo.attachment"
+          :alt="postInfo.headline"
+          width="720px"
+          :height="previewImage.height"
+          loading="lazy"
+          :style="{ backgroundColor: previewImage.bgColor }"
+          class="post-image"
+        />
+        <h3 class="post-header">
+          {{ postInfo.headline }}
+        </h3>
+        <div class="post-body" v-html="postInfo.body"></div>
+      </template>
     </div>
   </div>
 </template>
 
 <script>
+import { getPostInfo } from 'src/api';
+import { Spinner } from './components';
+
 export default {
-  name: "post-expanded",
+  name: 'post-expanded',
   props: {
     postId: Number,
-    postList: Object,
+    posts: Array,
     onClose: Function,
   },
-  components: {},
+  components: {
+    spinner: Spinner,
+  },
   data() {
     return {
       postInfo: {},
       currentIndex: 0,
-      postIds: [],
+      previewImage: {
+        bgColor: '#ffffff',
+        height: '100%',
+      },
+      loading: true,
     };
   },
   watch: {
-    currentIndex(newValue) {
-      if (newValue < 0 || newValue >= this.postIds.length) return;
-      this.postInfo = {};
+    async currentIndex(newValue) {
+      if (newValue < 0 || newValue >= this.posts.length) return;
       this.currentIndex = newValue;
-      this.postInfo = this.postList[this.postIds[this.currentIndex]];
+      this.loading = true;
+      await this.fetchPost();
+      this.updatePreviewImage();
+      this.loading = false;
     },
   },
   mounted() {
-    this.postInfo = this.postList[this.postId];
-    this.postIds = Object.keys(this.postList);
-    this.currentIndex = this.postIds.indexOf(String(this.postId));
+    this.currentIndex = this.posts.indexOf(String(this.postId));
   },
-  methods: {},
+  methods: {
+    async fetchPost() {
+      const postData = await getPostInfo(this.posts[this.currentIndex]);
+      this.postInfo = postData.attributes;
+    },
+    updatePreviewImage() {
+      const previewImage = this.postInfo.preview_image;
+      this.previewImage = {
+        bgColor: `rgb(${previewImage.dominant_color.join(',')})`,
+        height: previewImage.height / (previewImage.width / 720) + 'px',
+      };
+    },
+  },
 };
 </script>
 
@@ -98,6 +126,10 @@ export default {
     justify-content: space-between;
     align-items: center;
     color: #ffffff;
+
+    .post-index {
+      letter-spacing: 1px;
+    }
 
     button {
       background-color: transparent;
@@ -134,6 +166,7 @@ export default {
     margin-top: 24px;
     display: flex;
     flex-direction: column;
+    transition: all 0.15s ease-out;
 
     .post-header {
       font-size: 2rem;

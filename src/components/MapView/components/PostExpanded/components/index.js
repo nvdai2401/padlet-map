@@ -1,1 +1,1 @@
-export { default as PostSlider } from './PostSlider';
+export { default as Spinner } from './Spinner';

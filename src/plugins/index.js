@@ -1,3 +1,3 @@
-import './Axios';
-import './GmapVue';
-import './FontAwesome';
+import './axios';
+import './gmapVue';
+import './fontAwesome';
