@@ -87,6 +87,10 @@ export default {
   },
   mounted() {
     this.currentIndex = this.posts.indexOf(String(this.postId));
+    window.addEventListener('keydown', this.handleOnKeyPress);
+  },
+  destroyed() {
+    window.removeEventListener('keydown', this.handleOnKeyPress);
   },
   methods: {
     async fetchPost() {
@@ -104,6 +108,13 @@ export default {
           ) + 'px',
       };
     },
+    handleOnKeyPress(e) {
+      if (e.keyCode == 37 && this.currentIndex > 0) {
+        this.currentIndex -= 1;
+      } else if (e.keyCode == 39 && this.currentIndex < this.posts.length - 1) {
+        this.currentIndex += 1;
+      }
+    },
   },
 };
 </script>
@@ -120,7 +131,8 @@ export default {
   display: flex;
   flex-direction: column;
   align-items: center;
-  transition: 0.4s;
+  backdrop-filter: blur(10px);
+  transition: all 0.2s ease-out;
 
   .toolbar {
     width: 100vw;
