@@ -29,9 +29,10 @@ yarn lint
 - [x] Style for map: center viewport, 4 theme, make the map fit viewport
 - [x] Change marker dynamically when hover
 - [ ] Add marker by search, by drop marker
-- [ ] Add post as call out and lazyload image, side list
+- [x] Add post as call out and lazyload image, side list
 - [ ] Restructure code, split plugins
 - [ ] Handle logs, errors
-- [ ] Set width and height of image by adding width and height in data
-- [ ] Custom view control
+- [x] Set width and height of image by adding width and height in data
+- [x] Custom view control
 - [ ] Lazy loading map, responsive map
+- [ ] Load image marker dynamically, upload to aws

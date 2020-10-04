@@ -125,16 +125,19 @@ export default {
     this.mapOptions = options;
   },
   async mounted() {
-    const data = await getMarkers();
-    const markers = {};
-
-    for (let item of data) {
-      markers[item.id] = { ...item.attributes, is_post_visible: false };
-    }
-    this.markers = markers;
+    await this.fetchMakers();
     this.fitBounds();
   },
   methods: {
+    async fetchMakers() {
+      const data = await getMarkers();
+      const markers = {};
+
+      for (let item of data) {
+        markers[item.id] = { ...item.attributes, is_post_visible: false };
+      }
+      this.markers = markers;
+    },
     handleOnClick(postId) {
       if (this.activePost === postId) {
         this.activePost = null;
