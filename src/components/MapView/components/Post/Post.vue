@@ -3,10 +3,10 @@
     <img
       :src="postInfo.attachment + '?tr=w-254'"
       :alt="postInfo.headline"
-      width="254px"
-      :height="placeholer.height"
-      loading="lazy"
       :style="{ backgroundColor: placeholer.bgColor }"
+      :height="placeholer.height"
+      :width="POST_WIDTH"
+      loading="lazy"
       class="post-image"
     />
     <h3 class="post-header">

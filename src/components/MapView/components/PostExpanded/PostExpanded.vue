@@ -3,20 +3,20 @@
     <div class="toolbar">
       <div class="post-index">{{ currentIndex + 1 }}/{{ posts.length }}</div>
       <div class="nav-buttons">
-        <button @click="currentIndex = 0" :disabled="currentIndex === 0">
+        <button @click="moveToFirstPost" :disabled="currentIndex === 0">
           <font-awesome-icon :icon="['fas', 'step-backward']" />
         </button>
-        <button @click="currentIndex -= 1" :disabled="currentIndex === 0">
+        <button @click="moveToPrevPost" :disabled="currentIndex === 0">
           <font-awesome-icon :icon="['fas', 'chevron-left']" />
         </button>
         <button
-          @click="currentIndex += 1"
+          @click="moveToNextPost"
           :disabled="currentIndex === posts.length - 1"
         >
           <font-awesome-icon :icon="['fas', 'chevron-right']" />
         </button>
         <button
-          @click="currentIndex = posts.length - 1"
+          @click="moveToLastPost"
           :disabled="currentIndex === posts.length - 1"
         >
           <font-awesome-icon :icon="['fas', 'step-forward']" />
@@ -112,11 +112,28 @@ export default {
         ),
       };
     },
+    moveToNextPost() {
+      this.currentIndex += 1;
+    },
+    moveToPrevPost() {
+      this.currentIndex -= 1;
+    },
+    moveToFirstPost() {
+      this.currentIndex = 0;
+    },
+    moveToLastPost() {
+      this.currentIndex = this.posts.length - 1;
+    },
     handleOnKeyPress(e) {
-      if (e.keyCode == 37 && this.currentIndex > 0) {
-        this.currentIndex -= 1;
-      } else if (e.keyCode == 39 && this.currentIndex < this.posts.length - 1) {
-        this.currentIndex += 1;
+      const ARROW_LEFT_KEYCODE = 37,
+        ARROW_RIGHT_KEYCODE = 39;
+      if (e.keyCode == ARROW_LEFT_KEYCODE && this.currentIndex > 0) {
+        this.moveToPrevPost();
+      } else if (
+        e.keyCode == ARROW_RIGHT_KEYCODE &&
+        this.currentIndex < this.posts.length - 1
+      ) {
+        this.moveToNextPost();
       }
     },
   },
@@ -162,7 +179,7 @@ export default {
       outline: none;
       cursor: pointer;
     }
-    
+
     svg {
       width: 20px !important;
       height: 18px;
