@@ -151,13 +151,15 @@ const restriction = {
 };
 
 const DEFAULT_CENTER = { lat: 20, lng: 20 };
-const DEFAULT_ZOOM = 2;
+const MIN_ZOOM = 2;
+const MAX_ZOOM = 15;
 
 const options = {
   backgroundColor: '#192331',
-  zoomControl: true,
+  zoomControl: false,
   controlSize: 30,
-  minZoom: DEFAULT_ZOOM,
+  minZoom: MIN_ZOOM,
+  maxZoom: MAX_ZOOM,
   restriction: restriction,
   styles: styles,
   disableDefaultUI: true,
@@ -170,5 +172,6 @@ export {
   restriction,
   options,
   DEFAULT_CENTER,
-  DEFAULT_ZOOM,
+  MIN_ZOOM,
+  MAX_ZOOM,
 };

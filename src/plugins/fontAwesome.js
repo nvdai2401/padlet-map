@@ -12,6 +12,8 @@ import {
   faStepBackward,
   faStepForward,
   faTimes,
+  faPlus,
+  faMinus,
 } from '@fortawesome/free-solid-svg-icons';
 
 library.add(
@@ -24,6 +26,8 @@ library.add(
   faStepBackward,
   faStepForward,
   faTimes,
+  faPlus,
+  faMinus,
 );
 
 config.autoAddCss = false;

@@ -37,16 +37,26 @@
       </gmap-marker>
     </gmap-map>
 
-    <button
-      class="button post-preview-toggle-button"
-      @click="postPreviewVisible = !postPreviewVisible"
-    >
-      <font-awesome-icon :icon="['fas', 'bars']" />
-    </button>
+    <div class="map-control">
+      <button
+        class="button map-center-control"
+        @click="postPreviewVisible = !postPreviewVisible"
+      >
+        <font-awesome-icon :icon="['fas', 'bars']" />
+      </button>
 
-    <button class="button map-center-control" @click="fitBounds">
-      <font-awesome-icon :icon="['fas', 'expand']" />
-    </button>
+      <div class="group-button">
+        <button class="button" @click="fitBounds">
+          <font-awesome-icon :icon="['fas', 'expand']" />
+        </button>
+        <button class="button" @click="zoomIn">
+          <font-awesome-icon :icon="['fas', 'plus']" />
+        </button>
+        <button class="button" @click="zoomOut">
+          <font-awesome-icon :icon="['fas', 'minus']" />
+        </button>
+      </div>
+    </div>
     <transition-group tag="div" name="slide">
       <post-preview
         v-show="postPreviewVisible && Object.keys(markers).length > 0"
@@ -69,35 +79,36 @@
 </template>
 
 <script>
-import { Post, PostPreview, PostExpanded } from './components';
+import { Post, PostPreview, PostExpanded } from "./components";
 import {
   defaultLatLngBounds,
   viewportLatLngBounds,
   options,
   DEFAULT_CENTER,
-  DEFAULT_ZOOM,
-} from './mapProperty';
-import { getMarkers } from 'src/api';
+  MIN_ZOOM,
+  MAX_ZOOM,
+} from "./mapProperty";
+import { getMarkers } from "src/api";
 
 export default {
-  name: 'map-view',
+  name: "map-view",
   components: {
     post: Post,
-    'post-preview': PostPreview,
-    'post-expanded': PostExpanded,
+    "post-preview": PostPreview,
+    "post-expanded": PostExpanded,
   },
   data() {
     return {
-      initialZoom: DEFAULT_ZOOM,
+      initialZoom: MIN_ZOOM,
       center: DEFAULT_CENTER,
       infoWindowVisible: false,
-      postPreviewVisible: false,
+      postPreviewVisible: true,
+      postExpandedVisible: false,
       markers: {},
       mapOptions: null,
       activePost: null,
-      activeMarkerColor: '',
-      focusedPost: '',
-      postExpandedVisible: false,
+      activeMarkerColor: "",
+      focusedPost: "",
     };
   },
   watch: {
@@ -147,7 +158,7 @@ export default {
     },
     handleOnMouseOver(postId) {
       if (postId !== this.focusedPost) {
-        const PLACEHOLDER_PREFIX = 'ph_';
+        const PLACEHOLDER_PREFIX = "ph_";
         this.focusedPost = postId;
         this.activeMarkerColor = this.markers[postId].color;
         this.markers[postId].color =
@@ -156,8 +167,8 @@ export default {
     },
     handleOnMouseOut(postId) {
       this.markers[postId].color = this.activeMarkerColor;
-      this.activeMarkerColor = '';
-      this.focusedPost = '';
+      this.activeMarkerColor = "";
+      this.focusedPost = "";
     },
     handleOnClickMap() {
       this.activePost = null;
@@ -171,8 +182,8 @@ export default {
             bounds.extend(
               new google.maps.LatLng(
                 marker.location_point.latitude,
-                marker.location_point.longitude,
-              ),
+                marker.location_point.longitude
+              )
             );
           });
         map.fitBounds(bounds);
@@ -184,6 +195,20 @@ export default {
     handleOnClosePostExpanded() {
       this.postExpandedVisible = false;
       this.activePost = null;
+    },
+    zoomIn() {
+      const currentZoom = this.$refs.gmap.$mapObject.zoom;
+
+      if (currentZoom < MAX_ZOOM) {
+        this.mapOptions = { ...this.mapOptions, zoom: currentZoom + 1 };
+      }
+    },
+    zoomOut() {
+      const currentZoom = this.$refs.gmap.$mapObject.zoom;
+
+      if (currentZoom > MIN_ZOOM) {
+        this.mapOptions = { ...this.mapOptions, zoom: currentZoom - 1 };
+      }
     },
   },
 };
@@ -200,26 +225,50 @@ export default {
   height: 100%;
 }
 
-.button {
+.map-control {
   position: absolute;
   z-index: 3000;
-  width: 30px;
-  height: 30px;
+  bottom: 26px;
+  left: 12px;
   display: flex;
-  align-items: center;
-  justify-content: center;
-  color: #666666;
-  border-radius: 2px;
-  background-color: #ffffff;
-  transition: all 0.15s ease-out;
-  cursor: pointer;
-  border: 0;
-  outline: unset;
+  flex-direction: column;
+  transform: translateY(-74px);
+  transition: transform 0.25s cubic-bezier(0.4, 0, 0.2, 1);
 
-  &:hover {
-    svg {
-      color: #000000;
+  svg {
+    height: 14px;
+  }
+
+  .button {
+    width: 30px;
+    height: 30px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #666666;
+    background-color: #ffffff;
+    transition: all 0.15s ease-out;
+    cursor: pointer;
+    border: 0;
+    outline: unset;
+
+    &:hover {
+      svg {
+        color: #000000;
+      }
     }
+  }
+
+  .map-center-control {
+    border-radius: 6px;
+  }
+
+  .group-button {
+    margin-top: 6px;
+    border-radius: 6px;
+    overflow: hidden;
+    box-shadow: 0 1px 1px rgba(0, 0, 0, 0.12);
+    transition: all 0.1s cubic-bezier(0.4, 0, 0.2, 1);
   }
 }
 
@@ -229,15 +278,6 @@ export default {
 
   svg {
     height: 18px;
-  }
-}
-
-.map-center-control {
-  bottom: 86px;
-  right: 7px;
-
-  svg {
-    height: 22px;
   }
 }
 
