@@ -221,8 +221,10 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+@import 'src/assets/styles/variables.scss';
+
 .map-view {
-  height: 90vh;
+  height: calc(100vh - #{$topbar-height});
   position: relative;
 
   .gmap-container {
@@ -236,7 +238,7 @@ export default {
 
   .map-control {
     position: absolute;
-    z-index: 3000;
+    z-index: zIndex('map-view');
     bottom: 48px;
     left: 12px;
     display: flex;
@@ -255,7 +257,7 @@ export default {
       align-items: center;
       justify-content: center;
       color: #666666;
-      background-color: #ffffff;
+      background-color: $white;
       transition: all 0.15s ease-out;
       cursor: pointer;
       border: 0;
@@ -263,7 +265,7 @@ export default {
 
       &:hover {
         svg {
-          color: #000000;
+          color: $black;
         }
       }
     }

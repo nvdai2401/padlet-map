@@ -1,0 +1,26 @@
+$topbar-height: 76px;
+
+/*==================COLOR==================*/
+$white: #ffffff;
+$black: #000000;
+
+/*==================Z-INDEX==================*/
+$z-layers: (
+  'post-action-list': 1000,
+  'map-view': 2000,
+  'post-preview': 3000,
+  'post-expanded': 4000,
+  'default': 1,
+  'below': -1,
+);
+
+@function zIndex($layer) {
+  @if not map-has-key($z-layers, $layer) {
+    @warn "No layer found for `#{$layer}` in $z-layers map. Property omitted.";
+  }
+  @return map-get($z-layers, $layer);
+}
+
+$index-normal-1: 1;
+$index-top-1000: 1000;
+$index-popper-2000: 2000;

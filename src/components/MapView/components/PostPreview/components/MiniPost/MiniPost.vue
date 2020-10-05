@@ -20,7 +20,7 @@
 
 <script>
 export default {
-  name: "mini-post",
+  name: 'mini-post',
   props: {
     post: Object,
   },
@@ -32,6 +32,8 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+@import 'src/assets/styles/variables.scss';
+
 .mini-post {
   display: flex;
   justify-content: space-between;
@@ -73,6 +75,7 @@ export default {
   .post-image {
     width: 56px;
     height: 56px;
+
     img {
       width: 100%;
       height: 100%;
@@ -82,15 +85,11 @@ export default {
   }
 
   &:hover {
-    background-color: #000000;
+    background-color: $black;
   }
 
   @media screen and (min-width: 768px) {
     width: 100%;
-
-    &:hover {
-      background-color: #000000;
-    }
   }
 }
 </style>

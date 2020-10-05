@@ -50,7 +50,7 @@ export default {
     },
     size: {
       type: String,
-      default: '10vh',
+      default: '76px',
     },
     backgroundColor: {
       type: String,

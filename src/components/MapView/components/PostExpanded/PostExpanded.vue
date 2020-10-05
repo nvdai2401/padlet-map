@@ -22,7 +22,7 @@
           <font-awesome-icon :icon="['fas', 'step-forward']" />
         </button>
       </div>
-      <div class="close-button">
+      <div>
         <button @click="onClose">
           <font-awesome-icon :icon="['fas', 'times']" />
         </button>
@@ -124,9 +124,11 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+@import 'src/assets/styles/variables.scss';
+
 .post-expanded {
   position: fixed;
-  z-index: 3005;
+  z-index: zIndex('post-expanded');
   left: 0;
   bottom: 0;
   width: 100%;
@@ -147,7 +149,7 @@ export default {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    color: #ffffff;
+    color: $white;
     background-color: rgba(43, 43, 43, 0.5);
 
     .post-index {
@@ -160,10 +162,11 @@ export default {
       outline: none;
       cursor: pointer;
     }
+    
     svg {
       width: 20px !important;
       height: 18px;
-      color: #ffffff;
+      color: $white;
     }
 
     .nav-buttons {
@@ -184,7 +187,7 @@ export default {
   .content {
     width: 100vw;
     height: 100vh;
-    background-color: #ffffff;
+    background-color: $white;
     display: flex;
     flex-direction: column;
     transition: all 0.15s ease-out;
@@ -199,7 +202,7 @@ export default {
 
     .post-image {
       width: 100%;
-      background-color: #ffffff;
+      background-color: $white;
     }
 
     .post-body {

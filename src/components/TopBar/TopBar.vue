@@ -18,11 +18,13 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+@import 'src/assets/styles/variables.scss';
+
 .topbar {
-  height: 10vh;
+  height: $topbar-height;
   display: flex;
-  background-color: #000000;
-  color: #ffffff;
+  background-color: $black;
+  color: $white;
   padding: 12px;
 
   img {
@@ -44,7 +46,7 @@ export default {
   }
 
   @media screen and (min-width: 768px) {
-    padding: 24px;
+    padding-left: 24px;
 
     h1 {
       font-size: 1.25rem;

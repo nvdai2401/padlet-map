@@ -10,7 +10,7 @@
 import { MapView, TopBar, FolkMe } from './components';
 
 export default {
-  name: 'App',
+  name: 'app',
   components: {
     'map-view': MapView,
     'top-bar': TopBar,
