@@ -37,7 +37,10 @@
       </gmap-marker>
     </gmap-map>
 
-    <div :class="['map-control', postPreviewVisible ? 'preview-shown' : '']">
+    <div
+      v-show="mapControlVisible"
+      :class="['map-control', postPreviewVisible ? 'preview-shown' : '']"
+    >
       <button
         class="button map-center-control"
         @click="postPreviewVisible = !postPreviewVisible"
@@ -79,7 +82,7 @@
 </template>
 
 <script>
-import { Post, PostPreview, PostExpanded } from "./components";
+import { Post, PostPreview, PostExpanded } from './components';
 import {
   defaultLatLngBounds,
   viewportLatLngBounds,
@@ -87,15 +90,15 @@ import {
   DEFAULT_CENTER,
   MIN_ZOOM,
   MAX_ZOOM,
-} from "./mapProperty";
-import { getMarkers } from "src/api";
+} from './mapProperty';
+import { getMarkers } from 'src/api';
 
 export default {
-  name: "map-view",
+  name: 'map-view',
   components: {
     post: Post,
-    "post-preview": PostPreview,
-    "post-expanded": PostExpanded,
+    'post-preview': PostPreview,
+    'post-expanded': PostExpanded,
   },
   data() {
     return {
@@ -104,11 +107,12 @@ export default {
       infoWindowVisible: false,
       postPreviewVisible: false,
       postExpandedVisible: false,
+      mapControlVisible: false,
       markers: {},
       mapOptions: null,
       activePost: null,
-      activeMarkerColor: "",
-      focusedPost: "",
+      activeMarkerColor: '',
+      focusedPost: '',
     };
   },
   watch: {
@@ -137,7 +141,9 @@ export default {
   },
   async mounted() {
     await this.fetchMakers();
+    await this.$gmapApiPromiseLazy();
     this.fitBounds();
+    this.mapControlVisible = true;
   },
   methods: {
     async fetchMakers() {
@@ -158,7 +164,7 @@ export default {
     },
     handleOnMouseOver(postId) {
       if (postId !== this.focusedPost) {
-        const PLACEHOLDER_PREFIX = "ph_";
+        const PLACEHOLDER_PREFIX = 'ph_';
         this.focusedPost = postId;
         this.activeMarkerColor = this.markers[postId].color;
         this.markers[postId].color =
@@ -167,8 +173,8 @@ export default {
     },
     handleOnMouseOut(postId) {
       this.markers[postId].color = this.activeMarkerColor;
-      this.activeMarkerColor = "";
-      this.focusedPost = "";
+      this.activeMarkerColor = '';
+      this.focusedPost = '';
     },
     handleOnClickMap() {
       this.activePost = null;
@@ -182,8 +188,8 @@ export default {
             bounds.extend(
               new google.maps.LatLng(
                 marker.location_point.latitude,
-                marker.location_point.longitude
-              )
+                marker.location_point.longitude,
+              ),
             );
           });
         map.fitBounds(bounds);

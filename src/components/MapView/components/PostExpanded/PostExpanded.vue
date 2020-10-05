@@ -33,9 +33,9 @@
       <spinner v-if="loading" />
       <template v-else>
         <img
-          :src="postInfo.attachment + '?tr=w-720'"
+          :src="postInfo.attachment + `?tr=w-${imgWidth * 2}`"
           :alt="postInfo.headline"
-          width="720px"
+          :width="imgWidth"
           :height="placeholer.height"
           loading="lazy"
           :style="{ backgroundColor: placeholer.bgColor }"
@@ -73,6 +73,7 @@ export default {
         height: '100%',
       },
       loading: true,
+      imgWidth: 720,
     };
   },
   watch: {
@@ -87,6 +88,7 @@ export default {
   },
   mounted() {
     this.currentIndex = this.posts.indexOf(String(this.postId));
+    this.imgWidth = window.innerWidth;
     window.addEventListener('keydown', this.handleOnKeyPress);
   },
   destroyed() {
@@ -98,14 +100,12 @@ export default {
       this.postInfo = postData.attributes;
     },
     updatePlaceholder() {
-      const POST_EXPANDED_WIDTH = 720;
       const placeholer = this.postInfo.preview_image;
       this.placeholer = {
         bgColor: `rgb(${placeholer.dominant_color.join(',')})`,
-        height:
-          Math.floor(
-            placeholer.height / (placeholer.width / POST_EXPANDED_WIDTH),
-          ) + 'px',
+        height: Math.floor(
+          placeholer.height / (placeholer.width / this.imgWidth),
+        ),
       };
     },
     handleOnKeyPress(e) {
@@ -175,11 +175,10 @@ export default {
   }
 
   .content {
-    width: 720px;
+    width: 100vw;
     height: 90%;
     background-color: #ffffff;
-    border-radius: 12px;
-    margin-top: 24px;
+    margin-top: 12px;
     display: flex;
     flex-direction: column;
     transition: all 0.15s ease-out;
@@ -194,7 +193,6 @@ export default {
 
     .post-image {
       width: 100%;
-      border-radius: 12px 12px 0 0;
       background-color: #ffffff;
     }
 
@@ -204,6 +202,18 @@ export default {
       margin-bottom: 12px;
       font-size: 0.875rem;
       line-height: 1.5rem;
+    }
+  }
+
+  @media screen and (min-width: 768px) {
+    .content {
+      width: 720px;
+      border-radius: 12px;
+      margin-top: 24px;
+
+      .post-image {
+        border-radius: 12px 12px 0 0;
+      }
     }
   }
 }

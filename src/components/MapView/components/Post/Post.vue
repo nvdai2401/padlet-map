@@ -34,7 +34,7 @@
 const POST_WIDTH = 254;
 
 export default {
-  name: 'post',
+  name: "post",
   props: {
     postInfo: Object,
     onExpandPost: Function,
@@ -43,8 +43,8 @@ export default {
     return {
       actionListVisible: false,
       placeholer: {
-        bgColor: '#ffffff',
-        height: '100%',
+        bgColor: "#ffffff",
+        height: "100%",
       },
     };
   },
@@ -55,16 +55,16 @@ export default {
     openLinkInGmap() {
       window.open(
         `https://www.google.com/maps/search/?api=1&query=${this.postInfo.location_name}`,
-        '_blank',
+        "_blank"
       );
     },
     updatePlaceholder() {
       const placeholer = this.postInfo.preview_image;
       this.placeholer = {
-        bgColor: `rgb(${placeholer.dominant_color.join(',')})`,
+        bgColor: `rgb(${placeholer.dominant_color.join(",")})`,
         height:
           Math.floor(placeholer.height / (placeholer.width / POST_WIDTH)) +
-          'px',
+          "px",
       };
     },
   },
@@ -81,8 +81,6 @@ export default {
   flex-direction: column;
 
   .more-actions-button {
-    visibility: hidden;
-    opacity: 0;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -144,27 +142,43 @@ export default {
       opacity: 1;
     }
   }
-}
 
-.post-header {
-  font-size: 1rem;
-  font-weight: 500;
-  text-align: left;
-  padding: 12px 12px 6px 12px;
-  line-height: 1.5rem;
-}
+  .post-header {
+    font-size: 1rem;
+    font-weight: 500;
+    text-align: left;
+    padding: 12px 12px 6px 12px;
+    line-height: 1.5rem;
+  }
 
-.post-image {
-  width: 100%;
-}
+  .post-image {
+    width: 100%;
+  }
 
-.post-content {
-  height: calc(100% - 200px);
-  overflow: auto;
-  padding: 12px;
-  margin-bottom: 12px;
-  text-align: left;
-  font-size: 0.875rem;
-  line-height: 1.5rem;
+  .post-content {
+    height: calc(100% - 200px);
+    overflow: auto;
+    padding: 12px;
+    margin-bottom: 12px;
+    text-align: left;
+    font-size: 0.875rem;
+    line-height: 1.5rem;
+  }
+
+  @media screen and (min-width: 768px) {
+    .more-actions-button {
+      visibility: hidden;
+      opacity: 0;
+    }
+
+    &:hover {
+      cursor: pointer;
+
+      .more-actions-button {
+        visibility: visible;
+        opacity: 1;
+      }
+    }
+  }
 }
 </style>

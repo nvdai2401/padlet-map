@@ -1,7 +1,7 @@
 <template>
   <div class="topbar">
     <img
-      src="https://ik.imagekit.io/fireman35/avatar1_gTDL8Fqsq.jpg?tr=w-120"
+      src="https://ik.imagekit.io/fireman35/avatar1_gTDL8Fqsq.jpg?tr=w-240"
       alt="Michael from Vietnam"
     />
     <div>
@@ -23,7 +23,7 @@ export default {
   display: flex;
   background-color: #000000;
   color: #ffffff;
-  padding: 24px;
+  padding: 12px;
 
   img {
     border-radius: 50%;
@@ -41,6 +41,10 @@ export default {
   span {
     font-size: 0.875rem;
     line-height: 1.125rem;
+  }
+
+  @media screen and (min-width: 768px) {
+    padding: 24px;
   }
 }
 </style>
