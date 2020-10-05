@@ -1,18 +1,20 @@
 <template>
   <div id="app">
-    <TopBar />
-    <MapView />
+    <folk-me />
+    <top-bar />
+    <map-view />
   </div>
 </template>
 
 <script>
-import { MapView, TopBar } from './components';
+import { MapView, TopBar, FolkMe } from './components';
 
 export default {
   name: 'App',
   components: {
-    MapView,
-    TopBar,
+    'map-view': MapView,
+    'top-bar': TopBar,
+    'folk-me': FolkMe,
   },
 };
 </script>

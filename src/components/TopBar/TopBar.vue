@@ -1,7 +1,7 @@
 <template>
   <div class="topbar">
     <img
-      src="https://ik.imagekit.io/fireman35/avatar1_gTDL8Fqsq.jpg?tr=w-240"
+      src="https://ik.imagekit.io/fireman35/avatar1_gTDL8Fqsq.jpg?tr=w-240,h-240"
       alt="Michael from Vietnam"
     />
     <div>
@@ -33,18 +33,26 @@ export default {
   }
 
   h1 {
-    font-size: 1.25rem;
+    font-size: 1rem;
     line-height: 1.5rem;
     font-weight: 700;
   }
 
   span {
-    font-size: 0.875rem;
+    font-size: 0.8rem;
     line-height: 1.125rem;
   }
 
   @media screen and (min-width: 768px) {
     padding: 24px;
+
+    h1 {
+      font-size: 1.25rem;
+    }
+
+    span {
+      font-size: 0.875rem;
+    }
   }
 }
 </style>

@@ -30,9 +30,9 @@ yarn lint
 - [x] Change marker dynamically when hover
 - [ ] Add marker by search, by drop marker
 - [x] Add post as call out and lazyload image, side list
-- [ ] Restructure code, split plugins
+- [ ] Restructure code, split plugins, set fixed height for top bar
 - [ ] Handle logs, errors
 - [x] Set width and height of image by adding width and height in data
 - [x] Custom view control
-- [ ] Lazy loading map, responsive map
+- [x] Lazy loading map, responsive map
 - [ ] Load image marker dynamically, upload to aws

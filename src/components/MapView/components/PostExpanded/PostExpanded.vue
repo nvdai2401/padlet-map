@@ -39,6 +39,7 @@
           :height="placeholer.height"
           loading="lazy"
           :style="{ backgroundColor: placeholer.bgColor }"
+          sizes="(max-width: 768px) 100vw, 720px"
           class="post-image"
         />
         <h3 class="post-header">
