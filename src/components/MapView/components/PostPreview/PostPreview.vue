@@ -2,7 +2,11 @@
   <div class="post-preview">
     <div class="post-count">{{ Object.keys(posts).length }} posts</div>
     <div class="post-list">
-      <div v-for="(post, index) in Object.values(posts)" :key="post.id">
+      <div
+        v-for="(post, index) in Object.values(posts)"
+        :key="post.id"
+        class="post-list__container"
+      >
         <mini-post
           :post="post"
           @mouseover.native="onMouseOver(post.id)"
@@ -19,10 +23,10 @@
 </template>
 
 <script>
-import { MiniPost } from './components';
+import { MiniPost } from "./components";
 
 export default {
-  name: 'post-preview',
+  name: "post-preview",
   props: {
     posts: Object,
     onMouseOver: Function,
@@ -30,7 +34,7 @@ export default {
     onClick: Function,
   },
   components: {
-    'mini-post': MiniPost,
+    "mini-post": MiniPost,
   },
   data() {
     return {};
@@ -41,34 +45,65 @@ export default {
 
 <style lang="scss" scoped>
 .post-preview {
-  max-height: calc(100% - 96px);
-  width: 320px;
+  display: flex;
+  width: 100vw;
   position: absolute;
   z-index: 3001;
-  right: 48px;
-  bottom: 50px;
+  left: 0;
+  bottom: 0;
   background-color: rgba(33, 33, 33, 0.8);
   border-radius: 6px;
-  display: flex;
-  flex-direction: column;
-  padding-bottom: 16px;
   backdrop-filter: blur(10px);
-  
-  .post-list {
-    overflow: auto;
-  }
 
   .post-count {
-    color: hsla(0, 0%, 100%, 0.7);
-    font-weight: 600;
-    padding: 12px 16px;
-    text-align: left;
-    font-size: 0.875rem;
+    display: none;
   }
 
-  .divider {
-    margin: 0 16px;
-    border-top: 1px solid #333333;
+  .post-list {
+    display: flex;
+    flex-direction: row;
+    overflow: auto;
+
+    .post-list__container {
+      display: flex;
+
+      .divider {
+        margin: 16px 0;
+        border-left: 1px solid #333333;
+      }
+    }
+  }
+
+  @media screen and (min-width: 768px) {
+    max-height: calc(100% - 96px);
+    width: 320px;
+    left: unset;
+    right: 12px;
+    bottom: 72px;
+    flex-direction: column;
+    padding-bottom: 16px;
+
+    .post-list {
+      flex-direction: column;
+
+      .post-list__container {
+        flex-direction: column;
+        .divider {
+          margin: 0 16px;
+          border-left: unset;
+          border-top: 1px solid #333333;
+        }
+      }
+    }
+
+    .post-count {
+      display: inline-block;
+      color: hsla(0, 0%, 100%, 0.7);
+      font-weight: 600;
+      padding: 12px 16px;
+      text-align: left;
+      font-size: 0.875rem;
+    }
   }
 }
 </style>

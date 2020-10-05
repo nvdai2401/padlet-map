@@ -1,18 +1,20 @@
-/* Works on Chrome/Edge/Safari */
-*::-webkit-scrollbar {
-  width: 8px;
-}
-*::-webkit-scrollbar-track {
-  background: #000000;
-  border-radius: 6px;
-}
-*::-webkit-scrollbar-thumb {
-  background-color: #d6dee1;
-  border-radius: 20px;
-  background-clip: content-box;
-}
+@media screen and (min-width: 768px) {
+  /* Works on Chrome/Edge/Safari */
+  *::-webkit-scrollbar {
+    width: 8px;
+  }
+  *::-webkit-scrollbar-track {
+    background: #000000;
+    border-radius: 6px;
+  }
+  *::-webkit-scrollbar-thumb {
+    background-color: #d6dee1;
+    border-radius: 20px;
+    background-clip: content-box;
+  }
 
-/* Handle on hover */
-*::-webkit-scrollbar-thumb:hover {
-  background: #a8bbbf;
+  /* Handle on hover */
+  *::-webkit-scrollbar-thumb:hover {
+    background: #a8bbbf;
+  }
 }

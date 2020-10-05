@@ -37,7 +37,7 @@
       </gmap-marker>
     </gmap-map>
 
-    <div class="map-control">
+    <div :class="['map-control', postPreviewVisible ? 'preview-shown' : '']">
       <button
         class="button map-center-control"
         @click="postPreviewVisible = !postPreviewVisible"
@@ -102,7 +102,7 @@ export default {
       initialZoom: MIN_ZOOM,
       center: DEFAULT_CENTER,
       infoWindowVisible: false,
-      postPreviewVisible: true,
+      postPreviewVisible: false,
       postExpandedVisible: false,
       markers: {},
       mapOptions: null,
@@ -218,77 +218,102 @@ export default {
 .map-view {
   height: 90vh;
   position: relative;
-}
 
-.gmap-container {
-  width: 100vw;
-  height: 100%;
-}
-
-.map-control {
-  position: absolute;
-  z-index: 3000;
-  bottom: 26px;
-  left: 12px;
-  display: flex;
-  flex-direction: column;
-  transform: translateY(-74px);
-  transition: transform 0.25s cubic-bezier(0.4, 0, 0.2, 1);
-
-  svg {
-    height: 14px;
+  .gmap-container {
+    width: 100vw;
+    height: 100%;
   }
 
-  .button {
-    width: 30px;
-    height: 30px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    color: #666666;
-    background-color: #ffffff;
-    transition: all 0.15s ease-out;
-    cursor: pointer;
-    border: 0;
-    outline: unset;
+  .preview-shown {
+    transform: translateY(-74px);
+  }
 
-    &:hover {
-      svg {
-        color: #000000;
+  .map-control {
+    position: absolute;
+    z-index: 3000;
+    bottom: 48px;
+    left: 12px;
+    display: flex;
+    flex-direction: column;
+
+    transition: transform 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+
+    svg {
+      height: 14px;
+    }
+
+    .button {
+      width: 30px;
+      height: 30px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #666666;
+      background-color: #ffffff;
+      transition: all 0.15s ease-out;
+      cursor: pointer;
+      border: 0;
+      outline: unset;
+
+      &:hover {
+        svg {
+          color: #000000;
+        }
       }
+    }
+
+    .map-center-control {
+      border-radius: 6px;
+    }
+
+    .group-button {
+      margin-top: 6px;
+      border-radius: 6px;
+      overflow: hidden;
+      box-shadow: 0 1px 1px rgba(0, 0, 0, 0.12);
+      transition: all 0.1s cubic-bezier(0.4, 0, 0.2, 1);
     }
   }
 
-  .map-center-control {
-    border-radius: 6px;
+  .slide-leave-active,
+  .slide-enter-active {
+    transition: 0.3s;
+  }
+  .slide-enter {
+    transform: translate(0, 100%);
+  }
+  .slide-leave-to {
+    transform: translate(0, 100%);
   }
 
-  .group-button {
-    margin-top: 6px;
-    border-radius: 6px;
-    overflow: hidden;
-    box-shadow: 0 1px 1px rgba(0, 0, 0, 0.12);
-    transition: all 0.1s cubic-bezier(0.4, 0, 0.2, 1);
+  @media screen and (min-width: 768px) {
+    .preview-shown {
+      transform: unset;
+    }
+
+    .map-control {
+      flex-direction: row;
+      bottom: 26px;
+      right: 12px;
+      left: unset;
+
+      svg {
+        height: 14px;
+      }
+
+      .group-button {
+        display: flex;
+        margin-top: 0;
+        margin-left: 12px;
+      }
+    }
+
+    .slide-enter {
+      transform: translate(100%, 0);
+    }
+    .slide-leave-to {
+      transform: translate(100%, 0);
+    }
   }
-}
-
-.post-preview-toggle-button {
-  bottom: 120px;
-  right: 7px;
-
-  svg {
-    height: 18px;
-  }
-}
-
-.slide-leave-active,
-.slide-enter-active {
-  transition: 0.3s;
-}
-.slide-enter {
-  transform: translate(100%, 0);
-}
-.slide-leave-to {
-  transform: translate(100%, 0);
 }
 </style>

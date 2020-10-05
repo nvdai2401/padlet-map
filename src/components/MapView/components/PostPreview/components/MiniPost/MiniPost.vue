@@ -20,7 +20,7 @@
 
 <script>
 export default {
-  name: 'mini-post',
+  name: "mini-post",
   props: {
     post: Object,
   },
@@ -38,6 +38,7 @@ export default {
   padding: 12px 16px;
   cursor: pointer;
   transition: all 0.1s ease-out;
+  width: 72vw;
 
   .post-title {
     display: flex;
@@ -55,6 +56,7 @@ export default {
       color: #ffffff;
       font-size: 0.75rem;
       margin-top: 3px;
+      line-height: 1rem;
       display: -webkit-box;
       -webkit-line-clamp: 2;
       -webkit-box-orient: vertical;
@@ -81,6 +83,14 @@ export default {
 
   &:hover {
     background-color: #000000;
+  }
+
+  @media screen and (min-width: 768px) {
+    width: 100%;
+
+    &:hover {
+      background-color: #000000;
+    }
   }
 }
 </style>
