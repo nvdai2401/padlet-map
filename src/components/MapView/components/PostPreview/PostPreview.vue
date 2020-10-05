@@ -51,7 +51,7 @@ export default {
   z-index: 3001;
   left: 0;
   bottom: 0;
-  background-color: rgba(33, 33, 33, 0.8);
+  background-color: rgba(43, 43, 43, 0.8);
   border-radius: 6px;
   backdrop-filter: blur(10px);
 

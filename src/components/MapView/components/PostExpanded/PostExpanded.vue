@@ -87,8 +87,11 @@ export default {
     },
   },
   mounted() {
+    const screenWidth = window.innerWidth;
+    if (screenWidth <= 768) {
+      this.imgWidth = window.innerWidth;
+    }
     this.currentIndex = this.posts.indexOf(String(this.postId));
-    this.imgWidth = window.innerWidth;
     window.addEventListener('keydown', this.handleOnKeyPress);
   },
   destroyed() {
@@ -135,6 +138,8 @@ export default {
   transition: all 0.2s ease-out;
 
   .toolbar {
+    position: absolute;
+    bottom: 0;
     width: 100vw;
     height: 40px;
     padding: 0 12px;
@@ -142,6 +147,7 @@ export default {
     justify-content: space-between;
     align-items: center;
     color: #ffffff;
+    background-color: rgba(43, 43, 43, 0.5);
 
     .post-index {
       letter-spacing: 1px;
@@ -176,9 +182,8 @@ export default {
 
   .content {
     width: 100vw;
-    height: 90%;
+    height: 100vh;
     background-color: #ffffff;
-    margin-top: 12px;
     display: flex;
     flex-direction: column;
     transition: all 0.15s ease-out;
@@ -199,15 +204,21 @@ export default {
     .post-body {
       overflow: auto;
       padding: 0 24px;
-      margin-bottom: 12px;
+      margin-bottom: 42px;
       font-size: 0.875rem;
       line-height: 1.5rem;
     }
   }
 
   @media screen and (min-width: 768px) {
+    .toolbar {
+      position: relative;
+      background-color: unset;
+    }
+
     .content {
       width: 720px;
+      height: 90vh;
       border-radius: 12px;
       margin-top: 24px;
 
