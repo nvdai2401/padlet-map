@@ -1,11 +1,11 @@
 <template>
   <div class="post" @click.stop="actionListVisible = false">
     <img
-      :src="postInfo.attachment + '?tr=w-254'"
+      :src="postInfo.attachment + '?tr=w-518'"
       :alt="postInfo.headline"
       :style="{ backgroundColor: placeholer.bgColor }"
       :height="placeholer.height"
-      :width="POST_WIDTH"
+      width="254px"
       loading="lazy"
       class="post-image"
     />
@@ -34,7 +34,7 @@
 const POST_WIDTH = 254;
 
 export default {
-  name: 'post',
+  name: "post",
   props: {
     postInfo: Object,
     onExpandPost: Function,
@@ -43,8 +43,8 @@ export default {
     return {
       actionListVisible: false,
       placeholer: {
-        bgColor: '#ffffff',
-        height: '100%',
+        bgColor: "#ffffff",
+        height: "100%",
       },
     };
   },
@@ -55,16 +55,16 @@ export default {
     openLinkInGmap() {
       window.open(
         `https://www.google.com/maps/search/?api=1&query=${this.postInfo.location_name}`,
-        '_blank',
+        "_blank"
       );
     },
     updatePlaceholder() {
       const placeholer = this.postInfo.preview_image;
       this.placeholer = {
-        bgColor: `rgb(${placeholer.dominant_color.join(',')})`,
+        bgColor: `rgb(${placeholer.dominant_color.join(",")})`,
         height:
           Math.floor(placeholer.height / (placeholer.width / POST_WIDTH)) +
-          'px',
+          "px",
       };
     },
   },
@@ -72,13 +72,13 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-@import 'src/assets/styles/variables.scss';
+@import "src/assets/styles/variables.scss";
 
 .post {
   width: 254px;
   max-height: 600px;
   position: relative;
-  z-index: zIndex('post');
+  z-index: zIndex("post");
   display: flex;
   flex-direction: column;
 
@@ -89,7 +89,7 @@ export default {
     position: absolute;
     top: 6px;
     right: 6px;
-    z-index: zIndex('post') + 1;
+    z-index: zIndex("post") + 1;
     width: 35px;
     height: 30px;
     border: 1px solid #24252c;
@@ -111,7 +111,7 @@ export default {
     position: absolute;
     top: 0;
     right: 0;
-    z-index: zIndex('post') + 2;
+    z-index: zIndex("post") + 2;
     box-shadow: 0 10px 20px rgba(0, 0, 0, 0.19), 0 6px 6px rgba(0, 0, 0, 0.23);
     width: 90%;
     text-align: left;

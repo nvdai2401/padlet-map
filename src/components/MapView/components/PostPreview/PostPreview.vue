@@ -23,10 +23,10 @@
 </template>
 
 <script>
-import { MiniPost } from './components';
+import { MiniPost } from "./components";
 
 export default {
-  name: 'post-preview',
+  name: "post-preview",
   props: {
     posts: Object,
     onMouseOver: Function,
@@ -34,7 +34,7 @@ export default {
     onClick: Function,
   },
   components: {
-    'mini-post': MiniPost,
+    "mini-post": MiniPost,
   },
   data() {
     return {};
@@ -44,17 +44,16 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-@import 'src/assets/styles/variables.scss';
+@import "src/assets/styles/variables.scss";
 
 .post-preview {
   display: flex;
   width: 100vw;
   position: absolute;
-  z-index: zIndex('post-preview');
+  z-index: zIndex("post-preview");
   left: 0;
   bottom: 0;
   background-color: rgba(43, 43, 43, 0.8);
-  border-radius: 6px;
   backdrop-filter: blur(10px);
 
   .post-count {
@@ -84,6 +83,7 @@ export default {
     bottom: 72px;
     flex-direction: column;
     padding-bottom: 16px;
+    border-radius: 6px;
 
     .post-list {
       flex-direction: column;

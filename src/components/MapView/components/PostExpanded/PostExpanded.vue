@@ -52,11 +52,11 @@
 </template>
 
 <script>
-import { getPostInfo } from 'src/api';
-import { Spinner } from './components';
+import { getPostInfo } from "src/api";
+import { Spinner } from "./components";
 
 export default {
-  name: 'post-expanded',
+  name: "post-expanded",
   props: {
     postId: Number,
     posts: Array,
@@ -70,8 +70,8 @@ export default {
       postInfo: {},
       currentIndex: 0,
       placeholer: {
-        bgColor: '#ffffff',
-        height: '100%',
+        bgColor: "#ffffff",
+        height: "100%",
       },
       loading: true,
       imgWidth: 720,
@@ -93,10 +93,10 @@ export default {
       this.imgWidth = window.innerWidth;
     }
     this.currentIndex = this.posts.indexOf(String(this.postId));
-    window.addEventListener('keydown', this.handleOnKeyPress);
+    window.addEventListener("keydown", this.handleOnKeyPress);
   },
   destroyed() {
-    window.removeEventListener('keydown', this.handleOnKeyPress);
+    window.removeEventListener("keydown", this.handleOnKeyPress);
   },
   methods: {
     async fetchPost() {
@@ -106,9 +106,9 @@ export default {
     updatePlaceholder() {
       const placeholer = this.postInfo.preview_image;
       this.placeholer = {
-        bgColor: `rgb(${placeholer.dominant_color.join(',')})`,
+        bgColor: `rgb(${placeholer.dominant_color.join(",")})`,
         height: Math.floor(
-          placeholer.height / (placeholer.width / this.imgWidth),
+          placeholer.height / (placeholer.width / this.imgWidth)
         ),
       };
     },
@@ -141,11 +141,11 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-@import 'src/assets/styles/variables.scss';
+@import "src/assets/styles/variables.scss";
 
 .post-expanded {
   position: fixed;
-  z-index: zIndex('post-expanded');
+  z-index: zIndex("post-expanded");
   left: 0;
   bottom: 0;
   width: 100%;
@@ -161,7 +161,7 @@ export default {
     position: absolute;
     bottom: 0;
     width: 100vw;
-    height: 40px;
+    height: 54px;
     padding: 0 12px;
     display: flex;
     justify-content: space-between;
@@ -225,7 +225,7 @@ export default {
     .post-body {
       overflow: auto;
       padding: 0 24px;
-      margin-bottom: 42px;
+      margin-bottom: 60px;
       font-size: 0.875rem;
       line-height: 1.5rem;
     }

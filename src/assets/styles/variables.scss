@@ -6,8 +6,8 @@ $black: #000000;
 
 /*==================Z-INDEX==================*/
 $z-layers: (
-  'post-action-list': 1000,
-  'map-view': 2000,
+  'map-view': 1000,
+  'post': 2000,
   'post-preview': 3000,
   'post-expanded': 4000,
   'default': 1,
