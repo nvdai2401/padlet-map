@@ -1,3 +1,5 @@
+/*==================MEDIA QUERY==================*/
+
 $desktop-width: 768px;
 
 @mixin desktop {
@@ -5,6 +7,8 @@ $desktop-width: 768px;
     @content;
   }
 }
+
+/*==================POSITION==================*/
 
 @mixin position(
   $position,
@@ -32,12 +36,16 @@ $desktop-width: 768px;
   @include position(fixed, $args...);
 }
 
+/*==================SIZE==================*/
+
 @mixin size($width: null, $height: null, $maxWidth: null, $maxHeight: null) {
   width: $width;
   height: $height;
   max-width: $maxWidth;
   max-height: $maxHeight;
 }
+
+/*==================VENDOR PREFIX==================*/
 
 $known-prefixes: webkit, moz, ms, o;
 
@@ -51,6 +59,8 @@ $known-prefixes: webkit, moz, ms, o;
     -#{$prefix}-#{$property}: $value;
   }
 }
+
+/*==================TRANSFORM==================*/
 
 @mixin transform($args...) {
   @include prefix(transform, $args...);

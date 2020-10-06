@@ -1,0 +1,89 @@
+.post-expanded {
+  @include fixed($bottom: 0, $left: 0);
+  @include size($width: 100%, $height: 100%);
+  z-index: zIndex('post-expanded');
+
+  background: linear-gradient(rgba(51, 51, 51, 0.9), rgba(51, 51, 51, 0.5));
+  backdrop-filter: blur(10px);
+  transition: all 0.2s ease-out;
+
+  .toolbar {
+    @include absolute($bottom: 0);
+    @include size($width: 100vw, $height: 54px);
+    padding: 0 12px;
+    color: $white;
+    background-color: rgba(43, 43, 43, 0.5);
+
+    .post-index {
+      letter-spacing: 1px;
+    }
+
+    button {
+      background-color: transparent;
+    }
+
+    svg {
+      @include size($height: 18px);
+      color: $white;
+    }
+
+    .nav-buttons {
+      button {
+        margin-right: 12px;
+
+        &:last-child {
+          margin-right: 0;
+        }
+
+        &:disabled {
+          opacity: 0.3;
+          cursor: not-allowed;
+        }
+      }
+    }
+  }
+
+  .content {
+    @include size($width: 100vw, $height: 100vh);
+    background-color: $white;
+    transition: all 0.15s ease-out;
+
+    .post-header {
+      font-size: 2rem;
+      font-weight: 600;
+      text-align: left;
+      padding: 24px;
+      line-height: 1.5rem;
+    }
+
+    .post-image {
+      @include size($width: 100%);
+      background-color: $white;
+    }
+
+    .post-body {
+      overflow: auto;
+      padding: 0 24px;
+      margin-bottom: 60px;
+      font-size: 0.875rem;
+      line-height: 1.5rem;
+    }
+  }
+
+  @include desktop {
+    .toolbar {
+      @include relative();
+      background-color: unset;
+    }
+
+    .content {
+      @include size($width: 720px, $height: 90vh);
+      border-radius: 12px;
+      margin-top: 24px;
+
+      .post-image {
+        border-radius: 12px 12px 0 0;
+      }
+    }
+  }
+}

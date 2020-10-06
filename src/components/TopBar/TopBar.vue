@@ -18,41 +18,5 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-@import 'src/assets/styles/variables.scss';
-
-.topbar {
-  height: $topbar-height;
-  background-color: $black;
-  color: $white;
-  padding: 12px;
-
-  img {
-    border-radius: 50%;
-    margin-right: 12px;
-    @include size($width: 50px, $height: 50px);
-  }
-
-  h1 {
-    font-size: 1rem;
-    line-height: 1.5rem;
-    font-weight: 700;
-  }
-
-  span {
-    font-size: 0.8rem;
-    line-height: 1.125rem;
-  }
-
-  @media screen and (min-width: 768px) {
-    padding-left: 24px;
-
-    h1 {
-      font-size: 1.25rem;
-    }
-
-    span {
-      font-size: 0.875rem;
-    }
-  }
-}
+@import './TopBar.scss';
 </style>
