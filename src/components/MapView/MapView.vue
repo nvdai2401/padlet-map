@@ -226,11 +226,11 @@ export default {
 <style lang="scss" scoped>
 .map-view {
   height: calc(100vh - #{$topbar-height});
-  position: relative;
+  @include relative();
+  z-index: zIndex('map-view');
 
   .gmap-container {
-    width: 100vw;
-    height: 100%;
+    @include size($width: 100vw, $height: 100%);
   }
 
   .preview-shown {
@@ -238,25 +238,19 @@ export default {
   }
 
   .map-control {
-    position: absolute;
-    z-index: zIndex('map-view');
-    bottom: 48px;
-    left: 12px;
     transition: transform 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+    z-index: zIndex('map-view') + 1;
+    @include absolute($left: 12px, $bottom: 48px);
 
     svg {
-      height: 14px;
+      @include size($height: 14px);
     }
 
     .button {
-      width: 30px;
-      height: 30px;
+      @include size($width: 30px, $height: 30px);
       color: #666666;
       background-color: $white;
       transition: all 0.15s ease-out;
-      cursor: pointer;
-      border: 0;
-      outline: unset;
 
       &:hover {
         svg {
@@ -296,13 +290,7 @@ export default {
 
     .map-control {
       flex-direction: row;
-      bottom: 26px;
-      right: 12px;
-      left: unset;
-
-      svg {
-        height: 14px;
-      }
+      @include absolute($right: 12px, $bottom: 26px, $left: unset);
 
       .group-button {
         flex-direction: row;

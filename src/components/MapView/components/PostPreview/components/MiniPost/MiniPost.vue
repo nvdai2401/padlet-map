@@ -36,10 +36,10 @@ export default {
   padding: 12px 16px;
   cursor: pointer;
   transition: all 0.1s ease-out;
-  width: 72vw;
+  @include size($width: 72vw);
 
   .post-title {
-    width: calc(100% - 72px);
+    @include size($width: calc(100% - 72px));
 
     span {
       overflow: hidden;
@@ -67,12 +67,10 @@ export default {
   }
 
   .post-image {
-    width: 56px;
-    height: 56px;
+    @include size($width: 56px, $height: 56px);
 
     img {
-      width: 100%;
-      height: 100%;
+      @include size($width: 100%, $height: 100%);
       object-fit: cover;
       border-radius: 6px;
     }

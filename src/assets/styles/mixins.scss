@@ -5,3 +5,36 @@ $desktop-width: 768px;
     @content;
   }
 }
+
+@mixin position(
+  $position,
+  $top: null,
+  $right: null,
+  $bottom: null,
+  $left: null
+) {
+  position: $position;
+  top: $top;
+  right: $right;
+  bottom: $bottom;
+  left: $left;
+}
+
+@mixin absolute($args...) {
+  @include position(absolute, $args...);
+}
+
+@mixin relative($args...) {
+  @include position(relative, $args...);
+}
+
+@mixin fixed($args...) {
+  @include position(fixed, $args...);
+}
+
+@mixin size($width: null, $height: null, $maxWidth: null, $maxHeight: null) {
+  width: $width;
+  height: $height;
+  max-width: $maxWidth;
+  max-height: $maxHeight;
+}

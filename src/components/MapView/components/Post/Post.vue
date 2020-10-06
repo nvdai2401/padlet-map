@@ -1,5 +1,5 @@
 <template>
-  <div class="post" @click.stop="actionListVisible = false">
+  <div class="flex-column post" @click.stop="actionListVisible = false">
     <img
       :src="postInfo.attachment + '?tr=w-518'"
       :alt="postInfo.headline"
@@ -76,20 +76,14 @@ export default {
 
 <style lang="scss" scoped>
 .post {
-  width: 254px;
-  max-height: 600px;
-  position: relative;
+  @include size($width: 254px, $maxHeight: 600px);
+  @include relative();
   z-index: zIndex('post');
-  display: flex;
-  flex-direction: column;
 
   .more-actions-button {
-    position: absolute;
-    top: 6px;
-    right: 6px;
+    @include absolute($top: 6px, $right: 6px);
+    @include size($width: 35px, $height: 30px);
     z-index: zIndex('post') + 1;
-    width: 35px;
-    height: 30px;
     border: 1px solid #24252c;
     border-radius: 6px;
     background-color: #24252c;
@@ -101,17 +95,14 @@ export default {
   }
 
   svg {
-    width: 20px !important;
-    height: 15px;
+    @include size($height: 15px);
   }
 
   .more-actions-list {
-    position: absolute;
-    top: 0;
-    right: 0;
+    @include absolute($top: 0, $right: 0);
+    @include size($width: 90%);
     z-index: zIndex('post') + 2;
     box-shadow: 0 10px 20px rgba(0, 0, 0, 0.19), 0 6px 6px rgba(0, 0, 0, 0.23);
-    width: 90%;
     text-align: left;
     padding: 3px 0;
     border-radius: 6px;
@@ -124,6 +115,7 @@ export default {
       display: flex;
       align-items: center;
       transition: all 0.1s ease-out;
+
       span {
         margin-left: 6px;
       }
@@ -152,11 +144,11 @@ export default {
   }
 
   .post-image {
-    width: 100%;
+    @include size($width: 100%);
   }
 
   .post-content {
-    height: calc(100% - 200px);
+    @include size($height: calc(100% - 200px));
     overflow: auto;
     padding: 12px;
     margin-bottom: 12px;
@@ -164,6 +156,7 @@ export default {
     font-size: 0.875rem;
     line-height: 1.5rem;
   }
+
   @include desktop {
     .more-actions-button {
       visibility: hidden;

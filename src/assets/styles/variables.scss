@@ -20,7 +20,3 @@ $z-layers: (
   }
   @return map-get($z-layers, $layer);
 }
-
-$index-normal-1: 1;
-$index-top-1000: 1000;
-$index-popper-2000: 2000;

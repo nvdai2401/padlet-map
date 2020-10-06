@@ -1,5 +1,5 @@
 <template>
-  <div class="flex-row post-preview">
+  <div class="post-preview">
     <div class="post-count">{{ Object.keys(posts).length }} posts</div>
     <div class="flex-row post-list">
       <div
@@ -45,13 +45,12 @@ export default {
 
 <style lang="scss" scoped>
 .post-preview {
-  width: 100vw;
-  position: absolute;
+  display: flex;
   z-index: zIndex('post-preview');
-  left: 0;
-  bottom: 0;
   background-color: rgba(43, 43, 43, 0.8);
   backdrop-filter: blur(10px);
+  @include size($width: 100vw);
+  @include absolute($left: 0, $bottom: 0);
 
   .post-count {
     display: none;
@@ -69,14 +68,12 @@ export default {
   }
 
   @include desktop {
-    max-height: calc(100% - 96px);
-    width: 320px;
     left: unset;
-    right: 12px;
-    bottom: 72px;
     flex-direction: column;
     padding-bottom: 16px;
     border-radius: 6px;
+    @include absolute($right: 12px, $bottom: 72px);
+    @include size($width: 320px, $maxHeight: calc(100% - 96px));
 
     .post-list {
       flex-direction: column;

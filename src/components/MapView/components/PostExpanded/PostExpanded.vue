@@ -142,21 +142,17 @@ export default {
 
 <style lang="scss" scoped>
 .post-expanded {
-  position: fixed;
+  @include fixed($bottom: 0, $left: 0);
+  @include size($width: 100%, $height: 100%);
   z-index: zIndex('post-expanded');
-  left: 0;
-  bottom: 0;
-  width: 100%;
-  height: 100%;
+
   background: linear-gradient(rgba(51, 51, 51, 0.9), rgba(51, 51, 51, 0.5));
   backdrop-filter: blur(10px);
   transition: all 0.2s ease-out;
 
   .toolbar {
-    position: absolute;
-    bottom: 0;
-    width: 100vw;
-    height: 54px;
+    @include absolute($bottom: 0);
+    @include size($width: 100vw, $height: 54px);
     padding: 0 12px;
     color: $white;
     background-color: rgba(43, 43, 43, 0.5);
@@ -167,20 +163,17 @@ export default {
 
     button {
       background-color: transparent;
-      border: none;
-      outline: none;
-      cursor: pointer;
     }
 
     svg {
-      width: 20px !important;
-      height: 18px;
+      @include size($height: 18px);
       color: $white;
     }
 
     .nav-buttons {
       button {
         margin-right: 12px;
+
         &:last-child {
           margin-right: 0;
         }
@@ -194,8 +187,7 @@ export default {
   }
 
   .content {
-    width: 100vw;
-    height: 100vh;
+    @include size($width: 100vw, $height: 100vh);
     background-color: $white;
     transition: all 0.15s ease-out;
 
@@ -208,7 +200,7 @@ export default {
     }
 
     .post-image {
-      width: 100%;
+      @include size($width: 100%);
       background-color: $white;
     }
 
@@ -223,13 +215,12 @@ export default {
 
   @include desktop {
     .toolbar {
-      position: relative;
+      @include relative();
       background-color: unset;
     }
 
     .content {
-      width: 720px;
-      height: 90vh;
+      @include size($width: 720px, $height: 90vh);
       border-radius: 12px;
       margin-top: 24px;
 

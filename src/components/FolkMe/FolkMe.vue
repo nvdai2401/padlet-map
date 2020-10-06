@@ -4,7 +4,7 @@
     :aria-label="ariaLabel"
     target="_blank"
     rel="noopener noreferrer"
-    class="github-corner"
+    class="folk-me"
   >
     <svg
       :width="size"
@@ -66,7 +66,7 @@ export default {
 
 <style lang="scss" scoped>
 @include desktop {
-  .github-corner:hover .octo-arm {
+  .folk-me:hover .octo-arm {
     animation: octocat-wave 560ms ease-in-out;
   }
 
