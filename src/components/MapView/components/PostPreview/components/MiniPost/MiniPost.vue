@@ -1,6 +1,6 @@
 <template>
-  <div class="mini-post">
-    <div class="post-title">
+  <div class="flex-row justify-space-between mini-post">
+    <div class="flex-column post-title">
       <span class="title" :style="{ color: post.color }">{{
         post.headline
       }}</span>
@@ -35,16 +35,12 @@ export default {
 @import 'src/assets/styles/variables.scss';
 
 .mini-post {
-  display: flex;
-  justify-content: space-between;
   padding: 12px 16px;
   cursor: pointer;
   transition: all 0.1s ease-out;
   width: 72vw;
 
   .post-title {
-    display: flex;
-    flex-direction: column;
     width: calc(100% - 72px);
 
     span {
@@ -52,6 +48,13 @@ export default {
       text-transform: capitalize;
       text-align: left;
       text-overflow: ellipsis;
+    }
+
+    .title {
+      font-size: 1rem;
+      line-height: 1.25rem;
+      font-weight: 600;
+      white-space: nowrap;
     }
 
     .subtitle {
@@ -62,13 +65,6 @@ export default {
       display: -webkit-box;
       -webkit-line-clamp: 2;
       -webkit-box-orient: vertical;
-    }
-
-    .title {
-      font-size: 1rem;
-      line-height: 1.25rem;
-      font-weight: 600;
-      white-space: nowrap;
     }
   }
 

@@ -36,3 +36,9 @@ yarn lint
 - [x] Custom view control
 - [x] Lazy loading map, responsive map
 - [ ] Load image marker dynamically, upload to aws
+
+flex
+flex-column
+flex-row
+flex-center
+flex-space-between

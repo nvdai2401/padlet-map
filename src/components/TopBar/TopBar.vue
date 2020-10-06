@@ -1,5 +1,5 @@
 <template>
-  <div class="topbar">
+  <div class="flex-row topbar">
     <img
       src="https://ik.imagekit.io/fireman35/avatar1_gTDL8Fqsq.jpg?tr=w-240,h-240"
       alt="Michael from Vietnam"
@@ -22,7 +22,6 @@ export default {
 
 .topbar {
   height: $topbar-height;
-  display: flex;
   background-color: $black;
   color: $white;
   padding: 12px;

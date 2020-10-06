@@ -1,11 +1,11 @@
 <template>
-  <div class="post-preview">
+  <div class="flex-row post-preview">
     <div class="post-count">{{ Object.keys(posts).length }} posts</div>
-    <div class="post-list">
+    <div class="flex-row post-list">
       <div
         v-for="(post, index) in Object.values(posts)"
         :key="post.id"
-        class="post-list__container"
+        class="flex-row post-list__container"
       >
         <mini-post
           :post="post"
@@ -23,10 +23,10 @@
 </template>
 
 <script>
-import { MiniPost } from "./components";
+import { MiniPost } from './components';
 
 export default {
-  name: "post-preview",
+  name: 'post-preview',
   props: {
     posts: Object,
     onMouseOver: Function,
@@ -34,7 +34,7 @@ export default {
     onClick: Function,
   },
   components: {
-    "mini-post": MiniPost,
+    'mini-post': MiniPost,
   },
   data() {
     return {};
@@ -44,13 +44,12 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-@import "src/assets/styles/variables.scss";
+@import 'src/assets/styles/variables.scss';
 
 .post-preview {
-  display: flex;
   width: 100vw;
   position: absolute;
-  z-index: zIndex("post-preview");
+  z-index: zIndex('post-preview');
   left: 0;
   bottom: 0;
   background-color: rgba(43, 43, 43, 0.8);
@@ -61,13 +60,9 @@ export default {
   }
 
   .post-list {
-    display: flex;
-    flex-direction: row;
     overflow: auto;
 
     .post-list__container {
-      display: flex;
-
       .divider {
         margin: 16px 0;
         border-left: 1px solid #333333;

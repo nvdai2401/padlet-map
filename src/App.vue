@@ -20,8 +20,5 @@ export default {
 </script>
 
 <style lang="scss">
-@import 'src/assets/styles/reset';
-@import 'src/assets/styles/base';
-@import 'src/assets/styles/scrollbar_custom.scss';
-@import 'src/assets/styles/gmap_custom';
+@import 'src/assets/styles/index.scss';
 </style>

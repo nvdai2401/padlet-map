@@ -39,7 +39,10 @@
 
     <div
       v-show="mapControlVisible"
-      :class="['map-control', postPreviewVisible ? 'preview-shown' : '']"
+      :class="[
+        'flex-column map-control',
+        postPreviewVisible ? 'preview-shown' : '',
+      ]"
     >
       <button
         class="button map-center-control"
@@ -48,7 +51,7 @@
         <font-awesome-icon :icon="['fas', 'bars']" />
       </button>
 
-      <div class="group-button">
+      <div class="flex-column group-button">
         <button class="button" @click="fitBounds">
           <font-awesome-icon :icon="['fas', 'expand']" />
         </button>
@@ -241,9 +244,6 @@ export default {
     z-index: zIndex('map-view');
     bottom: 48px;
     left: 12px;
-    display: flex;
-    flex-direction: column;
-
     transition: transform 0.25s cubic-bezier(0.4, 0, 0.2, 1);
 
     svg {
@@ -253,9 +253,6 @@ export default {
     .button {
       width: 30px;
       height: 30px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
       color: #666666;
       background-color: $white;
       transition: all 0.15s ease-out;
@@ -310,7 +307,7 @@ export default {
       }
 
       .group-button {
-        display: flex;
+        flex-direction: row;
         margin-top: 0;
         margin-left: 12px;
       }

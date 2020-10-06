@@ -1,6 +1,6 @@
 <template>
-  <div class="post-expanded">
-    <div class="toolbar">
+  <div class="flex-column align-center post-expanded">
+    <div class="flex-row align-center justify-space-between toolbar">
       <div class="post-index">{{ currentIndex + 1 }}/{{ posts.length }}</div>
       <div class="nav-buttons">
         <button @click="moveToFirstPost" :disabled="currentIndex === 0">
@@ -29,7 +29,7 @@
       </div>
     </div>
 
-    <div class="content">
+    <div class="flex-column content">
       <spinner v-if="loading" />
       <template v-else>
         <img
@@ -52,11 +52,11 @@
 </template>
 
 <script>
-import { getPostInfo } from "src/api";
-import { Spinner } from "./components";
+import { getPostInfo } from 'src/api';
+import { Spinner } from './components';
 
 export default {
-  name: "post-expanded",
+  name: 'post-expanded',
   props: {
     postId: Number,
     posts: Array,
@@ -70,8 +70,8 @@ export default {
       postInfo: {},
       currentIndex: 0,
       placeholer: {
-        bgColor: "#ffffff",
-        height: "100%",
+        bgColor: '#ffffff',
+        height: '100%',
       },
       loading: true,
       imgWidth: 720,
@@ -93,10 +93,10 @@ export default {
       this.imgWidth = window.innerWidth;
     }
     this.currentIndex = this.posts.indexOf(String(this.postId));
-    window.addEventListener("keydown", this.handleOnKeyPress);
+    window.addEventListener('keydown', this.handleOnKeyPress);
   },
   destroyed() {
-    window.removeEventListener("keydown", this.handleOnKeyPress);
+    window.removeEventListener('keydown', this.handleOnKeyPress);
   },
   methods: {
     async fetchPost() {
@@ -106,9 +106,9 @@ export default {
     updatePlaceholder() {
       const placeholer = this.postInfo.preview_image;
       this.placeholer = {
-        bgColor: `rgb(${placeholer.dominant_color.join(",")})`,
+        bgColor: `rgb(${placeholer.dominant_color.join(',')})`,
         height: Math.floor(
-          placeholer.height / (placeholer.width / this.imgWidth)
+          placeholer.height / (placeholer.width / this.imgWidth),
         ),
       };
     },
@@ -141,19 +141,16 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-@import "src/assets/styles/variables.scss";
+@import 'src/assets/styles/variables.scss';
 
 .post-expanded {
   position: fixed;
-  z-index: zIndex("post-expanded");
+  z-index: zIndex('post-expanded');
   left: 0;
   bottom: 0;
   width: 100%;
   height: 100%;
   background: linear-gradient(rgba(51, 51, 51, 0.9), rgba(51, 51, 51, 0.5));
-  display: flex;
-  flex-direction: column;
-  align-items: center;
   backdrop-filter: blur(10px);
   transition: all 0.2s ease-out;
 
@@ -163,9 +160,6 @@ export default {
     width: 100vw;
     height: 54px;
     padding: 0 12px;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
     color: $white;
     background-color: rgba(43, 43, 43, 0.5);
 
@@ -205,8 +199,6 @@ export default {
     width: 100vw;
     height: 100vh;
     background-color: $white;
-    display: flex;
-    flex-direction: column;
     transition: all 0.15s ease-out;
 
     .post-header {
