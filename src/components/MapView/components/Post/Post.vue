@@ -75,8 +75,6 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-@import 'src/assets/styles/variables.scss';
-
 .post {
   width: 254px;
   max-height: 600px;
@@ -166,8 +164,7 @@ export default {
     font-size: 0.875rem;
     line-height: 1.5rem;
   }
-
-  @media screen and (min-width: 768px) {
+  @include desktop {
     .more-actions-button {
       visibility: hidden;
       opacity: 0;

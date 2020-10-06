@@ -65,7 +65,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-@media screen and (min-width: 768px) {
+@include desktop {
   .github-corner:hover .octo-arm {
     animation: octocat-wave 560ms ease-in-out;
   }

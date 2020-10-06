@@ -44,8 +44,6 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-@import 'src/assets/styles/variables.scss';
-
 .post-preview {
   width: 100vw;
   position: absolute;
@@ -70,7 +68,7 @@ export default {
     }
   }
 
-  @media screen and (min-width: 768px) {
+  @include desktop {
     max-height: calc(100% - 96px);
     width: 320px;
     left: unset;

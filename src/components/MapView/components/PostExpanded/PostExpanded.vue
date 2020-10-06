@@ -141,8 +141,6 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-@import 'src/assets/styles/variables.scss';
-
 .post-expanded {
   position: fixed;
   z-index: zIndex('post-expanded');
@@ -223,7 +221,7 @@ export default {
     }
   }
 
-  @media screen and (min-width: 768px) {
+  @include desktop {
     .toolbar {
       position: relative;
       background-color: unset;

@@ -224,8 +224,6 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-@import 'src/assets/styles/variables.scss';
-
 .map-view {
   height: calc(100vh - #{$topbar-height});
   position: relative;
@@ -291,7 +289,7 @@ export default {
     transform: translate(0, 100%);
   }
 
-  @media screen and (min-width: 768px) {
+  @include desktop {
     .preview-shown {
       transform: unset;
     }

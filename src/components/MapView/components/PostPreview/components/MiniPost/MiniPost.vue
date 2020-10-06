@@ -32,8 +32,6 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-@import 'src/assets/styles/variables.scss';
-
 .mini-post {
   padding: 12px 16px;
   cursor: pointer;
@@ -84,7 +82,7 @@ export default {
     background-color: $black;
   }
 
-  @media screen and (min-width: 768px) {
+  @include desktop {
     width: 100%;
   }
 }
