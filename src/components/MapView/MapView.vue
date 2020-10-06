@@ -234,7 +234,7 @@ export default {
   }
 
   .preview-shown {
-    transform: translateY(-74px);
+    @include translateY(-74px);
   }
 
   .map-control {
@@ -277,10 +277,10 @@ export default {
     transition: 0.3s;
   }
   .slide-enter {
-    transform: translate(0, 100%);
+    @include translate(0, 100%);
   }
   .slide-leave-to {
-    transform: translate(0, 100%);
+    @include translate(0, 100%);
   }
 
   @include desktop {
@@ -300,10 +300,10 @@ export default {
     }
 
     .slide-enter {
-      transform: translate(100%, 0);
+      @include translate(100%, 0);
     }
     .slide-leave-to {
-      transform: translate(100%, 0);
+      @include translate(100%, 0);
     }
   }
 }

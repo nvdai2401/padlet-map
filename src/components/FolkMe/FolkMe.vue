@@ -73,15 +73,15 @@ export default {
   @keyframes octocat-wave {
     0%,
     100% {
-      transform: rotate(0);
+      @include rotate(0);
     }
     20%,
     60% {
-      transform: rotate(-25deg);
+      @include rotate(-25deg);
     }
     40%,
     80% {
-      transform: rotate(10deg);
+      @include rotate(10deg);
     }
   }
 }

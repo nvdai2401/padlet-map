@@ -38,3 +38,32 @@ $desktop-width: 768px;
   max-width: $maxWidth;
   max-height: $maxHeight;
 }
+
+$known-prefixes: webkit, moz, ms, o;
+
+@mixin prefix($property, $value, $prefixes) {
+  #{$property}: $value;
+  @each $prefix in $prefixes {
+    @if not index($known-prefixes, $prefix) {
+      @warn "Unknown prefix #{$prefix}.";
+    }
+
+    -#{$prefix}-#{$property}: $value;
+  }
+}
+
+@mixin transform($args...) {
+  @include prefix(transform, $args...);
+}
+
+@mixin rotate($degree) {
+  @include transform(rotate($degree), webkit moz ms o);
+}
+
+@mixin translate($x, $y) {
+  @include transform(translate($x, $y), webkit moz ms o);
+}
+
+@mixin translateY($value) {
+  @include transform(translateY($value), webkit moz ms o);
+}
