@@ -54,6 +54,7 @@
 <script>
 import { getPostInfo } from 'src/api';
 import { Spinner } from './components';
+import { keydown } from './mixins';
 
 export default {
   name: 'post-expanded',
@@ -62,13 +63,14 @@ export default {
     posts: Array,
     onClose: Function,
   },
+  mixins: [keydown],
   components: {
     spinner: Spinner,
   },
   data() {
     return {
       postInfo: {},
-      currentIndex: 0,
+      currentIndex: -1,
       placeholer: {
         bgColor: '#ffffff',
         height: '100%',
@@ -93,10 +95,6 @@ export default {
       this.imgWidth = window.innerWidth;
     }
     this.currentIndex = this.posts.indexOf(String(this.postId));
-    window.addEventListener('keydown', this.handleOnKeyPress);
-  },
-  destroyed() {
-    window.removeEventListener('keydown', this.handleOnKeyPress);
   },
   methods: {
     async fetchPost() {
@@ -124,7 +122,7 @@ export default {
     moveToLastPost() {
       this.currentIndex = this.posts.length - 1;
     },
-    handleOnKeyPress(e) {
+    handleOnKeyDown(e) {
       const ARROW_LEFT_KEYCODE = 37,
         ARROW_RIGHT_KEYCODE = 39;
       if (e.keyCode == ARROW_LEFT_KEYCODE && this.currentIndex > 0) {

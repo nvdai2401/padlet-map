@@ -22,4 +22,10 @@ module.exports = {
       },
     },
   },
+  chainWebpack: (config) => {
+    config.plugin('html').tap((args) => {
+      args[0].title = "Map of Countries I'd like to visit";
+      return args;
+    });
+  },
 };
