@@ -46,7 +46,7 @@
     background-color: $black;
   }
 
-  @include desktop {
+  @include tablet {
     width: 100%;
   }
 }

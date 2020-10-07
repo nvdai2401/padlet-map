@@ -91,7 +91,8 @@ export default {
   },
   mounted() {
     const screenWidth = window.innerWidth;
-    if (screenWidth <= 768) {
+    const DESKTOP_MIN_WIDTH = 768;
+    if (screenWidth < DESKTOP_MIN_WIDTH) {
       this.imgWidth = window.innerWidth;
     }
     this.currentIndex = this.posts.indexOf(String(this.postId));

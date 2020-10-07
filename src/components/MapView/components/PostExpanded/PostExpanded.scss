@@ -19,6 +19,7 @@
 
     button {
       background-color: transparent;
+      @include size($width: 40px, $height: 40px);
     }
 
     svg {
@@ -69,7 +70,7 @@
     }
   }
 
-  @include desktop {
+  @include tablet {
     .toolbar {
       @include relative();
       background-color: unset;

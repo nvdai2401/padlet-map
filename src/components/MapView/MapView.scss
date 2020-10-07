@@ -57,7 +57,7 @@
     @include translate(0, 100%);
   }
 
-  @include desktop {
+  @include tablet {
     .preview-shown {
       transform: unset;
     }
