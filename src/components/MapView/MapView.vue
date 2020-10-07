@@ -67,10 +67,10 @@
       <post-preview
         v-show="postPreviewVisible && Object.keys(markers).length > 0"
         key="post-preview"
-        :posts="markers"
-        :onClick="handleOnClick"
-        :onMouseOver="handleOnMouseOver"
-        :onMouseOut="handleOnMouseOut"
+        :posts="Object.values(markers)"
+        :onMouseOverPost="handleOnMouseOver"
+        :onMouseOutPost="handleOnMouseOut"
+        :onClickPost="handleOnClick"
       />
     </transition-group>
 
