@@ -52,7 +52,7 @@
 </template>
 
 <script>
-import { getPostInfo } from 'src/api';
+import { getPostInfo } from '@/api';
 import { Spinner } from './components';
 import { keydown } from './mixins';
 

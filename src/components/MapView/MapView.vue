@@ -13,7 +13,7 @@
         v-for="marker in Object.values(markers)"
         :key="marker.id"
         :icon="{
-          url: require(`src/assets/images/markers/${marker.color}_marker.webp`),
+          url: require(`@/assets/images/markers/${marker.color}_marker.webp`),
         }"
         :clickable="true"
         :position="{
@@ -94,7 +94,7 @@ import {
   MIN_ZOOM,
   MAX_ZOOM,
 } from './mapProperty';
-import { getMarkers } from 'src/api';
+import { getMarkers } from '@/api';
 
 export default {
   name: 'map-view',
