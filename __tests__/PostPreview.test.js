@@ -10,30 +10,27 @@ const propsData = {
   onClickPost: jest.fn(),
 };
 describe('<PostPreview />', () => {
-  it(`should render ${posts.length} posts`, () => {
-    const wrapper = mountWithProps(PostPreview, propsData);
+  let wrapper;
+  beforeEach(() => {
+    wrapper = mountWithProps(PostPreview, propsData);
+  });
 
+  it(`should render ${posts.length} posts`, () => {
     expect(wrapper.find('.post-count').text()).toBe(`${posts.length} posts`);
     expect(wrapper.findAll('.post-list__container').length).toBe(posts.length);
   });
 
   it(`should call onMouseOverPost when mouse over`, () => {
-    const wrapper = mountWithProps(PostPreview, propsData);
-
     wrapper.find('.mini-post').trigger('mouseover');
     expect(propsData.onMouseOverPost).toHaveBeenCalled();
   });
 
   it(`should call onMouseOutPost when mouse out`, () => {
-    const wrapper = mountWithProps(PostPreview, propsData);
-
     wrapper.find('.mini-post').trigger('mouseout');
     expect(propsData.onMouseOutPost).toHaveBeenCalled();
   });
 
-  it(`should call onClickPost when mouse out`, () => {
-    const wrapper = mountWithProps(PostPreview, propsData);
-
+  it(`should call onClickPost when click`, () => {
     wrapper.find('.mini-post').trigger('click');
     expect(propsData.onClickPost).toHaveBeenCalled();
   });

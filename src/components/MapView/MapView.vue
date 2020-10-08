@@ -30,7 +30,7 @@
         >
           <post
             v-if="marker.is_post_visible"
-            :post-info="marker"
+            :post="marker"
             :onExpandPost="handleOnExpandPost"
           />
         </gmap-info-window>

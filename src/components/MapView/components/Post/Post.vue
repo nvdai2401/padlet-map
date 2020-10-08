@@ -1,18 +1,18 @@
 <template>
   <div class="flex-column post" @click.stop="actionListVisible = false">
     <img
-      :src="postInfo.attachment + '?tr=w-518'"
-      :alt="postInfo.headline"
-      :style="{ backgroundColor: placeholer.bgColor }"
-      :height="placeholer.height"
+      :src="post.attachment + '?tr=w-518'"
+      :alt="post.headline"
+      :style="{ backgroundColor: placeholder.bgColor }"
+      :height="placeholder.height"
       width="254px"
       loading="lazy"
       class="post-image"
     />
     <h3 class="post-header">
-      {{ postInfo.headline }}
+      {{ post.headline }}
     </h3>
-    <div class="post-content" v-html="postInfo.body"></div>
+    <div class="post-content" v-html="post.body"></div>
     <div
       class="flex-row align-center justify-center more-actions-button"
       @click.stop="actionListVisible = true"
@@ -34,17 +34,18 @@
 </template>
 
 <script>
+import { calculatePlaceholderHeight } from '@/shares/utils';
 
 export default {
   name: 'post',
   props: {
-    postInfo: Object,
+    post: Object,
     onExpandPost: Function,
   },
   data() {
     return {
       actionListVisible: false,
-      placeholer: {
+      placeholder: {
         bgColor: '#ffffff',
         height: '100%',
       },
@@ -56,17 +57,16 @@ export default {
   methods: {
     openLinkInGmap() {
       window.open(
-        `https://www.google.com/maps/search/?api=1&query=${this.postInfo.location_name}`,
+        `https://www.google.com/maps/search/?api=1&query=${this.post.location_name}`,
         '_blank',
       );
     },
     updatePlaceholder() {
-      const POST_WIDTH = 254;
-      const placeholer = this.postInfo.preview_image;
-      this.placeholer = {
-        bgColor: `rgb(${placeholer.dominant_color.join(',')})`,
+      const placeholder = this.post.preview_image;
+      this.placeholder = {
+        bgColor: `rgb(${placeholder.dominant_color.join(',')})`,
         height:
-          Math.floor(placeholer.height / (placeholer.width / POST_WIDTH)) +
+          calculatePlaceholderHeight(placeholder.width, placeholder.height) +
           'px',
       };
     },
