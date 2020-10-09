@@ -1,0 +1,56 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<Post /> should match snapshot 1`] = `
+<div
+  class="flex-column post"
+>
+  <img
+    alt="United States"
+    class="post-image"
+    height="142"
+    loading="lazy"
+    src="https://ik.imagekit.io/fireman35/pics/usa_98nvVlwOEN.jpg?tr=w-518"
+    style="background-color: rgb(102, 86, 108);"
+    width="254"
+  />
+   
+  <h3
+    class="post-header"
+  >
+    
+    United States
+  
+  </h3>
+   
+  <div
+    class="post-content"
+  >
+    <div>
+      Came here to study in 2006.
+    </div>
+  </div>
+   
+  <div
+    class="flex-row align-center justify-center more-actions-button"
+  >
+    <svg
+      aria-hidden="true"
+      class="svg-inline--fa fa-ellipsis-v fa-w-6"
+      data-icon="ellipsis-v"
+      data-prefix="fas"
+      focusable="false"
+      role="img"
+      viewBox="0 0 192 512"
+      xmlns="http://www.w3.org/2000/svg"
+    >
+      <path
+        class=""
+        d="M96 184c39.8 0 72 32.2 72 72s-32.2 72-72 72-72-32.2-72-72 32.2-72 72-72zM24 80c0 39.8 32.2 72 72 72s72-32.2 72-72S135.8 8 96 8 24 40.2 24 80zm0 352c0 39.8 32.2 72 72 72s72-32.2 72-72-32.2-72-72-72-72 32.2-72 72z"
+        fill="currentColor"
+      />
+    </svg>
+  </div>
+   
+  <!---->
+</div>
+`;

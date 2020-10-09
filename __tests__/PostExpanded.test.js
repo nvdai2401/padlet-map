@@ -20,8 +20,12 @@ describe('<PostExpanded />', () => {
     wrapper.destroy();
   });
 
-  test('is a Vue instance', () => {
+  it('is a Vue instance', () => {
     expect(wrapper.isVueInstance).toBeTruthy();
+  });
+
+  it('should match snapshot', () => {
+    expect(wrapper.element).toMatchSnapshot();
   });
 
   it(`should display loading when fetching data`, async () => {

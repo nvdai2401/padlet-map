@@ -13,6 +13,18 @@ describe('<MiniPost />', () => {
     wrapper = shallowMountWithProps(MiniPost, propsData);
   });
 
+  afterEach(() => {
+    wrapper.destroy();
+  });
+
+  it('is a Vue instance', () => {
+    expect(wrapper.isVueInstance).toBeTruthy();
+  });
+
+  it('should match snapshot', () => {
+    expect(wrapper.element).toMatchSnapshot();
+  });
+
   it(`should contain post title`, () => {
     expect(wrapper.find('.title').text()).toBe(propsData.post.headline);
   });

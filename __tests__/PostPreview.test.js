@@ -15,6 +15,19 @@ describe('<PostPreview />', () => {
     wrapper = mountWithProps(PostPreview, propsData);
   });
 
+  
+  afterEach(() => {
+    wrapper.destroy();
+  });
+
+  it('is a Vue instance', () => {
+    expect(wrapper.isVueInstance).toBeTruthy();
+  });
+
+  it('should match snapshot', () => {
+    expect(wrapper.element).toMatchSnapshot();
+  });
+
   it(`should render ${posts.length} posts`, () => {
     expect(wrapper.find('.post-count').text()).toBe(`${posts.length} posts`);
     expect(wrapper.findAll('.post-list__container').length).toBe(posts.length);
