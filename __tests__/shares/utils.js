@@ -1,4 +1,5 @@
 import { mount, shallowMount } from '@vue/test-utils';
+import flushPromises from 'flush-promises';
 
 const mountWithProps = (component, propsData) => {
   return mount(component, { propsData });
@@ -14,4 +15,14 @@ const dispatchKeyDownEvent = (event, keyCode) => {
   window.dispatchEvent(e);
 };
 
-export { mountWithProps, shallowMountWithProps, dispatchKeyDownEvent };
+const mockAxiosGet = async (mockAxios, url, response) => {
+  mockAxios.onGet(url).reply(200, response);
+  await flushPromises();
+};
+
+export {
+  mountWithProps,
+  shallowMountWithProps,
+  dispatchKeyDownEvent,
+  mockAxiosGet,
+};

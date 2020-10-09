@@ -1,6 +1,12 @@
 /* eslint-disable no-undef */
+import axios from 'axios';
+import MockAdapter from 'axios-mock-adapter';
 import { posts } from './shares/mockData';
-import { mountWithProps, dispatchKeyDownEvent } from './shares/utils';
+import {
+  mountWithProps,
+  dispatchKeyDownEvent,
+  mockAxiosGet,
+} from './shares/utils';
 import { PostExpanded } from '@/components/MapView/components';
 
 const propsData = {
@@ -9,14 +15,26 @@ const propsData = {
   onClose: jest.fn(),
 };
 
-describe('<PostExpanded />', () => {
-  let wrapper;
+const mockGetPostAtIndex = (mockAxios) => {
+  return async (index) => {
+    const response = { id: posts[index].id, attributes: posts[index] };
+    const url = '/posts/' + posts[index].id;
 
-  beforeEach(() => {
+    await mockAxiosGet(mockAxios, url, response);
+  };
+};
+
+describe('<PostExpanded />', () => {
+  let wrapper, mockAxios, getPostInfo;
+
+  beforeEach(async () => {
+    mockAxios = new MockAdapter(axios);
+    getPostInfo = mockGetPostAtIndex(mockAxios);
     wrapper = mountWithProps(PostExpanded, propsData);
   });
 
   afterEach(() => {
+    mockAxios.reset();
     wrapper.destroy();
   });
 
@@ -52,7 +70,8 @@ describe('<PostExpanded />', () => {
     });
   });
 
-  it(`should set currentIndex 0 when click Step backward button`, () => {
+  it(`should set currentIndex 0 when click Step backward button`, async () => {
+    await getPostInfo(0);
     wrapper.setData({ postInfo: posts[0], loading: false, currentIndex: 1 });
     wrapper
       .findAll('button')
@@ -64,7 +83,8 @@ describe('<PostExpanded />', () => {
   });
 
   it(`should set currentIndex ${posts.length -
-    1} when click Step backward button`, () => {
+    1} when click Step forward button`, async () => {
+    await getPostInfo(posts.length - 1);
     wrapper.setData({ postInfo: posts[0], loading: false, currentIndex: 1 });
     wrapper
       .findAll('button')
@@ -75,7 +95,9 @@ describe('<PostExpanded />', () => {
     });
   });
 
-  it(`should decrease currentIndex 1 when click Prev button`, () => {
+  it(`should decrease currentIndex 1 when click Prev button`, async () => {
+    await getPostInfo(0);
+
     wrapper.setData({ postInfo: posts[0], loading: false, currentIndex: 1 });
     wrapper
       .findAll('button')
@@ -86,7 +108,8 @@ describe('<PostExpanded />', () => {
     });
   });
 
-  it(`should decrease currentIndex 1 when press Arrow left key`, () => {
+  it(`should decrease currentIndex 1 when press Arrow left key`, async () => {
+    await getPostInfo(0);
     const ARROW_LEFT_KEYCODE = 37;
     wrapper.setData({ postInfo: posts[0], loading: false, currentIndex: 1 });
     dispatchKeyDownEvent('keydown', ARROW_LEFT_KEYCODE);
@@ -95,7 +118,8 @@ describe('<PostExpanded />', () => {
     });
   });
 
-  it(`should increase currentIndex 1 when click Next button`, () => {
+  it(`should increase currentIndex 1 when click Next button`, async () => {
+    await getPostInfo(2);
     wrapper.setData({ postInfo: posts[0], loading: false, currentIndex: 1 });
     wrapper
       .findAll('button')
@@ -106,8 +130,9 @@ describe('<PostExpanded />', () => {
     });
   });
 
-  it(`should increase currentIndex 1 when press Arrow right key`, () => {
+  it(`should increase currentIndex 1 when press Arrow right key`, async () => {
     const ARROW_RIGHT_KEYCODE = 39;
+    await getPostInfo(2);
     wrapper.setData({ postInfo: posts[0], loading: false, currentIndex: 1 });
     dispatchKeyDownEvent('keydown', ARROW_RIGHT_KEYCODE);
     wrapper.vm.$nextTick(() => {
