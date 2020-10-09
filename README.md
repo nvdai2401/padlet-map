@@ -1,37 +1,36 @@
-# padlet-map
+# Vue Google Map
 
-## Project setup
+> This is a map of countries I would like to visit.
 
-```
-yarn install
-```
+Visit the map: <https://nvdai2401.github.io/vue-gmap/>
 
-### Compiles and hot-reloads for development
+The idea behind this app comes from [Padlet Map](https://padlet.com/gallery/countries_visited_map). I knew this map via Padlet job description with the special introduction of this map like this.
 
-```
-yarn serve
-```
+> Frontend is the part of our stack we push the most to the limits. Checkout Padlet Maps (padl.et/map). A lot of frontend magic made them possible. Maps like these have never been done before.
 
-### Compiles and minifies for production
+That why I decided to rebuild this app to explore the frontend magic.
+The magic behinds the scene
 
-```
-yarn build
-```
+- Image:
+  - Use different image size for different post and screen size
+  - OPTIMIZE PERCEIVED LOADING TIME by use lazy loading image and background color
+- Map
+  - Auto fitbounds at the initial mount
+- Responsive app
 
-### Lints and fixes files
+## Requirements
 
-```
-yarn lint
-```
+- [node 12+](https://nodejs.org/en/)
 
-### Todo
+## Tech stack
 
-- [x] Style for map: center viewport, 4 theme, make the map fit viewport
-- [x] Change marker dynamically when hover
-- [x] Add post as call out and lazyload image, side list
-- [x] Restructure code, split plugins, set fixed height for top bar
-- [x] Set width and height of image by adding width and height in data
-- [x] Custom view control
-- [x] Lazy loading map, responsive map
-- [ ] Load image marker dynamically, upload to aws
-- [ ] Add marker by search, by drop marker
+- Front-end: Vue.js, [gmap-vue](https://github.com/diegoazh/gmap-vue), SCSS
+- Testing: Jest, vue-test-utils
+- Tools: [ImageKit](https://imagekit.io/)
+
+## Installation guide
+
+1. Download zip file or type this command into your terminal `git clone git@github.com:nvdai2401/vue-gmap.git`
+2. Run `yarn` to install essential dependencies
+3. Run `yarn start` to start the web app. The app will run at `localhost:8080`
+4. Run `yarn test:unit` to run unit tests.

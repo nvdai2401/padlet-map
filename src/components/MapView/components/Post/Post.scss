@@ -68,7 +68,6 @@
 
   .post-image {
     @include size($width: 100%);
-    height: auto;
   }
 
   .post-content {
