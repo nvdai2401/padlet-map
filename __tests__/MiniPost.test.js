@@ -1,6 +1,6 @@
 /* eslint-disable no-undef */
 import { posts } from './shares/mockData';
-import { mountWithProps } from './shares/utils';
+import { shallowMountWithProps } from './shares/utils';
 import { MiniPost } from '@/components/MapView/components/PostPreview/components';
 
 const propsData = {
@@ -10,7 +10,7 @@ const propsData = {
 describe('<MiniPost />', () => {
   let wrapper;
   beforeEach(() => {
-    wrapper = mountWithProps(MiniPost, propsData);
+    wrapper = shallowMountWithProps(MiniPost, propsData);
   });
 
   it(`should contain post title`, () => {

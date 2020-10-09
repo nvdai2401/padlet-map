@@ -5,7 +5,7 @@
       :alt="post.headline"
       :style="{ backgroundColor: placeholder.bgColor }"
       :height="placeholder.height"
-      width="254px"
+      width="254"
       loading="lazy"
       class="post-image"
     />
@@ -34,7 +34,11 @@
 </template>
 
 <script>
-import { calculatePlaceholderHeight } from '@/shares/utils';
+import {
+  POST_WIDTH,
+  calculatePlaceholderHeight,
+  generateGmapSearchUrl,
+} from '@/shares/utils';
 
 export default {
   name: 'post',
@@ -56,18 +60,17 @@ export default {
   },
   methods: {
     openLinkInGmap() {
-      window.open(
-        `https://www.google.com/maps/search/?api=1&query=${this.post.location_name}`,
-        '_blank',
-      );
+      window.open(generateGmapSearchUrl(this.post.location_name), '_blank');
     },
     updatePlaceholder() {
       const placeholder = this.post.preview_image;
       this.placeholder = {
         bgColor: `rgb(${placeholder.dominant_color.join(',')})`,
-        height:
-          calculatePlaceholderHeight(placeholder.width, placeholder.height) +
-          'px',
+        height: calculatePlaceholderHeight(
+          placeholder.width,
+          placeholder.height,
+          POST_WIDTH,
+        ),
       };
     },
   },

@@ -184,11 +184,13 @@ export default {
     },
     fitBounds() {
       this.$refs.gmap.$mapPromise.then((map) => {
+        // eslint-disable-next-line no-undef
         var bounds = new google.maps.LatLngBounds();
         Object.values(this.markers)
           .reverse()
           .forEach((marker) => {
             bounds.extend(
+              // eslint-disable-next-line no-undef
               new google.maps.LatLng(
                 marker.location_point.latitude,
                 marker.location_point.longitude,

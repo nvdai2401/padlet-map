@@ -2,7 +2,11 @@
 import { posts } from './shares/mockData';
 import { mountWithProps } from './shares/utils';
 import { Post } from '@/components/MapView/components';
-import { calculatePlaceholderHeight } from '@/shares/utils';
+import {
+  POST_WIDTH,
+  calculatePlaceholderHeight,
+  generateGmapSearchUrl,
+} from '@/shares/utils';
 
 const propsData = {
   post: posts[0],
@@ -44,7 +48,7 @@ describe('<Post />', () => {
     wrapper.find('.more-actions-button').trigger('click');
     wrapper.vm.$nextTick(() => {
       const MoreActionsList = wrapper.find('.more-actions-list');
-      const url = `https://www.google.com/maps/search/?api=1&query=${propsData.post.location_name}`;
+      const url = generateGmapSearchUrl(propsData.post.location_name);
       window.open = jest.fn();
       window.open(url, '_blank');
       MoreActionsList.findAll('li')
@@ -60,9 +64,12 @@ describe('<Post />', () => {
     const expectedHeight = calculatePlaceholderHeight(
       placeholder.width,
       placeholder.height,
+      POST_WIDTH,
     );
 
-    expect(wrapper.find('img').attributes().height).toBe(expectedHeight + 'px');
+    expect(wrapper.find('img').attributes().height).toBe(
+      String(expectedHeight),
+    );
     expect(wrapper.find('img').attributes().style).toBe(
       `background-color: rgb(${placeholder.dominant_color.join(', ')});`,
     );

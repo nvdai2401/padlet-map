@@ -53,6 +53,10 @@
 
 <script>
 import { getPostInfo } from '@/api';
+import {
+  POST_EXPANDED_WIDTH,
+  calculatePlaceholderHeight,
+} from '@/shares/utils';
 import { Spinner } from './components';
 import { keydown } from './mixins';
 
@@ -76,7 +80,7 @@ export default {
         height: '100%',
       },
       loading: true,
-      imgWidth: 720,
+      imgWidth: POST_EXPANDED_WIDTH,
     };
   },
   watch: {
@@ -90,11 +94,7 @@ export default {
     },
   },
   mounted() {
-    const screenWidth = window.innerWidth;
-    const DESKTOP_MIN_WIDTH = 768;
-    if (screenWidth < DESKTOP_MIN_WIDTH) {
-      this.imgWidth = window.innerWidth;
-    }
+    this.calculateImageWidth();
     this.currentIndex = this.posts.indexOf(String(this.postId));
   },
   methods: {
@@ -102,12 +102,21 @@ export default {
       const postData = await getPostInfo(this.posts[this.currentIndex]);
       this.postInfo = postData.attributes;
     },
+    calculateImageWidth() {
+      const screenWidth = window.innerWidth;
+      const DESKTOP_MIN_WIDTH = 768;
+      if (screenWidth < DESKTOP_MIN_WIDTH) {
+        this.imgWidth = window.innerWidth;
+      }
+    },
     updatePlaceholder() {
       const placeholer = this.postInfo.preview_image;
       this.placeholer = {
         bgColor: `rgb(${placeholer.dominant_color.join(',')})`,
-        height: Math.floor(
-          placeholer.height / (placeholer.width / this.imgWidth),
+        height: calculatePlaceholderHeight(
+          placeholer.width,
+          placeholer.height,
+          this.imgWidth,
         ),
       };
     },
