@@ -76,7 +76,3 @@ export default {
   },
 };
 </script>
-
-<style lang="scss" scoped>
-@import './Post.scss';
-</style>

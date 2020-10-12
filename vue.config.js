@@ -5,9 +5,7 @@ module.exports = {
     loaderOptions: {
       sass: {
         additionalData: `
-          @import "@/assets/styles/variables.scss";
-          @import "@/assets/styles/mixins.scss";
-          @import "@/assets/styles/quick_classes.scss";
+          @import "@/assets/styles/globals";
         `,
       },
     },

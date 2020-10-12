@@ -1,5 +1,5 @@
 <template>
-  <div class="flex-row topbar">
+  <div class="flex-row top-bar">
     <img
       src="https://ik.imagekit.io/fireman35/avatar1_gTDL8Fqsq.jpg?tr=w-240,h-240"
       alt="Michael from Vietnam"
@@ -16,7 +16,3 @@ export default {
   name: 'top-bar',
 };
 </script>
-
-<style lang="scss" scoped>
-@import './TopBar.scss';
-</style>

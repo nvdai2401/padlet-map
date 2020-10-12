@@ -224,7 +224,3 @@ export default {
   },
 };
 </script>
-
-<style lang="scss" scoped>
-@import './MapView.scss';
-</style>
