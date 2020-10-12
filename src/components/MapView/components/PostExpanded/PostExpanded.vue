@@ -33,13 +33,14 @@
       <spinner v-if="loading" />
       <template v-else>
         <img
-          :src="postInfo.attachment + `?tr=w-${imgWidth * 2}`"
+          :src="postInfo.attachment + `?tr=w-${imgWidth}`"
+          :srcset="srcSet"
+          sizes="(min-width: 768px) 720px, 100vw"
           :alt="postInfo.headline"
           :width="imgWidth"
-          :height="placeholer.height"
+          :height="placeholder.height"
+          :style="{ backgroundColor: placeholder.bgColor }"
           loading="lazy"
-          :style="{ backgroundColor: placeholer.bgColor }"
-          sizes="(max-width: 768px) 100vw, 720px"
           class="post-image"
         />
         <h3 class="post-header">
@@ -75,10 +76,11 @@ export default {
     return {
       postInfo: {},
       currentIndex: -1,
-      placeholer: {
+      placeholder: {
         bgColor: '#ffffff',
         height: '100%',
       },
+      srcSet: '',
       loading: true,
       imgWidth: POST_EXPANDED_WIDTH,
     };
@@ -89,6 +91,7 @@ export default {
       this.currentIndex = newValue;
       this.loading = true;
       await this.fetchPost();
+      this.generateSrcSet();
       this.updatePlaceholder();
       this.loading = false;
     },
@@ -110,15 +113,37 @@ export default {
       }
     },
     updatePlaceholder() {
-      const placeholer = this.postInfo.preview_image;
-      this.placeholer = {
-        bgColor: `rgb(${placeholer.dominant_color.join(',')})`,
+      const placeholder = this.postInfo.preview_image;
+
+      this.placeholder = {
+        bgColor: `rgb(${placeholder.dominant_color.join(',')})`,
         height: calculatePlaceholderHeight(
-          placeholer.width,
-          placeholer.height,
+          placeholder.width,
+          placeholder.height,
           this.imgWidth,
         ),
       };
+    },
+    generateSrcSet() {
+      const breakPoints = [
+        180,
+        360,
+        540,
+        720,
+        900,
+        1080,
+        1296,
+        1512,
+        1728,
+        2048,
+      ];
+      let srcSet = '';
+
+      for (let i = 0; i < breakPoints.length; i++) {
+        srcSet += `${this.postInfo.attachment}?tr:w-${breakPoints[i]} ${breakPoints[i]}w`;
+        srcSet += i < breakPoints.length - 1 ? ', ' : '';
+      }
+      this.srcSet = srcSet;
     },
     moveToNextPost() {
       this.currentIndex += 1;

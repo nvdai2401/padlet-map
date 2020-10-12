@@ -1,10 +1,8 @@
-import axios from 'axios';
-
-axios.defaults.baseURL = process.env.VUE_APP_API_URL;
+import http from '@/shares/http';
 
 const getMarkers = async () => {
   try {
-    const { data } = await axios.get('/posts');
+    const { data } = await http.get({ url: '/posts' });
     return data;
   } catch (error) {
     throw new Error(error.message);
@@ -13,7 +11,7 @@ const getMarkers = async () => {
 
 const getPostInfo = async (id) => {
   try {
-    const { data } = await axios.get(`/posts/${id}`);
+    const { data } = await http.get({ url: `/posts/${id}` });
     return data;
   } catch (error) {
     throw new Error(error.message);
