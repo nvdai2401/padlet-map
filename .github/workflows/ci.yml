@@ -42,9 +42,6 @@ jobs:
       - name: Test 🚨
         run: npm run test:unit
 
-      - name: Build  🏗️
-        run: npm run build
-
       - name: Deploy 🚀
         run: |
           git config --global user.name $user_name
