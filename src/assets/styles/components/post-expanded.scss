@@ -59,6 +59,8 @@
     .post-image {
       @include size($width: 100%);
       background-color: $white;
+      max-height: calc(100% - 200px);
+      object-fit: cover;
     }
 
     .post-body {
