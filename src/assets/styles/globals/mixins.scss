@@ -91,3 +91,13 @@ $known-prefixes: webkit, moz, ms, o;
 @mixin translateY($value) {
   @include transform(translateY($value), webkit moz ms o);
 }
+
+/*==================TEXT==================*/
+
+@mixin ellipsis($line) {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: $line;
+  -webkit-box-orient: vertical;
+}
