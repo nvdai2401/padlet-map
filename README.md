@@ -1,4 +1,5 @@
 # Vue Google Map
+![Node.js CI/CD with Vue.js](https://github.com/nvdai2401/vue-gmap/workflows/CI/CD/badge.svg)
 
 > This is a map of countries I would like to visit.
 
