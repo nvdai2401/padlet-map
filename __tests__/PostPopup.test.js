@@ -1,7 +1,7 @@
 /* eslint-disable no-undef */
 import { posts } from './shares/mockData';
 import { mountWithProps } from './shares/utils';
-import { Post } from '@/components/MapView/components';
+import { PostPopup } from '@/components/MapView/components';
 import {
   POST_WIDTH,
   calculatePlaceholderHeight,
@@ -13,10 +13,10 @@ const propsData = {
   onExpandPost: jest.fn(),
 };
 
-describe('<Post />', () => {
+describe('<PostPopup />', () => {
   let wrapper;
   beforeEach(() => {
-    wrapper = mountWithProps(Post, propsData);
+    wrapper = mountWithProps(PostPopup, propsData);
   });
 
   afterEach(() => {

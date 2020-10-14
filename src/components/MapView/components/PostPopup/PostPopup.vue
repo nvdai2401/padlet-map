@@ -1,18 +1,14 @@
 <template>
-  <div class="flex-column post" @click.stop="actionListVisible = false">
-    <img
+  <div class="flex-column post-popup" @click.stop="actionListVisible = false">
+    <post-content
       :src="post.attachment + '?tr=w-518'"
       :alt="post.headline"
-      :style="{ backgroundColor: placeholder.bgColor }"
+      :styles="{ backgroundColor: placeholder.bgColor }"
       :height="placeholder.height"
-      width="254"
-      loading="lazy"
-      class="post-image"
+      :width="254"
+      :header="post.headline"
+      :body="post.body"
     />
-    <h3 class="post-header">
-      {{ post.headline }}
-    </h3>
-    <div class="post-content" v-html="post.body"></div>
     <div
       class="flex-row align-center justify-center more-actions-button"
       @click.stop="actionListVisible = true"
@@ -39,9 +35,13 @@ import {
   calculatePlaceholderHeight,
   generateGmapSearchUrl,
 } from '@/shares/utils';
+import PostContent from '../PostContent';
 
 export default {
-  name: 'post',
+  name: 'post-popup',
+  components: {
+    'post-content': PostContent,
+  },
   props: {
     post: Object,
     onExpandPost: Function,
@@ -50,8 +50,8 @@ export default {
     return {
       actionListVisible: false,
       placeholder: {
-        bgColor: '#ffffff',
-        height: '100%',
+        bgColor: '',
+        height: 0,
       },
     };
   },
@@ -64,13 +64,14 @@ export default {
     },
     updatePlaceholder() {
       const placeholder = this.post.preview_image;
+      const height = calculatePlaceholderHeight(
+        placeholder.width,
+        placeholder.height,
+        POST_WIDTH,
+      );
       this.placeholder = {
         bgColor: `rgb(${placeholder.dominant_color.join(',')})`,
-        height: calculatePlaceholderHeight(
-          placeholder.width,
-          placeholder.height,
-          POST_WIDTH,
-        ),
+        height,
       };
     },
   },

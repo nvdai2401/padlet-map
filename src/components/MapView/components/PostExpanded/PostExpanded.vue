@@ -31,23 +31,19 @@
 
     <div class="flex-column content">
       <spinner v-if="loading" />
-      <template v-else>
-        <img
-          :src="postInfo.attachment + `?tr=w-${imgWidth}`"
-          :srcset="srcSet"
-          sizes="(min-width: 768px) 720px, 100vw"
-          :alt="postInfo.headline"
-          :width="imgWidth"
-          :height="placeholder.height"
-          :style="{ backgroundColor: placeholder.bgColor }"
-          loading="lazy"
-          class="post-image"
-        />
-        <h3 class="post-header">
-          {{ postInfo.headline }}
-        </h3>
-        <div class="post-body" v-html="postInfo.body"></div>
-      </template>
+
+      <post-content
+        v-else
+        :src="postInfo.attachment + `?tr=w-${imgWidth}`"
+        :srcSet="srcSet"
+        sizes="(min-width: 768px) 720px, 100vw"
+        :alt="postInfo.headline"
+        :width="imgWidth"
+        :height="placeholder.height"
+        :styles="{ backgroundColor: placeholder.bgColor }"
+        :header="postInfo.headline"
+        :body="postInfo.body"
+      />
     </div>
   </div>
 </template>
@@ -58,6 +54,7 @@ import {
   POST_EXPANDED_WIDTH,
   calculatePlaceholderHeight,
 } from '@/shares/utils';
+import PostContent from '../PostContent';
 import { Spinner } from './components';
 import { keydown } from './mixins';
 
@@ -71,14 +68,15 @@ export default {
   mixins: [keydown],
   components: {
     spinner: Spinner,
+    'post-content': PostContent,
   },
   data() {
     return {
       postInfo: {},
       currentIndex: -1,
       placeholder: {
-        bgColor: '#ffffff',
-        height: '100%',
+        bgColor: '',
+        height: 0,
       },
       srcSet: '',
       loading: true,

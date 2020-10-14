@@ -28,7 +28,7 @@
           :opened="marker.is_post_visible"
           @closeclick="is_post_visible = false"
         >
-          <post
+          <post-popup
             v-if="marker.is_post_visible"
             :post="marker"
             :onExpandPost="handleOnExpandPost"
@@ -85,7 +85,7 @@
 </template>
 
 <script>
-import { Post, PostPreview, PostExpanded } from './components';
+import { PostPopup, PostPreview, PostExpanded } from './components';
 import {
   defaultLatLngBounds,
   viewportLatLngBounds,
@@ -99,7 +99,7 @@ import { getMarkers } from '@/api';
 export default {
   name: 'map-view',
   components: {
-    post: Post,
+    'post-popup': PostPopup,
     'post-preview': PostPreview,
     'post-expanded': PostExpanded,
   },

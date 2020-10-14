@@ -1,32 +1,36 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`<Post /> should match snapshot 1`] = `
+exports[`<PostPopup /> should match snapshot 1`] = `
 <div
-  class="flex-column post"
+  class="flex-column post-popup"
 >
-  <img
-    alt="United States"
-    class="post-image"
-    height="142"
-    loading="lazy"
-    src="https://ik.imagekit.io/fireman35/pics/usa_98nvVlwOEN.jpg?tr=w-518"
-    style="background-color: rgb(102, 86, 108);"
-    width="254"
-  />
-   
-  <h3
-    class="post-header"
+  <div
+    class="flex-column post-content"
   >
-    
+    <img
+      alt="United States"
+      class="post-image"
+      height="142"
+      loading="lazy"
+      src="https://ik.imagekit.io/fireman35/pics/usa_98nvVlwOEN.jpg?tr=w-518"
+      style="background-color: rgb(102, 86, 108);"
+      width="254"
+    />
+     
+    <h3
+      class="post-header"
+    >
+      
     United States
   
-  </h3>
-   
-  <div
-    class="post-content"
-  >
-    <div>
-      Came here to study in 2006.
+    </h3>
+     
+    <div
+      class="post-body"
+    >
+      <div>
+        Came here to study in 2006.
+      </div>
     </div>
   </div>
    
