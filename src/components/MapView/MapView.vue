@@ -37,32 +37,15 @@
       </gmap-marker>
     </gmap-map>
 
-    <div
+    <map-control
       v-show="mapControlVisible"
-      :class="[
-        'flex-column map-control',
-        postPreviewVisible ? 'preview-shown' : '',
-      ]"
-    >
-      <button
-        class="button map-center-control"
-        @click="postPreviewVisible = !postPreviewVisible"
-      >
-        <font-awesome-icon :icon="['fas', 'bars']" />
-      </button>
+      :class="[postPreviewVisible ? 'preview-shown' : '']"
+      :togglePreview="togglePreview"
+      :fitBounds="fitBounds"
+      :zoomIn="zoomIn"
+      :zoomOut="zoomOut"
+    />
 
-      <div class="flex-column group-button">
-        <button class="button" @click="fitBounds">
-          <font-awesome-icon :icon="['fas', 'expand']" />
-        </button>
-        <button class="button" @click="zoomIn">
-          <font-awesome-icon :icon="['fas', 'plus']" />
-        </button>
-        <button class="button" @click="zoomOut">
-          <font-awesome-icon :icon="['fas', 'minus']" />
-        </button>
-      </div>
-    </div>
     <transition-group tag="div" name="slide">
       <post-preview
         v-show="postPreviewVisible && Object.keys(markers).length > 0"
@@ -84,7 +67,7 @@
 </template>
 
 <script>
-import { PostPopup, PostPreview, PostExpanded } from './components';
+import { PostPopup, MapControl, PostPreview, PostExpanded } from './components';
 import {
   defaultLatLngBounds,
   viewportLatLngBounds,
@@ -93,12 +76,13 @@ import {
   MIN_ZOOM,
   MAX_ZOOM,
 } from './mapProperty';
-import { getMarkers } from '@/api';
+import { getPosts } from '@/api';
 
 export default {
   name: 'map-view',
   components: {
     'post-popup': PostPopup,
+    'map-control': MapControl,
     'post-preview': PostPreview,
     'post-expanded': PostExpanded,
   },
@@ -106,7 +90,6 @@ export default {
     return {
       initialZoom: MIN_ZOOM,
       center: DEFAULT_CENTER,
-      infoWindowVisible: false,
       postPreviewVisible: false,
       postExpandedVisible: false,
       mapControlVisible: false,
@@ -142,14 +125,14 @@ export default {
     this.mapOptions = options;
   },
   async mounted() {
-    await this.fetchMakers();
+    await this.fetchPosts();
     await this.$gmapApiPromiseLazy();
     this.fitBounds();
     this.mapControlVisible = true;
   },
   methods: {
-    async fetchMakers() {
-      const data = await getMarkers();
+    async fetchPosts() {
+      const data = await getPosts();
       const markers = {};
 
       for (let item of data) {
@@ -181,6 +164,9 @@ export default {
     handleOnClickMap() {
       this.activePost = null;
     },
+    togglePreview() {
+      this.postPreviewVisible = !this.postPreviewVisible;
+    },
     fitBounds() {
       this.$refs.gmap.$mapPromise.then((map) => {
         // eslint-disable-next-line no-undef
@@ -204,7 +190,6 @@ export default {
     },
     handleOnClosePostExpanded() {
       this.postExpandedVisible = false;
-      this.activePost = null;
     },
     zoomIn() {
       const currentZoom = this.$refs.gmap.$mapObject.zoom;

@@ -1,6 +1,6 @@
 import http from '@/config/http';
 
-const getMarkers = async () => {
+const getPosts = async () => {
   try {
     const { data } = await http.get({ url: '/posts' });
     return data;
@@ -18,4 +18,4 @@ const getPostInfo = async (id) => {
   }
 };
 
-export { getMarkers, getPostInfo };
+export { getPosts, getPostInfo };

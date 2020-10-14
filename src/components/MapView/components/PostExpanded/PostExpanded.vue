@@ -85,7 +85,6 @@ export default {
   },
   watch: {
     async currentIndex(newValue) {
-      if (newValue < 0 || newValue >= this.posts.length) return;
       this.currentIndex = newValue;
       this.loading = true;
       await this.fetchPost();
@@ -106,20 +105,22 @@ export default {
     calculateImageWidth() {
       const screenWidth = window.innerWidth;
       const DESKTOP_MIN_WIDTH = 768;
+
       if (screenWidth < DESKTOP_MIN_WIDTH) {
         this.imgWidth = window.innerWidth;
       }
     },
     updatePlaceholder() {
       const placeholder = this.postInfo.preview_image;
+      const height = calculatePlaceholderHeight(
+        placeholder.width,
+        placeholder.height,
+        this.imgWidth,
+      );
 
       this.placeholder = {
         bgColor: `rgb(${placeholder.dominant_color.join(',')})`,
-        height: calculatePlaceholderHeight(
-          placeholder.width,
-          placeholder.height,
-          this.imgWidth,
-        ),
+        height,
       };
     },
     generateSrcSet() {
