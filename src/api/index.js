@@ -1,4 +1,4 @@
-import http from '@/shares/http';
+import http from '@/config/http';
 
 const getMarkers = async () => {
   try {

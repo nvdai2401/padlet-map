@@ -76,7 +76,6 @@
 
     <post-expanded
       v-if="postExpandedVisible"
-      :open="postExpandedVisible"
       :postId="activePost"
       :posts="Object.keys(markers)"
       :onClose="handleOnClosePostExpanded"

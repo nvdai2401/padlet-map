@@ -157,14 +157,25 @@ export default {
     },
     handleOnKeyDown(e) {
       const ARROW_LEFT_KEYCODE = 37,
-        ARROW_RIGHT_KEYCODE = 39;
-      if (e.keyCode == ARROW_LEFT_KEYCODE && this.currentIndex > 0) {
-        this.moveToPrevPost();
-      } else if (
-        e.keyCode == ARROW_RIGHT_KEYCODE &&
-        this.currentIndex < this.posts.length - 1
-      ) {
-        this.moveToNextPost();
+        ARROW_RIGHT_KEYCODE = 39,
+        ESCAPE_KEYCODE = 27;
+
+      switch (e.keyCode) {
+        case ARROW_LEFT_KEYCODE:
+          if (this.currentIndex > 0) {
+            this.moveToPrevPost();
+          }
+          break;
+        case ARROW_RIGHT_KEYCODE:
+          if (this.currentIndex < this.posts.length - 1) {
+            this.moveToNextPost();
+          }
+          break;
+        case ESCAPE_KEYCODE:
+          this.onClose();
+          break;
+        default:
+          return;
       }
     },
   },
