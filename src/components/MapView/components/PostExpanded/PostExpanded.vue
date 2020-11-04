@@ -53,6 +53,7 @@ import { getPostInfo } from '@/api';
 import {
   POST_EXPANDED_WIDTH,
   calculatePlaceholderHeight,
+  generateSrcSet,
 } from '@/shares/utils';
 import PostContent from '../PostContent';
 import { Spinner } from './components';
@@ -88,7 +89,7 @@ export default {
       this.currentIndex = newValue;
       this.loading = true;
       await this.fetchPost();
-      this.generateSrcSet();
+      this.srcSet = generateSrcSet(this.postInfo.attachment);
       this.updatePlaceholder();
       this.loading = false;
     },
@@ -122,27 +123,6 @@ export default {
         bgColor: `rgb(${placeholder.dominant_color.join(',')})`,
         height,
       };
-    },
-    generateSrcSet() {
-      const breakPoints = [
-        180,
-        360,
-        540,
-        720,
-        900,
-        1080,
-        1296,
-        1512,
-        1728,
-        2048,
-      ];
-      let srcSet = '';
-
-      for (let i = 0; i < breakPoints.length; i++) {
-        srcSet += `${this.postInfo.attachment}?tr:w-${breakPoints[i]} ${breakPoints[i]}w`;
-        srcSet += i < breakPoints.length - 1 ? ', ' : '';
-      }
-      this.srcSet = srcSet;
     },
     moveToNextPost() {
       this.currentIndex += 1;
