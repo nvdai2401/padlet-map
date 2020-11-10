@@ -1,6 +1,6 @@
 <template>
-  <div class="flex-column align-center post-expanded">
-    <div class="flex-row align-center justify-space-between toolbar">
+  <div class="c-post-expanded">
+    <div class="c-post-expanded__toolbar">
       <div class="post-index">{{ currentIndex + 1 }}/{{ posts.length }}</div>
       <div class="nav-buttons">
         <button @click="moveToFirstPost" :disabled="currentIndex === 0">
@@ -29,7 +29,7 @@
       </div>
     </div>
 
-    <div class="flex-column content">
+    <div class="c-post-expanded__body">
       <spinner v-if="loading" />
 
       <post-content

@@ -1,5 +1,5 @@
 <template>
-  <div class="flex-row align-center justify-center spinner">
-    <div class="loading"></div>
+  <div data-testid="spinner" class="c-spinner">
+    <div class="c-spinner__loading"></div>
   </div>
 </template>

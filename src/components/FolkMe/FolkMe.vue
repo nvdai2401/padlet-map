@@ -4,7 +4,7 @@
     :aria-label="ariaLabel"
     target="_blank"
     rel="noopener noreferrer"
-    class="folk-me"
+    class="c-folk-me"
   >
     <svg
       :width="size"

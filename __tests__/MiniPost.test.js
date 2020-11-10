@@ -1,6 +1,6 @@
 /* eslint-disable no-undef */
 import { posts } from './shares/mockData';
-import { shallowMountWithProps } from './shares/utils';
+import { shallowMountWithProps, findWithTestId } from './shares/utils';
 import { MiniPost } from '@/components/MapView/components/PostPreview/components';
 
 const propsData = {
@@ -26,14 +26,16 @@ describe('<MiniPost />', () => {
   });
 
   it(`should contain post title`, () => {
-    expect(wrapper.find('.title').text()).toBe(propsData.post.headline);
+    expect(findWithTestId(wrapper, 'mini-post-title').text()).toBe(
+      propsData.post.headline,
+    );
   });
 
   it(`should contain post subtitle`, () => {
-    expect(wrapper.find('.subtitle').exists()).toBeTruthy();
+    expect(findWithTestId(wrapper, 'mini-post-subtitle').exists()).toBeTruthy();
   });
 
   it(`should contain post image`, () => {
-    expect(wrapper.find('img').exists()).toBeTruthy();
+    expect(findWithTestId(wrapper, 'mini-post-image').exists()).toBeTruthy();
   });
 });

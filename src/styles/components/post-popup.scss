@@ -1,0 +1,73 @@
+.c-post-popup {
+  @include relative();
+  @include size($width: 254px, $max-height: $global-post-content-max-height);
+
+  z-index: zIndex('post');
+
+  .more-actions-button {
+    @include absolute($top: 6px, $right: 6px);
+    @include flex-align-content;
+    @include size($width: 35px, $height: 30px);
+    @include transition(all 150ms ease-out);
+
+    z-index: zIndex('post') + 1;
+    border: 1px solid $color-border;
+    border-radius: $global-radius;
+    background-color: $color-dark-grey;
+
+    svg {
+      color: $color-bg;
+    }
+  }
+
+  svg {
+    @include size(16px, 16px);
+  }
+
+  .more-actions-list {
+    @include absolute($top: 0, $right: 0);
+    @include size($width: 90%);
+    @include transition(all 150ms ease-out);
+
+    z-index: zIndex('post') + 2;
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.19), 0 6px 6px rgba(0, 0, 0, 0.23);
+    padding: 3px 0;
+    border-radius: $global-radius;
+    background-color: $color-bg;
+
+    &__item {
+      @include flex-box;
+      @include align-items(center);
+      @include transition(all 100ms ease-out);
+
+      padding: 12px;
+      font-size: 1.1rem;
+
+      span {
+        margin-left: 6px;
+      }
+
+      &:hover {
+        background: rgba(0, 0, 0, 0.05);
+      }
+    }
+  }
+
+  @include bp(lg) {
+    .more-actions-button {
+      @include invisible;
+    }
+
+    .more-actions-list {
+      &__item {
+        font-size: 0.875rem;
+      }
+    }
+
+    &:hover {
+      .more-actions-button {
+        @include visible;
+      }
+    }
+  }
+}

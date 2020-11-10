@@ -2,14 +2,17 @@
 
 exports[`<PostPopup /> should match snapshot 1`] = `
 <div
-  class="flex-column post-popup"
+  class="c-post-popup"
+  data-testid="post-popup"
 >
   <div
-    class="flex-column post-content"
+    class="c-post-content"
+    data-testid="post-content"
   >
     <img
       alt="United States"
-      class="post-image"
+      class="c-post-content__image"
+      data-testid="post-content-image"
       height="142"
       loading="lazy"
       src="https://ik.imagekit.io/fireman35/pics/usa_98nvVlwOEN.jpg?tr=w-518"
@@ -17,16 +20,18 @@ exports[`<PostPopup /> should match snapshot 1`] = `
       width="254"
     />
      
-    <h3
-      class="post-header"
+    <h4
+      class="c-post-content__header p-6 p-l-12 p-r-12"
+      data-testid="post-content-header"
     >
       
     United States
   
-    </h3>
+    </h4>
      
     <div
-      class="post-body"
+      class="c-post-content__body p-b-12 p-l-12 p-r-12"
+      data-testid="post-content-body"
     >
       <div>
         Came here to study in 2006.
@@ -35,7 +40,8 @@ exports[`<PostPopup /> should match snapshot 1`] = `
   </div>
    
   <div
-    class="flex-row align-center justify-center more-actions-button"
+    class="more-actions-button pointer"
+    data-testid="more-actions-button"
   >
     <svg
       aria-hidden="true"

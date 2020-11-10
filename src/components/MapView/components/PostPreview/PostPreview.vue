@@ -1,11 +1,12 @@
 <template>
-  <div class="post-preview">
-    <div class="post-count">{{ posts.length }} posts</div>
-    <div class="flex-row post-list">
+  <div class="c-post-preview">
+    <div class="c-post-preview__count" data-testid="post-count">{{ posts.length }} posts</div>
+    <div class="c-post-preview__list">
       <div
         v-for="(post, index) in posts"
         :key="post.id"
-        class="flex-row post-list__container"
+        data-testid="mini-post-list"
+        class="c-post-preview__list__container"
       >
         <mini-post
           :post="post"

@@ -1,5 +1,9 @@
 <template>
-  <div class="flex-column post-popup" @click.stop="actionListVisible = false">
+  <div
+    data-testid="post-popup"
+    class="c-post-popup"
+    @click.stop="actionListVisible = false"
+  >
     <post-content
       :src="post.attachment + '?tr=w-518'"
       :alt="post.headline"
@@ -10,18 +14,19 @@
       :body="post.body"
     />
     <div
-      class="flex-row align-center justify-center more-actions-button"
+      data-testid="more-actions-button"
+      class="more-actions-button pointer"
       @click.stop="actionListVisible = true"
     >
       <font-awesome-icon :icon="['fas', 'ellipsis-v']" />
     </div>
 
-    <ul v-if="actionListVisible" class="more-actions-list">
-      <li @click="onExpandPost">
+    <ul v-if="actionListVisible" class="more-actions-list pointer">
+      <li class="more-actions-list__item" @click="onExpandPost">
         <font-awesome-icon :icon="['fas', 'expand']" />
         <span>Expand post</span>
       </li>
-      <li @click="openLinkInGmap">
+      <li class="more-actions-list__item" @click="openLinkInGmap">
         <font-awesome-icon :icon="['far', 'map']" />
         <span>Open in Google Map</span>
       </li>

@@ -2,20 +2,25 @@
 
 exports[`<MiniPost /> should match snapshot 1`] = `
 <div
-  class="flex-row justify-space-between mini-post"
+  class="c-mini-post pointer"
+  data-testid="mini-post"
 >
   <div
-    class="flex-column post-title"
+    class="c-mini-post__content"
   >
-    <span
+    <h5
       class="title"
+      data-testid="mini-post-title"
       style="color: red;"
     >
+      
       United States
-    </span>
+    
+    </h5>
      
     <span
       class="subtitle"
+      data-testid="mini-post-subtitle"
     >
       <div>
         Came here to study in 2006.
@@ -24,10 +29,11 @@ exports[`<MiniPost /> should match snapshot 1`] = `
   </div>
    
   <div
-    class="post-image"
+    class="c-mini-post__image"
   >
     <img
       alt="United States"
+      data-testid="mini-post-image"
       height="56px"
       loading="lazy"
       src="https://ik.imagekit.io/fireman35/pics/usa_98nvVlwOEN.jpg?tr=w-112"

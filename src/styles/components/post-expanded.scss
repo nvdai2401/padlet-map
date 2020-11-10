@@ -1,0 +1,93 @@
+.c-post-expanded {
+  @include fixed($bottom: 0, $left: 0);
+  @include flex-align-content(column, center, flex-start);
+  @include size($width: 100%, $height: 100%);
+  @include transition(all 200ms ease-out);
+
+  z-index: zIndex('post-expanded');
+  background: linear-gradient(rgba(51, 51, 51, 0.9), rgba(51, 51, 51, 0.5));
+  backdrop-filter: blur(10px);
+
+  &__toolbar {
+    @include absolute($bottom: 0);
+    @include flex-align-content(row, center, space-between);
+    @include size($width: 100vw, $height: 54px);
+
+    padding: 0 12px;
+    color: $color-bg;
+    background-color: rgba(43, 43, 43, 0.5);
+
+    .post-index {
+      letter-spacing: 1px;
+    }
+
+    button {
+      @include size($width: 40px, $height: 40px);
+
+      background-color: transparent;
+    }
+
+    svg {
+      @include size($height: 18px);
+
+      color: $color-bg;
+    }
+
+    .nav-buttons {
+      button {
+        margin-right: 12px;
+
+        &:last-child {
+          margin-right: 0;
+        }
+
+        &:disabled {
+          opacity: 0.3;
+          cursor: not-allowed;
+        }
+      }
+    }
+  }
+
+  &__body {
+    @include size($width: 100vw, $height: 100vh);
+
+    background-color: $color-bg;
+
+    .c-post-content {
+      max-height: 100%;
+
+      &__header {
+        font-size: 2rem;
+        padding: 24px 24px 12px;
+      }
+
+      &__image {
+        max-height: calc(100% - 200px);
+      }
+
+      &__body {
+        padding: 0 24px;
+        margin-bottom: 60px;
+      }
+    }
+  }
+
+  @include bp(m) {
+    &__toolbar {
+      @include relative();
+
+      background-color: transparent;
+    }
+
+    &__body {
+      @include size($width: 720px, $height: 90vh);
+
+      border-radius: $global-radius * 2;
+
+      .c-post-content__image {
+        border-radius: $global-radius * 2 $global-radius * 2 0 0;
+      }
+    }
+  }
+}

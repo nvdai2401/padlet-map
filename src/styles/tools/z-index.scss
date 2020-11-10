@@ -1,0 +1,19 @@
+///* ========================================================================
+//   #Z-INDEX
+//   ======================================================================== */
+
+$z-layers: (
+  'map-view': 1000,
+  'post': 2000,
+  'post-preview': 3000,
+  'post-expanded': 4000,
+  'default': 1,
+  'below': -1,
+);
+
+@function zIndex($layer) {
+  @if not map-has-key($z-layers, $layer) {
+    @warn "No layer found for `#{$layer}` in $z-layers map. Property omitted.";
+  }
+  @return map-get($z-layers, $layer);
+}

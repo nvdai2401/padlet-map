@@ -1,8 +1,8 @@
 <template>
-  <div class="map-view">
+  <div class="c-map-view">
     <gmap-map
       ref="gmap"
-      class="gmap-container"
+      class="c-map-view__gmap"
       :zoom="initialZoom"
       :center="center"
       :options="mapOptions"
