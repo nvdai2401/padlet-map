@@ -1,14 +1,18 @@
-.post-expanded {
+.c-post-expanded {
   @include fixed($bottom: 0, $left: 0);
+  @include flex-align-content(column, center, flex-start);
   @include size($width: 100%, $height: 100%);
+  @include transition(all 200ms ease-out);
+
   z-index: zIndex('post-expanded');
   background: linear-gradient(rgba(51, 51, 51, 0.9), rgba(51, 51, 51, 0.5));
   backdrop-filter: blur(10px);
-  transition: all 0.2s ease-out;
 
-  .toolbar {
+  &__toolbar {
     @include absolute($bottom: 0);
+    @include flex-align-content(row, center, space-between);
     @include size($width: 100vw, $height: 54px);
+
     padding: 0 12px;
     color: $color-white;
     background-color: rgba(43, 43, 43, 0.5);
@@ -18,12 +22,14 @@
     }
 
     button {
-      background-color: transparent;
       @include size($width: 40px, $height: 40px);
+
+      background-color: transparent;
     }
 
     svg {
       @include size($height: 18px);
+
       color: $color-white;
     }
 
@@ -43,37 +49,44 @@
     }
   }
 
-  .content {
+  &__body {
     @include size($width: 100vw, $height: 100vh);
+
     background-color: $color-white;
 
-    .post-header {
-      font-size: 2rem;
-      padding: 24px 24px 12px;
-    }
+    .c-post-content {
+      max-height: 100%;
 
-    .post-image {
-      max-height: calc(100% - 200px);
-    }
+      &__header {
+        font-size: 2rem;
+        padding: 24px 24px 12px;
+      }
 
-    .post-body {
-      padding: 0 24px;
-      margin-bottom: 60px;
+      &__image {
+        max-height: calc(100% - 200px);
+      }
+
+      &__body {
+        padding: 0 24px;
+        margin-bottom: 60px;
+      }
     }
   }
 
-  @include bp(sm) {
-    .toolbar {
+  @include bp(m) {
+    &__toolbar {
       @include relative();
+
       background-color: transparent;
     }
 
-    .content {
+    &__body {
       @include size($width: 720px, $height: 90vh);
-      border-radius: 12px;
 
-      .post-image {
-        border-radius: 12px 12px 0 0;
+      border-radius: $global-radius * 2;
+
+      .c-post-content__image {
+        border-radius: $global-radius * 2 $global-radius * 2 0 0;
       }
     }
   }
