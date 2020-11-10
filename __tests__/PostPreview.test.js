@@ -1,6 +1,10 @@
 /* eslint-disable no-undef */
 import { posts } from './shares/mockData';
-import { mountWithProps } from './shares/utils';
+import {
+  mountWithProps,
+  findWithTestId,
+  findAllWithTestId,
+} from './shares/utils';
 import { PostPreview } from '@/components/MapView/components';
 
 const propsData = {
@@ -15,7 +19,6 @@ describe('<PostPreview />', () => {
     wrapper = mountWithProps(PostPreview, propsData);
   });
 
-  
   afterEach(() => {
     wrapper.destroy();
   });
@@ -29,22 +32,26 @@ describe('<PostPreview />', () => {
   });
 
   it(`should render ${posts.length} posts`, () => {
-    expect(wrapper.find('.post-count').text()).toBe(`${posts.length} posts`);
-    expect(wrapper.findAll('.post-list__container').length).toBe(posts.length);
+    expect(findWithTestId(wrapper, 'post-count').text()).toBe(
+      `${posts.length} posts`,
+    );
+    expect(findAllWithTestId(wrapper, 'mini-post-list').length).toBe(
+      posts.length,
+    );
   });
 
   it(`should call onMouseOverPost when mouse over`, () => {
-    wrapper.find('.mini-post').trigger('mouseover');
+    findWithTestId(wrapper, 'mini-post').trigger('mouseover');
     expect(propsData.onMouseOverPost).toHaveBeenCalled();
   });
 
   it(`should call onMouseOutPost when mouse out`, () => {
-    wrapper.find('.mini-post').trigger('mouseout');
+    findWithTestId(wrapper, 'mini-post').trigger('mouseout');
     expect(propsData.onMouseOutPost).toHaveBeenCalled();
   });
 
   it(`should call onClickPost when click`, () => {
-    wrapper.find('.mini-post').trigger('click');
+    findWithTestId(wrapper, 'mini-post').trigger('click');
     expect(propsData.onClickPost).toHaveBeenCalled();
   });
 });

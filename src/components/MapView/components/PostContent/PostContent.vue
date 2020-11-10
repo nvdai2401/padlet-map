@@ -1,5 +1,5 @@
 <template>
-  <div class="c-post-content">
+  <div data-testid="post-content" class="c-post-content">
     <img
       :src="src"
       :srcset="srcSet"
@@ -9,12 +9,20 @@
       :width="width"
       :height="height"
       loading="lazy"
+      data-testid="post-content-image"
       class="c-post-content__image"
     />
-    <h4 class="c-post-content__header p-6 p-l-12 p-r-12">
+    <h4
+      data-testid="post-content-header"
+      class="c-post-content__header p-6 p-l-12 p-r-12"
+    >
       {{ header }}
     </h4>
-    <div class="c-post-content__body p-b-12 p-l-12 p-r-12" v-html="body"></div>
+    <div
+      data-testid="post-content-body"
+      class="c-post-content__body p-b-12 p-l-12 p-r-12"
+      v-html="body"
+    ></div>
   </div>
 </template>
 

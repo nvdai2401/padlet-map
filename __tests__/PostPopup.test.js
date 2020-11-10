@@ -1,12 +1,8 @@
 /* eslint-disable no-undef */
 import { posts } from './shares/mockData';
-import { mountWithProps } from './shares/utils';
+import { mountWithProps, findWithTestId } from './shares/utils';
 import { PostPopup } from '@/components/MapView/components';
-import {
-  POST_WIDTH,
-  calculatePlaceholderHeight,
-  generateGmapSearchUrl,
-} from '@/shares/utils';
+import { generateGmapSearchUrl } from '@/shares/utils';
 
 const propsData = {
   post: posts[0],
@@ -31,20 +27,8 @@ describe('<PostPopup />', () => {
     expect(wrapper.element).toMatchSnapshot();
   });
 
-  it(`should contain post header`, () => {
-    expect(wrapper.find('.post-header').text()).toBe(propsData.post.headline);
-  });
-
-  it(`should contain post content`, () => {
-    expect(wrapper.find('.post-content').exists()).toBeTruthy();
-  });
-
-  it(`should contain post image`, () => {
-    expect(wrapper.find('img').exists()).toBeTruthy();
-  });
-
   it(`should call onExpandPost when click Expand post`, () => {
-    wrapper.find('.more-actions-button').trigger('click');
+    findWithTestId(wrapper, 'more-actions-button').trigger('click');
     wrapper.vm.$nextTick(() => {
       const MoreActionsList = wrapper.find('.more-actions-list');
 
@@ -57,7 +41,7 @@ describe('<PostPopup />', () => {
   });
 
   it(`should open new window when click Open in Google Map`, () => {
-    wrapper.find('.more-actions-button').trigger('click');
+    findWithTestId(wrapper, 'more-actions-button').trigger('click');
     wrapper.vm.$nextTick(() => {
       const MoreActionsList = wrapper.find('.more-actions-list');
       const url = generateGmapSearchUrl(propsData.post.location_name);
@@ -69,21 +53,5 @@ describe('<PostPopup />', () => {
 
       expect(window.open).toHaveBeenCalledWith(url, '_blank');
     });
-  });
-
-  it(`should render image with right style and height`, () => {
-    const placeholder = propsData.post.preview_image;
-    const expectedHeight = calculatePlaceholderHeight(
-      placeholder.width,
-      placeholder.height,
-      POST_WIDTH,
-    );
-
-    expect(wrapper.find('img').attributes().height).toBe(
-      String(expectedHeight),
-    );
-    expect(wrapper.find('img').attributes().style).toBe(
-      `background-color: rgb(${placeholder.dominant_color.join(', ')});`,
-    );
   });
 });

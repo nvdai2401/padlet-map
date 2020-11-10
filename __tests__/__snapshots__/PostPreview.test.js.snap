@@ -2,35 +2,42 @@
 
 exports[`<PostPreview /> should match snapshot 1`] = `
 <div
-  class="post-preview"
+  class="c-post-preview"
 >
   <div
-    class="post-count"
+    class="c-post-preview__count"
+    data-testid="post-count"
   >
     13 posts
   </div>
    
   <div
-    class="flex-row post-list"
+    class="c-post-preview__list"
   >
     <div
-      class="flex-row post-list__container"
+      class="c-post-preview__list__container"
+      data-testid="mini-post-list"
     >
       <div
-        class="flex-row justify-space-between mini-post"
+        class="c-mini-post pointer"
+        data-testid="mini-post"
       >
         <div
-          class="flex-column post-title"
+          class="c-mini-post__content"
         >
-          <span
+          <h5
             class="title"
+            data-testid="mini-post-title"
             style="color: red;"
           >
-            United States
-          </span>
+            
+      United States
+    
+          </h5>
            
           <span
             class="subtitle"
+            data-testid="mini-post-subtitle"
           >
             <div>
               Came here to study in 2006.
@@ -39,10 +46,11 @@ exports[`<PostPreview /> should match snapshot 1`] = `
         </div>
          
         <div
-          class="post-image"
+          class="c-mini-post__image"
         >
           <img
             alt="United States"
+            data-testid="mini-post-image"
             height="56px"
             loading="lazy"
             src="https://ik.imagekit.io/fireman35/pics/usa_98nvVlwOEN.jpg?tr=w-112"
@@ -56,23 +64,29 @@ exports[`<PostPreview /> should match snapshot 1`] = `
       />
     </div>
     <div
-      class="flex-row post-list__container"
+      class="c-post-preview__list__container"
+      data-testid="mini-post-list"
     >
       <div
-        class="flex-row justify-space-between mini-post"
+        class="c-mini-post pointer"
+        data-testid="mini-post"
       >
         <div
-          class="flex-column post-title"
+          class="c-mini-post__content"
         >
-          <span
+          <h5
             class="title"
+            data-testid="mini-post-title"
             style="color: green;"
           >
-            Canada
-          </span>
+            
+      Canada
+    
+          </h5>
            
           <span
             class="subtitle"
+            data-testid="mini-post-subtitle"
           >
             <div>
               Came here in 2018 to chill for a weekend.
@@ -81,10 +95,11 @@ exports[`<PostPreview /> should match snapshot 1`] = `
         </div>
          
         <div
-          class="post-image"
+          class="c-mini-post__image"
         >
           <img
             alt="Canada"
+            data-testid="mini-post-image"
             height="56px"
             loading="lazy"
             src="https://ik.imagekit.io/fireman35/pics/canada_GaDi1RWytiLm.jpg?tr=w-112"
@@ -98,23 +113,29 @@ exports[`<PostPreview /> should match snapshot 1`] = `
       />
     </div>
     <div
-      class="flex-row post-list__container"
+      class="c-post-preview__list__container"
+      data-testid="mini-post-list"
     >
       <div
-        class="flex-row justify-space-between mini-post"
+        class="c-mini-post pointer"
+        data-testid="mini-post"
       >
         <div
-          class="flex-column post-title"
+          class="c-mini-post__content"
         >
-          <span
+          <h5
             class="title"
+            data-testid="mini-post-title"
             style="color: blue;"
           >
-            Mongolia
-          </span>
+            
+      Mongolia
+    
+          </h5>
            
           <span
             class="subtitle"
+            data-testid="mini-post-subtitle"
           >
             <div>
               Came here on vacation in 2009 (p.s. it's quite cold. Go in summer.)
@@ -123,10 +144,11 @@ exports[`<PostPreview /> should match snapshot 1`] = `
         </div>
          
         <div
-          class="post-image"
+          class="c-mini-post__image"
         >
           <img
             alt="Mongolia"
+            data-testid="mini-post-image"
             height="56px"
             loading="lazy"
             src="https://ik.imagekit.io/fireman35/pics/mongolia_mWRhofTG4mL.jpg?tr=w-112"
@@ -140,23 +162,29 @@ exports[`<PostPreview /> should match snapshot 1`] = `
       />
     </div>
     <div
-      class="flex-row post-list__container"
+      class="c-post-preview__list__container"
+      data-testid="mini-post-list"
     >
       <div
-        class="flex-row justify-space-between mini-post"
+        class="c-mini-post pointer"
+        data-testid="mini-post"
       >
         <div
-          class="flex-column post-title"
+          class="c-mini-post__content"
         >
-          <span
+          <h5
             class="title"
+            data-testid="mini-post-title"
             style="color: green;"
           >
-            Chile
-          </span>
+            
+      Chile
+    
+          </h5>
            
           <span
             class="subtitle"
+            data-testid="mini-post-subtitle"
           >
             <div>
               Came here to start a company in 2012.
@@ -165,10 +193,11 @@ exports[`<PostPreview /> should match snapshot 1`] = `
         </div>
          
         <div
-          class="post-image"
+          class="c-mini-post__image"
         >
           <img
             alt="Chile"
+            data-testid="mini-post-image"
             height="56px"
             loading="lazy"
             src="https://ik.imagekit.io/fireman35/pics/chile_0qO775HZwWa.jpg?tr=w-112"
@@ -182,23 +211,29 @@ exports[`<PostPreview /> should match snapshot 1`] = `
       />
     </div>
     <div
-      class="flex-row post-list__container"
+      class="c-post-preview__list__container"
+      data-testid="mini-post-list"
     >
       <div
-        class="flex-row justify-space-between mini-post"
+        class="c-mini-post pointer"
+        data-testid="mini-post"
       >
         <div
-          class="flex-column post-title"
+          class="c-mini-post__content"
         >
-          <span
+          <h5
             class="title"
+            data-testid="mini-post-title"
             style="color: green;"
           >
-            Brazil
-          </span>
+            
+      Brazil
+    
+          </h5>
            
           <span
             class="subtitle"
+            data-testid="mini-post-subtitle"
           >
             <div>
               Came here for a conference in 2012.
@@ -207,10 +242,11 @@ exports[`<PostPreview /> should match snapshot 1`] = `
         </div>
          
         <div
-          class="post-image"
+          class="c-mini-post__image"
         >
           <img
             alt="Brazil"
+            data-testid="mini-post-image"
             height="56px"
             loading="lazy"
             src="https://ik.imagekit.io/fireman35/pics/brazil_96W3F3LPa.jpg?tr=w-112"
@@ -224,23 +260,29 @@ exports[`<PostPreview /> should match snapshot 1`] = `
       />
     </div>
     <div
-      class="flex-row post-list__container"
+      class="c-post-preview__list__container"
+      data-testid="mini-post-list"
     >
       <div
-        class="flex-row justify-space-between mini-post"
+        class="c-mini-post pointer"
+        data-testid="mini-post"
       >
         <div
-          class="flex-column post-title"
+          class="c-mini-post__content"
         >
-          <span
+          <h5
             class="title"
+            data-testid="mini-post-title"
             style="color: red;"
           >
-            France
-          </span>
+            
+      France
+    
+          </h5>
            
           <span
             class="subtitle"
+            data-testid="mini-post-subtitle"
           >
             <div>
               Came here to study in 2005.
@@ -249,10 +291,11 @@ exports[`<PostPreview /> should match snapshot 1`] = `
         </div>
          
         <div
-          class="post-image"
+          class="c-mini-post__image"
         >
           <img
             alt="France"
+            data-testid="mini-post-image"
             height="56px"
             loading="lazy"
             src="https://ik.imagekit.io/fireman35/pics/france_9sri-tCHe.jpg?tr=w-112"
@@ -266,23 +309,29 @@ exports[`<PostPreview /> should match snapshot 1`] = `
       />
     </div>
     <div
-      class="flex-row post-list__container"
+      class="c-post-preview__list__container"
+      data-testid="mini-post-list"
     >
       <div
-        class="flex-row justify-space-between mini-post"
+        class="c-mini-post pointer"
+        data-testid="mini-post"
       >
         <div
-          class="flex-column post-title"
+          class="c-mini-post__content"
         >
-          <span
+          <h5
             class="title"
+            data-testid="mini-post-title"
             style="color: red;"
           >
-            Singapore
-          </span>
+            
+      Singapore
+    
+          </h5>
            
           <span
             class="subtitle"
+            data-testid="mini-post-subtitle"
           >
             <div>
               Came here to study in 2001.
@@ -291,10 +340,11 @@ exports[`<PostPreview /> should match snapshot 1`] = `
         </div>
          
         <div
-          class="post-image"
+          class="c-mini-post__image"
         >
           <img
             alt="Singapore"
+            data-testid="mini-post-image"
             height="56px"
             loading="lazy"
             src="https://ik.imagekit.io/fireman35/pics/singapore_wrnhKpF1vKYY.jpg?tr=w-112"
@@ -308,23 +358,29 @@ exports[`<PostPreview /> should match snapshot 1`] = `
       />
     </div>
     <div
-      class="flex-row post-list__container"
+      class="c-post-preview__list__container"
+      data-testid="mini-post-list"
     >
       <div
-        class="flex-row justify-space-between mini-post"
+        class="c-mini-post pointer"
+        data-testid="mini-post"
       >
         <div
-          class="flex-column post-title"
+          class="c-mini-post__content"
         >
-          <span
+          <h5
             class="title"
+            data-testid="mini-post-title"
             style="color: pink;"
           >
-            India
-          </span>
+            
+      India
+    
+          </h5>
            
           <span
             class="subtitle"
+            data-testid="mini-post-subtitle"
           >
             <div>
               Born here.
@@ -333,10 +389,11 @@ exports[`<PostPreview /> should match snapshot 1`] = `
         </div>
          
         <div
-          class="post-image"
+          class="c-mini-post__image"
         >
           <img
             alt="India"
+            data-testid="mini-post-image"
             height="56px"
             loading="lazy"
             src="https://ik.imagekit.io/fireman35/pics/india_A4d15u4bMQ7.jpg?tr=w-112"
@@ -350,23 +407,29 @@ exports[`<PostPreview /> should match snapshot 1`] = `
       />
     </div>
     <div
-      class="flex-row post-list__container"
+      class="c-post-preview__list__container"
+      data-testid="mini-post-list"
     >
       <div
-        class="flex-row justify-space-between mini-post"
+        class="c-mini-post pointer"
+        data-testid="mini-post"
       >
         <div
-          class="flex-column post-title"
+          class="c-mini-post__content"
         >
-          <span
+          <h5
             class="title"
+            data-testid="mini-post-title"
             style="color: green;"
           >
-            China
-          </span>
+            
+      China
+    
+          </h5>
            
           <span
             class="subtitle"
+            data-testid="mini-post-subtitle"
           >
             <div>
               Came here for a conference in 2005.
@@ -375,10 +438,11 @@ exports[`<PostPreview /> should match snapshot 1`] = `
         </div>
          
         <div
-          class="post-image"
+          class="c-mini-post__image"
         >
           <img
             alt="China"
+            data-testid="mini-post-image"
             height="56px"
             loading="lazy"
             src="https://ik.imagekit.io/fireman35/pics/china_Gx-ZxMNsej.jpg?tr=w-112"
@@ -392,23 +456,29 @@ exports[`<PostPreview /> should match snapshot 1`] = `
       />
     </div>
     <div
-      class="flex-row post-list__container"
+      class="c-post-preview__list__container"
+      data-testid="mini-post-list"
     >
       <div
-        class="flex-row justify-space-between mini-post"
+        class="c-mini-post pointer"
+        data-testid="mini-post"
       >
         <div
-          class="flex-column post-title"
+          class="c-mini-post__content"
         >
-          <span
+          <h5
             class="title"
+            data-testid="mini-post-title"
             style="color: blue;"
           >
-            Malaysia
-          </span>
+            
+      Malaysia
+    
+          </h5>
            
           <span
             class="subtitle"
+            data-testid="mini-post-subtitle"
           >
             <div>
               Came here to hike up a mountain in 2010.
@@ -417,10 +487,11 @@ exports[`<PostPreview /> should match snapshot 1`] = `
         </div>
          
         <div
-          class="post-image"
+          class="c-mini-post__image"
         >
           <img
             alt="Malaysia"
+            data-testid="mini-post-image"
             height="56px"
             loading="lazy"
             src="https://ik.imagekit.io/fireman35/pics/malaysia_ZeAVPhILkr87.jpg?tr=w-112"
@@ -434,23 +505,29 @@ exports[`<PostPreview /> should match snapshot 1`] = `
       />
     </div>
     <div
-      class="flex-row post-list__container"
+      class="c-post-preview__list__container"
+      data-testid="mini-post-list"
     >
       <div
-        class="flex-row justify-space-between mini-post"
+        class="c-mini-post pointer"
+        data-testid="mini-post"
       >
         <div
-          class="flex-column post-title"
+          class="c-mini-post__content"
         >
-          <span
+          <h5
             class="title"
+            data-testid="mini-post-title"
             style="color: green;"
           >
-            Indonesia
-          </span>
+            
+      Indonesia
+    
+          </h5>
            
           <span
             class="subtitle"
+            data-testid="mini-post-subtitle"
           >
             <div>
               Came here for a conference in 2005.
@@ -459,10 +536,11 @@ exports[`<PostPreview /> should match snapshot 1`] = `
         </div>
          
         <div
-          class="post-image"
+          class="c-mini-post__image"
         >
           <img
             alt="Indonesia"
+            data-testid="mini-post-image"
             height="56px"
             loading="lazy"
             src="https://ik.imagekit.io/fireman35/pics/indonesia_vvghKPrEN.jpg?tr=w-112"
@@ -476,23 +554,29 @@ exports[`<PostPreview /> should match snapshot 1`] = `
       />
     </div>
     <div
-      class="flex-row post-list__container"
+      class="c-post-preview__list__container"
+      data-testid="mini-post-list"
     >
       <div
-        class="flex-row justify-space-between mini-post"
+        class="c-mini-post pointer"
+        data-testid="mini-post"
       >
         <div
-          class="flex-column post-title"
+          class="c-mini-post__content"
         >
-          <span
+          <h5
             class="title"
+            data-testid="mini-post-title"
             style="color: blue;"
           >
-            Nepal
-          </span>
+            
+      Nepal
+    
+          </h5>
            
           <span
             class="subtitle"
+            data-testid="mini-post-subtitle"
           >
             <div>
               Came here for a school trip in 1999.
@@ -501,10 +585,11 @@ exports[`<PostPreview /> should match snapshot 1`] = `
         </div>
          
         <div
-          class="post-image"
+          class="c-mini-post__image"
         >
           <img
             alt="Nepal"
+            data-testid="mini-post-image"
             height="56px"
             loading="lazy"
             src="https://ik.imagekit.io/fireman35/pics/nepal_Ef8ASdGYr.jpg?tr=w-112"
@@ -518,23 +603,29 @@ exports[`<PostPreview /> should match snapshot 1`] = `
       />
     </div>
     <div
-      class="flex-row post-list__container"
+      class="c-post-preview__list__container"
+      data-testid="mini-post-list"
     >
       <div
-        class="flex-row justify-space-between mini-post"
+        class="c-mini-post pointer"
+        data-testid="mini-post"
       >
         <div
-          class="flex-column post-title"
+          class="c-mini-post__content"
         >
-          <span
+          <h5
             class="title"
+            data-testid="mini-post-title"
             style="color: blue;"
           >
-            Japan
-          </span>
+            
+      Japan
+    
+          </h5>
            
           <span
             class="subtitle"
+            data-testid="mini-post-subtitle"
           >
             <div>
               Came here to learn pottery in 2011.
@@ -543,10 +634,11 @@ exports[`<PostPreview /> should match snapshot 1`] = `
         </div>
          
         <div
-          class="post-image"
+          class="c-mini-post__image"
         >
           <img
             alt="Japan"
+            data-testid="mini-post-image"
             height="56px"
             loading="lazy"
             src="https://ik.imagekit.io/fireman35/pics/japan_0nwm163zE.jpg?tr=w-112"

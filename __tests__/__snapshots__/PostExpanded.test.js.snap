@@ -2,10 +2,10 @@
 
 exports[`<PostExpanded /> should match snapshot 1`] = `
 <div
-  class="flex-column align-center post-expanded"
+  class="c-post-expanded"
 >
   <div
-    class="flex-row align-center justify-space-between toolbar"
+    class="c-post-expanded__toolbar"
   >
     <div
       class="post-index"
@@ -116,13 +116,14 @@ exports[`<PostExpanded /> should match snapshot 1`] = `
   </div>
    
   <div
-    class="flex-column content"
+    class="c-post-expanded__body"
   >
     <div
-      class="flex-row align-center justify-center spinner"
+      class="c-spinner"
+      data-testid="spinner"
     >
       <div
-        class="loading"
+        class="c-spinner__loading"
       />
     </div>
   </div>

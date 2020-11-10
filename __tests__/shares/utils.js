@@ -20,9 +20,17 @@ const mockAxiosGet = async (mockAxios, url, response) => {
   await flushPromises();
 };
 
+const findWithTestId = (wrapper, testId) =>
+  wrapper.find(`[data-testid=${testId}]`);
+
+const findAllWithTestId = (wrapper, testId) =>
+  wrapper.findAll(`[data-testid=${testId}]`);
+
 export {
   mountWithProps,
   shallowMountWithProps,
   dispatchKeyDownEvent,
   mockAxiosGet,
+  findWithTestId,
+  findAllWithTestId,
 };

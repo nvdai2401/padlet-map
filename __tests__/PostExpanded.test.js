@@ -6,6 +6,7 @@ import {
   mountWithProps,
   dispatchKeyDownEvent,
   mockAxiosGet,
+  findWithTestId,
 } from './shares/utils';
 import { PostExpanded } from '@/components/MapView/components';
 
@@ -48,7 +49,7 @@ describe('<PostExpanded />', () => {
 
   it(`should display loading when fetching data`, async () => {
     wrapper.setData({ postInfo: posts[0], loading: true });
-    expect(wrapper.find('.spinner').exists()).toBeTruthy();
+    expect(findWithTestId(wrapper, 'spinner').exists()).toBeTruthy();
   });
 
   it(`should contain 4 navigation buttons and 1 close button`, async () => {
@@ -64,9 +65,7 @@ describe('<PostExpanded />', () => {
     wrapper.setData({ postInfo: posts[0], loading: false });
 
     wrapper.vm.$nextTick(() => {
-      expect(wrapper.find('.post-header').text()).toBe(posts[0].headline);
-      expect(wrapper.find('.post-body').exists()).toBeTruthy();
-      expect(wrapper.find('img').exists()).toBeTruthy();
+      expect(findWithTestId(wrapper, 'post-content')).toBeTruthy();
     });
   });
 

@@ -1,5 +1,9 @@
 <template>
-  <div class="c-post-popup" @click.stop="actionListVisible = false">
+  <div
+    data-testid="post-popup"
+    class="c-post-popup"
+    @click.stop="actionListVisible = false"
+  >
     <post-content
       :src="post.attachment + '?tr=w-518'"
       :alt="post.headline"
@@ -10,6 +14,7 @@
       :body="post.body"
     />
     <div
+      data-testid="more-actions-button"
       class="more-actions-button pointer"
       @click.stop="actionListVisible = true"
     >
