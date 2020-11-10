@@ -1,0 +1,6 @@
+.o-button {
+  @include flex-align-content;
+  @include transition(all 150ms ease-in-out);
+
+  letter-spacing: 0.5px;
+}

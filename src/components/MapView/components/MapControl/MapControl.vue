@@ -1,22 +1,22 @@
 <template>
   <div
-    class="flex-column map-control"
+    class="c-map-control"
   >
     <button
-      class="button fit-bounds"
+      class="o-button control-button c-map-control__fit-bounds m-6"
       @click="togglePreview"
     >
       <font-awesome-icon :icon="['fas', 'bars']" />
     </button>
 
-    <div class="flex-column group-button">
-      <button class="button" @click="fitBounds">
+    <div class="c-map-control__group-button  m-6">
+      <button class="o-button control-button" @click="fitBounds">
         <font-awesome-icon :icon="['fas', 'expand']" />
       </button>
-      <button class="button" @click="zoomIn">
+      <button class="o-button control-button" @click="zoomIn">
         <font-awesome-icon :icon="['fas', 'plus']" />
       </button>
-      <button class="button" @click="zoomOut">
+      <button class="o-button control-button" @click="zoomOut">
         <font-awesome-icon :icon="['fas', 'minus']" />
       </button>
     </div>

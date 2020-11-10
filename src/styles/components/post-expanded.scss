@@ -1,0 +1,80 @@
+.post-expanded {
+  @include fixed($bottom: 0, $left: 0);
+  @include size($width: 100%, $height: 100%);
+  z-index: zIndex('post-expanded');
+  background: linear-gradient(rgba(51, 51, 51, 0.9), rgba(51, 51, 51, 0.5));
+  backdrop-filter: blur(10px);
+  transition: all 0.2s ease-out;
+
+  .toolbar {
+    @include absolute($bottom: 0);
+    @include size($width: 100vw, $height: 54px);
+    padding: 0 12px;
+    color: $color-white;
+    background-color: rgba(43, 43, 43, 0.5);
+
+    .post-index {
+      letter-spacing: 1px;
+    }
+
+    button {
+      background-color: transparent;
+      @include size($width: 40px, $height: 40px);
+    }
+
+    svg {
+      @include size($height: 18px);
+      color: $color-white;
+    }
+
+    .nav-buttons {
+      button {
+        margin-right: 12px;
+
+        &:last-child {
+          margin-right: 0;
+        }
+
+        &:disabled {
+          opacity: 0.3;
+          cursor: not-allowed;
+        }
+      }
+    }
+  }
+
+  .content {
+    @include size($width: 100vw, $height: 100vh);
+    background-color: $color-white;
+
+    .post-header {
+      font-size: 2rem;
+      padding: 24px 24px 12px;
+    }
+
+    .post-image {
+      max-height: calc(100% - 200px);
+    }
+
+    .post-body {
+      padding: 0 24px;
+      margin-bottom: 60px;
+    }
+  }
+
+  @include bp(sm) {
+    .toolbar {
+      @include relative();
+      background-color: transparent;
+    }
+
+    .content {
+      @include size($width: 720px, $height: 90vh);
+      border-radius: 12px;
+
+      .post-image {
+        border-radius: 12px 12px 0 0;
+      }
+    }
+  }
+}

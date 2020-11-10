@@ -2,13 +2,13 @@ module.exports = {
   publicPath: process.env.NODE_ENV === 'production' ? '/padlet-map/' : '/',
   lintOnSave: false,
   css: {
-    loaderOptions: {
-      sass: {
-        additionalData: `
-          @import "@/assets/styles/globals";
-        `,
-      },
-    },
+    // loaderOptions: {
+    //   sass: {
+    //     additionalData: `
+    //       @import "@/assets/styles/globals";
+    //     `,
+    //   },
+    // },
   },
   chainWebpack: (config) => {
     config.plugin('html').tap((args) => {
