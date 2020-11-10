@@ -1,5 +1,5 @@
 <template>
-  <div class="flex-column post-content">
+  <div class="c-post-content">
     <img
       :src="src"
       :srcset="srcSet"
@@ -9,12 +9,12 @@
       :width="width"
       :height="height"
       loading="lazy"
-      class="post-image"
+      class="c-post-content__image"
     />
-    <h3 class="post-header">
+    <h4 class=" p-6 p-l-12 p-r-12">
       {{ header }}
-    </h3>
-    <div class="post-body" v-html="body"></div>
+    </h4>
+    <div class="c-post-content__body p-b-12 p-l-12 p-r-12" v-html="body"></div>
   </div>
 </template>
 

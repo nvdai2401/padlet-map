@@ -1,6 +1,7 @@
 .post-popup {
-  @include size($width: 254px, $max-height: 600px);
+  @include size($width: 254px, $max-height: $global-post-content-max-height);
   @include relative();
+
   z-index: zIndex('post');
 
   .more-actions-button {

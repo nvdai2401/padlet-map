@@ -7,7 +7,7 @@ $padding: 6 12 18 24;
 
 @each $i in $padding {
   .p-#{$i} {
-    padding: $i;
+    padding: $i + px;
   }
 
   .p-t-#{$i} {
