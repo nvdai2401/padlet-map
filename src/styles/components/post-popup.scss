@@ -11,12 +11,12 @@
     @include transition(all 150ms ease-out);
 
     z-index: zIndex('post') + 1;
-    border: 1px solid $color-dark-grey;
+    border: 1px solid $color-border;
     border-radius: $global-radius;
     background-color: $color-dark-grey;
 
     svg {
-      color: $color-white;
+      color: $color-bg;
     }
   }
 
@@ -33,7 +33,7 @@
     box-shadow: 0 10px 20px rgba(0, 0, 0, 0.19), 0 6px 6px rgba(0, 0, 0, 0.23);
     padding: 3px 0;
     border-radius: $global-radius;
-    background-color: $color-white;
+    background-color: $color-bg;
 
     &__item {
       @include flex-box;

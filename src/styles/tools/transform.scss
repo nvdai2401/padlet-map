@@ -11,14 +11,6 @@
   @include transform(translate($x, $y), webkit moz ms o);
 }
 
-@mixin translateX($value) {
-  @include transform(translateX($value), webkit moz ms o);
-}
-
-@mixin scale($value) {
-  @include transform(scale($value), webkit moz ms o);
-}
-
 @mixin rotate($degree) {
   @include transform(rotate($degree), webkit moz ms o);
 }

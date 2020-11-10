@@ -11,7 +11,7 @@
   &__image {
     @include size($width: 100%);
 
-    background-color: $color-white;
+    background-color: $color-bg;
     object-fit: cover;
   }
 

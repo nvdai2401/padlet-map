@@ -14,7 +14,7 @@
     @include size($width: 100vw, $height: 54px);
 
     padding: 0 12px;
-    color: $color-white;
+    color: $color-bg;
     background-color: rgba(43, 43, 43, 0.5);
 
     .post-index {
@@ -30,7 +30,7 @@
     svg {
       @include size($height: 18px);
 
-      color: $color-white;
+      color: $color-bg;
     }
 
     .nav-buttons {
@@ -52,7 +52,7 @@
   &__body {
     @include size($width: 100vw, $height: 100vh);
 
-    background-color: $color-white;
+    background-color: $color-bg;
 
     .c-post-content {
       max-height: 100%;

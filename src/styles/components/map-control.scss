@@ -14,11 +14,11 @@
     @include size($width: 30px, $height: 30px);
 
     color: $color-medium-grey;
-    background-color: $color-white;
+    background-color: $color-bg;
 
     &:hover {
       svg {
-        color: $color-black;
+        color: $color-text;
       }
     }
   }

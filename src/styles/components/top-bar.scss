@@ -3,8 +3,8 @@
   @include align-items(center);
   @include size($height: $global-topbar-height);
 
-  background-color: $color-black;
-  color: $color-white;
+  background-color: $color-text;
+  color: $color-bg;
   letter-spacing: 0.4px;
   padding-left: 12px;
 

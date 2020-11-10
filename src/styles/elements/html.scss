@@ -23,6 +23,7 @@ html {
   -moz-osx-font-smoothing: grayscale;
   -webkit-font-smoothing: antialiased;
   text-rendering: optimizeLegibility;
+  letter-spacing: 0.3px;
 
   @include bp(sm) {
     font-size: 0.875em; /* 14px */

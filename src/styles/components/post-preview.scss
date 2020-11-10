@@ -1,54 +1,77 @@
-.post-preview {
-  display: flex;
+.c-post-preview {
+  @include absolute($left: 0, $bottom: 0);
+  @include flex-box;
+  @include size($width: 100vw);
+
   z-index: zIndex('post-preview');
   background-color: rgba(43, 43, 43, 0.8);
   backdrop-filter: blur(10px);
-  @include size($width: 100vw);
-  @include absolute($left: 0, $bottom: 0);
 
-  .post-count {
+  &__count {
     display: none;
   }
 
-  .post-list {
+  &__list {
+    @include flex-box;
     overflow: auto;
 
-    .post-list__container {
+    &__container {
+      @include flex-box;
+      @include flex-direction(row);
       .divider {
         margin: 16px 0;
-        border-left: 1px solid #333333;
+        border-left: 2px solid $color-border;
       }
     }
   }
 
   @include bp(sm) {
-    left: unset;
-    flex-direction: column;
-    padding-bottom: 16px;
-    border-radius: 6px;
-    @include absolute($right: 12px, $bottom: 72px);
+    @include absolute($right: 12px, $bottom: 72px, $left: unset);
+    @include flex-direction(column);
     @include size($width: 320px, $max-height: calc(100% - 96px));
 
-    .post-list {
-      flex-direction: column;
+    padding-bottom: 16px;
+    border-radius: $global-radius;
 
-      .post-list__container {
-        flex-direction: column;
+    &__list {
+      @include flex-direction(column);
+
+      &__container {
+        @include flex-direction(column);
+
         .divider {
           margin: 0 16px;
           border-left: unset;
-          border-top: 1px solid #333333;
+          border-top: 1px solid $color-border;
         }
       }
     }
 
-    .post-count {
+    &__count {
       display: inline-block;
-      color: hsla(0, 0%, 100%, 0.7);
+      color: $color-bg;
       font-weight: 600;
       padding: 12px 16px;
-      text-align: left;
       font-size: 0.875rem;
+    }
+
+    /* Works on Chrome/Edge/Safari */
+    *::-webkit-scrollbar {
+      width: 10px;
+    }
+    *::-webkit-scrollbar-track {
+      background: #f1f1f1;
+      border-radius: 6px;
+    }
+    *::-webkit-scrollbar-thumb {
+      background-color: #c1c1c1;
+      border-radius: 20px;
+      background-clip: content-box;
+    }
+
+    // /* Handle on hover */
+    *::-webkit-scrollbar-thumb:hover {
+      background: #a7a7a7;
     }
   }
 }
