@@ -42,7 +42,7 @@ export default {
   props: {
     targetURL: {
       type: String,
-      default: 'https://github.com/nvdai2401/vue-gmap',
+      default: 'https://github.com/nvdai2401/padlet-map',
     },
     ariaLabel: {
       type: String,

@@ -1,5 +1,5 @@
 module.exports = {
-  publicPath: process.env.NODE_ENV === 'production' ? '/vue-gmap/' : '/',
+  publicPath: process.env.NODE_ENV === 'production' ? '/padlet-map/' : '/',
   lintOnSave: false,
   css: {
     loaderOptions: {
