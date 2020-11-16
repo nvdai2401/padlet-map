@@ -36,6 +36,14 @@
   }
 }
 
+@mixin bp-up($name) {
+  $val: bp-val($name);
+
+  @media (min-width: $val + 0.02) {
+    @content;
+  }
+}
+
 @mixin bp-down($name) {
   $val: bp-val($name);
 

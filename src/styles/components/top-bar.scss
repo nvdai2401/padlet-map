@@ -14,6 +14,16 @@
     border-radius: 50%;
   }
 
+  h4 {
+    font-size: 1.125rem;
+  }
+
+  @include bp-up(xs) {
+    h4 {
+      font-size: 1.25rem;
+    }
+  }
+
   @include bp(sm) {
     padding-left: 24px;
   }

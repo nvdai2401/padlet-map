@@ -12,16 +12,16 @@ $global-post-content-max-height: 600px;
 /* Fonts
    ========================================================================== */
 
-$font-lato: Lato, 'Open Sans Condensed', -apple-system, system-ui,
-  BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Helvetica Neue', 'Arial',
+$font-lato: Lato, "Open Sans Condensed", -apple-system, system-ui,
+  BlinkMacSystemFont, "Segoe UI", "Roboto", "Helvetica Neue", "Arial",
   sans-serif !default;
 
 /* Breakpoints
    ========================================================================== */
 
 $breakpoints: (
-  xs: 480px,
-  s: 624px,
+  xs: 360px,
+  s: 480px,
   sm: 768px,
   m: 896px,
   md: 1024px,
