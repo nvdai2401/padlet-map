@@ -1,5 +1,5 @@
 .c-mini-post {
-  @include flex-align-content(row, flex-start, space-between);
+  @include flex-align-content(row-reverse, flex-start, space-between);
   @include size($width: 72vw);
   @include transition(all 100ms ease-out);
 
@@ -39,6 +39,7 @@
   }
 
   @include bp(sm) {
-    width: 100%;
+    @include flex-direction(row);
+    @include size(100%);
   }
 }
