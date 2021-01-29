@@ -26,9 +26,11 @@
   </div>
 </template>
 
-<script>
-export default {
-  name: 'post-content',
+<script lang="ts">
+import Vue from "vue";
+import Component from "vue-class-component";
+
+@Component({
   props: {
     src: String,
     srcSet: String,
@@ -40,5 +42,6 @@ export default {
     header: String,
     body: String,
   },
-};
+})
+export default class PostContent extends Vue {}
 </script>

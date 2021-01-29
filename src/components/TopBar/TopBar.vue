@@ -12,8 +12,10 @@
   </div>
 </template>
 
-<script>
-export default {
-  name: 'top-bar',
-};
+<script lang="ts">
+import Vue from "vue";
+import Component from "vue-class-component";
+
+@Component
+export default class TopBar extends Vue {}
 </script>

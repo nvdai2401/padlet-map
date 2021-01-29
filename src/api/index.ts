@@ -1,6 +1,6 @@
-import http from '@/config/http';
+import http, { HttpResponse } from '@/config/http';
 
-const getPosts = async () => {
+const getPosts = async (): Promise<any> => {
   try {
     const { data } = await http.get({ url: '/posts' });
     return data;
@@ -9,7 +9,7 @@ const getPosts = async () => {
   }
 };
 
-const getPostInfo = async (id) => {
+const getPostInfo = async (id: string): Promise<any> => {
   try {
     const { data } = await http.get({ url: `/posts/${id}` });
     return data;
