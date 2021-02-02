@@ -9,7 +9,7 @@ const getPosts = async (): Promise<any> => {
   }
 };
 
-const getPostInfo = async (id: string): Promise<any> => {
+const getPostInfo = async (id: any): Promise<any> => {
   try {
     const { data } = await http.get({ url: `/posts/${id}` });
     return data;

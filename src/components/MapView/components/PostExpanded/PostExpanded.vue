@@ -59,8 +59,6 @@ import {
 } from "@/shares/utils";
 import PostContent from "../PostContent";
 import { Spinner } from "./components";
-import { Attributes } from "@fortawesome/fontawesome-svg-core";
-// import { keydown } from "./mixins";
 
 type Placeholder = {
   bgColor: string;
@@ -85,15 +83,6 @@ type PostInfo = {
   attachment: string;
 };
 
-// type Attributes = {
-//   id: string;
-// }
-
-// type Post = {
-//   id: string;
-//   attributes: Attributes
-// }
-
 const PostExpandedProps = Vue.extend({
   props: {
     postId: Number,
@@ -104,12 +93,11 @@ const PostExpandedProps = Vue.extend({
     spinner: Spinner,
     "post-content": PostContent,
   },
-  // mixins: [keydown],
 });
 
 @Component
 export default class PostExpanded extends mixins(Vue, PostExpandedProps) {
-  postInfo: PostInfo = {
+  private postInfo: PostInfo = {
     preview_image: {
       url: "",
       colors: [{ color: [0, 0, 0], weight: 0 }],
@@ -119,14 +107,15 @@ export default class PostExpanded extends mixins(Vue, PostExpandedProps) {
     },
     attachment: "",
   };
-  currentIndex = -1;
-  placeholder: Placeholder = { bgColor: "", height: 0 };
-  srcSet = "";
-  loading = true;
-  imgWidth = POST_EXPANDED_WIDTH;
+  private currentIndex = -1;
+  private placeholder: Placeholder = { bgColor: "", height: 0 };
+  private srcSet = "";
+  private loading = true;
+  private imgWidth = POST_EXPANDED_WIDTH;
 
   async fetchPost(): Promise<void> {
-    const postData = await getPostInfo(this.posts[this.currentIndex]);
+    const postId = this.posts[this.currentIndex];
+    const postData = await getPostInfo(postId);
     this.postInfo = postData.attributes;
   }
 
@@ -169,22 +158,24 @@ export default class PostExpanded extends mixins(Vue, PostExpandedProps) {
   }
 
   handleOnKeyDown(e: KeyboardEvent): void {
-    const ARROW_LEFT_KEYCODE = 37,
-      ARROW_RIGHT_KEYCODE = 39,
-      ESCAPE_KEYCODE = 27;
+    const ARROW_LEFT_KEY = "ArrowLeft",
+      ARROW_RIGHT_KEY = "ArrowRight",
+      ESCAPE_KEY = "Escape";
 
-    switch (e.keyCode) {
-      case ARROW_LEFT_KEYCODE:
+    console.log("handleOnKeyDown", e.key);
+
+    switch (e.key) {
+      case ARROW_LEFT_KEY:
         if (this.currentIndex > 0) {
           this.moveToPrevPost();
         }
         break;
-      case ARROW_RIGHT_KEYCODE:
+      case ARROW_RIGHT_KEY:
         if (this.currentIndex < this.posts.length - 1) {
           this.moveToNextPost();
         }
         break;
-      case ESCAPE_KEYCODE:
+      case ESCAPE_KEY:
         this.onClose();
         break;
       default:
@@ -213,106 +204,4 @@ export default class PostExpanded extends mixins(Vue, PostExpandedProps) {
     window.removeEventListener("keydown", this.handleOnKeyDown);
   }
 }
-// export default {
-//   name: "post-expanded",
-//   props: {
-//     postId: Number,
-//     posts: Array,
-//     onClose: Function,
-//   },
-//   mixins: [keydown],
-//   components: {
-//     spinner: Spinner,
-//     "post-content": PostContent,
-//   },
-//   data() {
-//     return {
-//       postInfo: {},
-//       currentIndex: -1,
-//       placeholder: {
-//         bgColor: "",
-//         height: 0,
-//       },
-//       srcSet: "",
-//       loading: true,
-//       imgWidth: POST_EXPANDED_WIDTH,
-//     };
-//   },
-//   watch: {
-//     async currentIndex(newValue) {
-//       this.currentIndex = newValue;
-//       this.loading = true;
-//       await this.fetchPost();
-//       this.srcSet = generateSrcSet(this.postInfo.attachment);
-//       this.updatePlaceholder();
-//       this.loading = false;
-//     },
-//   },
-//   mounted() {
-//     this.calculateImageWidth();
-//     this.currentIndex = this.posts.indexOf(String(this.postId));
-//   },
-//   methods: {
-//     async fetchPost() {
-//       const postData = await getPostInfo(this.posts[this.currentIndex]);
-//       this.postInfo = postData.attributes;
-//     },
-//     calculateImageWidth() {
-//       const screenWidth = window.innerWidth;
-//       const DESKTOP_MIN_WIDTH = 768;
-
-//       if (screenWidth < DESKTOP_MIN_WIDTH) {
-//         this.imgWidth = window.innerWidth;
-//       }
-//     },
-//     updatePlaceholder() {
-//       const placeholder = this.postInfo.preview_image;
-//       const height = calculatePlaceholderHeight(
-//         placeholder.width,
-//         placeholder.height,
-//         this.imgWidth
-//       );
-
-//       this.placeholder = {
-//         bgColor: `rgb(${placeholder.dominant_color.join(",")})`,
-//         height,
-//       };
-//     },
-//     moveToNextPost() {
-//       this.currentIndex += 1;
-//     },
-//     moveToPrevPost() {
-//       this.currentIndex -= 1;
-//     },
-//     moveToFirstPost() {
-//       this.currentIndex = 0;
-//     },
-//     moveToLastPost() {
-//       this.currentIndex = this.posts.length - 1;
-//     },
-//     handleOnKeyDown(e) {
-//       const ARROW_LEFT_KEYCODE = 37,
-//         ARROW_RIGHT_KEYCODE = 39,
-//         ESCAPE_KEYCODE = 27;
-
-//       switch (e.keyCode) {
-//         case ARROW_LEFT_KEYCODE:
-//           if (this.currentIndex > 0) {
-//             this.moveToPrevPost();
-//           }
-//           break;
-//         case ARROW_RIGHT_KEYCODE:
-//           if (this.currentIndex < this.posts.length - 1) {
-//             this.moveToNextPost();
-//           }
-//           break;
-//         case ESCAPE_KEYCODE:
-//           this.onClose();
-//           break;
-//         default:
-//           return;
-//       }
-//     },
-//   },
-// };
 </script>
