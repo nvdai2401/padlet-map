@@ -36,30 +36,35 @@
   </a>
 </template>
 
-<script>
-export default {
-  name: 'folk-me',
+<script lang="ts">
+import { Vue, Component } from "vue-property-decorator";
+import { mixins } from "vue-class-component";
+
+const FolkMeProps = Vue.extend({
   props: {
     targetURL: {
       type: String,
-      default: 'https://github.com/nvdai2401/padlet-map',
+      default: "https://github.com/nvdai2401/padlet-map",
     },
     ariaLabel: {
       type: String,
-      default: 'View source on Github',
+      default: "View source on Github",
     },
     size: {
       type: String,
-      default: '76px',
+      default: "76px",
     },
     backgroundColor: {
       type: String,
-      default: '#ffffff ',
+      default: "#ffffff ",
     },
     color: {
       type: String,
-      default: '#000000',
+      default: "#000000",
     },
   },
-};
+});
+
+@Component
+export default class FolkMe extends mixins(Vue, FolkMeProps) {}
 </script>
