@@ -1,6 +1,8 @@
 <template>
   <div class="c-post-preview">
-    <div class="c-post-preview__count" data-testid="post-count">{{ posts.length }} posts</div>
+    <div class="c-post-preview__count" data-testid="post-count">
+      {{ posts.length }} posts
+    </div>
     <div class="c-post-preview__list">
       <div
         v-for="(post, index) in posts"
@@ -20,11 +22,12 @@
   </div>
 </template>
 
-<script>
-import { MiniPost } from './components';
+<script lang="ts">
+import { Vue, Component } from "vue-property-decorator";
+import { mixins } from "vue-class-component";
+import { MiniPost } from "./components";
 
-export default {
-  name: 'post-preview',
+const PostPreviewProps = Vue.extend({
   props: {
     posts: Array,
     onMouseOverPost: Function,
@@ -32,7 +35,10 @@ export default {
     onClickPost: Function,
   },
   components: {
-    'mini-post': MiniPost,
+    "mini-post": MiniPost,
   },
-};
+});
+
+@Component
+export default class PostPreview extends mixins(Vue, PostPreviewProps) {}
 </script>
