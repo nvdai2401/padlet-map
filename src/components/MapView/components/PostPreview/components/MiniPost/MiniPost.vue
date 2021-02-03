@@ -27,11 +27,16 @@
   </div>
 </template>
 
-<script>
-export default {
-  name: 'mini-post',
+<script lang="ts">
+import { Vue, Component } from "vue-property-decorator";
+import { mixins } from "vue-class-component";
+
+const MiniPostProps = Vue.extend({
   props: {
     post: Object,
   },
-};
+});
+
+@Component
+export default class MiniPost extends mixins(Vue, MiniPostProps) {}
 </script>
