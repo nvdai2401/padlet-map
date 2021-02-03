@@ -34,51 +34,53 @@
   </div>
 </template>
 
-<script>
+<script lang="ts">
+import { Vue, Component } from "vue-property-decorator";
+import { mixins } from "vue-class-component";
 import {
   POST_WIDTH,
   calculatePlaceholderHeight,
   generateGmapSearchUrl,
-} from '@/shares/utils';
-import PostContent from '../PostContent';
+} from "@/shares/utils";
+import PostContent from "../PostContent";
 
-export default {
-  name: 'post-popup',
-  components: {
-    'post-content': PostContent,
-  },
+const PostPopupProps = Vue.extend({
   props: {
     post: Object,
     onExpandPost: Function,
   },
-  data() {
-    return {
-      actionListVisible: false,
-      placeholder: {
-        bgColor: '',
-        height: 0,
-      },
-    };
+  components: {
+    "post-content": PostContent,
   },
-  mounted() {
+});
+
+@Component
+export default class PostPopup extends mixins(Vue, PostPopupProps) {
+  private actionListVisible = false;
+  private placeholder = {
+    bgColor: "",
+    height: 0,
+  };
+
+  mounted(): void {
     this.updatePlaceholder();
-  },
-  methods: {
-    openLinkInGmap() {
-      window.open(generateGmapSearchUrl(this.post.location_name), '_blank');
-    },
-    updatePlaceholder() {
-      const placeholder = this.post.preview_image;
-      const height = calculatePlaceholderHeight(
-        placeholder.width,
-        placeholder.height,
-        POST_WIDTH,
-      );
-      this.placeholder = {
-        bgColor: `rgb(${placeholder.dominant_color.join(',')})`,
-        height,
-      };
-    },
-  },
-};
+  }
+
+  openLinkInGmap(): void {
+    window.open(generateGmapSearchUrl(this.post.location_name), "_blank");
+  }
+
+  updatePlaceholder(): void {
+    const placeholder = this.post.preview_image;
+    const height = calculatePlaceholderHeight(
+      placeholder.width,
+      placeholder.height,
+      POST_WIDTH
+    );
+    this.placeholder = {
+      bgColor: `rgb(${placeholder.dominant_color.join(",")})`,
+      height,
+    };
+  }
+}
 </script>

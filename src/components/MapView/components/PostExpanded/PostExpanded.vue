@@ -113,6 +113,27 @@ export default class PostExpanded extends mixins(Vue, PostExpandedProps) {
   private loading = true;
   private imgWidth = POST_EXPANDED_WIDTH;
 
+  @Watch("currentIndex")
+  async onCurrentIndexChanged(newValue: number): Promise<void> {
+    this.currentIndex = newValue;
+    this.loading = true;
+    await this.fetchPost();
+    this.srcSet = generateSrcSet(this.postInfo.attachment);
+    this.updatePlaceholder();
+    this.loading = false;
+  }
+
+  mounted(): void {
+    window.addEventListener("keydown", this.handleOnKeyDown);
+    this.calculateImageWidth();
+    this.currentIndex = this.posts.indexOf(String(this.postId));
+    console.log("post-expanded", this.postInfo);
+  }
+
+  destroyed(): void {
+    window.removeEventListener("keydown", this.handleOnKeyDown);
+  }
+
   async fetchPost(): Promise<void> {
     const postId = this.posts[this.currentIndex];
     const postData = await getPostInfo(postId);
@@ -181,27 +202,6 @@ export default class PostExpanded extends mixins(Vue, PostExpandedProps) {
       default:
         return;
     }
-  }
-
-  @Watch("currentIndex")
-  async onCurrentIndexChanged(newValue: number): Promise<void> {
-    this.currentIndex = newValue;
-    this.loading = true;
-    await this.fetchPost();
-    this.srcSet = generateSrcSet(this.postInfo.attachment);
-    this.updatePlaceholder();
-    this.loading = false;
-  }
-
-  mounted(): void {
-    window.addEventListener("keydown", this.handleOnKeyDown);
-    this.calculateImageWidth();
-    this.currentIndex = this.posts.indexOf(String(this.postId));
-    console.log("post-expanded", this.postInfo);
-  }
-
-  destroyed(): void {
-    window.removeEventListener("keydown", this.handleOnKeyDown);
   }
 }
 </script>
