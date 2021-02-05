@@ -67,7 +67,153 @@
 </template>
 
 <script>
-import { PostPopup, MapControl, PostPreview, PostExpanded } from './components';
+// import { PostPopup, MapControl, PostPreview, PostExpanded } from "./components";
+// import {
+//   defaultLatLngBounds,
+//   viewportLatLngBounds,
+//   options,
+//   DEFAULT_CENTER,
+//   MIN_ZOOM,
+//   MAX_ZOOM,
+// } from "./mapProperty";
+// import { getPosts } from "@/api";
+
+// export default {
+//   name: "map-view",
+//   components: {
+//     "post-popup": PostPopup,
+//     "map-control": MapControl,
+//     "post-preview": PostPreview,
+//     "post-expanded": PostExpanded,
+//   },
+//   data() {
+//     return {
+//       initialZoom: MIN_ZOOM,
+//       center: DEFAULT_CENTER,
+//       postPreviewVisible: false,
+//       postExpandedVisible: false,
+//       mapControlVisible: false,
+//       markers: {},
+//       mapOptions: null,
+//       activePost: null,
+//       activeMarkerColor: "",
+//       focusedPost: "",
+//     };
+//   },
+//   watch: {
+//     activePost(newPostId, oldPostId) {
+//       const restriction = {
+//         ...this.mapOptions.restriction,
+//         latLngBounds: viewportLatLngBounds,
+//       };
+//       // Hide old post
+//       if (oldPostId) {
+//         this.markers[oldPostId].is_post_visible = false;
+//       }
+//       // Hide current post and update map bounds to fit the viewport when click its marker
+//       if (!newPostId) {
+//         this.mapOptions = { ...this.mapOptions, restriction };
+//         return;
+//       }
+//       // Show post and change map bounds to default when click a marker
+//       this.markers[newPostId].is_post_visible = true;
+//       restriction.latLngBounds = defaultLatLngBounds;
+//       this.mapOptions = { ...this.mapOptions, restriction };
+//     },
+//   },
+//   created() {
+//     this.mapOptions = options;
+//   },
+//   async mounted() {
+//     await this.fetchPosts();
+//     await this.$gmapApiPromiseLazy();
+//     this.fitBounds();
+//     this.mapControlVisible = true;
+//   },
+//   methods: {
+//     async fetchPosts() {
+//       const data = await getPosts();
+//       const markers = {};
+
+//       for (let item of data) {
+//         markers[item.id] = { ...item.attributes, is_post_visible: false };
+//       }
+//       this.markers = markers;
+//     },
+//     handleOnClick(postId) {
+//       if (this.activePost === postId) {
+//         this.activePost = null;
+//         return;
+//       }
+//       this.activePost = postId;
+//     },
+//     handleOnMouseOver(postId) {
+//       if (postId !== this.focusedPost) {
+//         const PLACEHOLDER_PREFIX = "ph_";
+//         this.focusedPost = postId;
+//         this.activeMarkerColor = this.markers[postId].color;
+//         this.markers[postId].color =
+//           PLACEHOLDER_PREFIX + this.markers[postId].color;
+//       }
+//     },
+//     handleOnMouseOut(postId) {
+//       this.markers[postId].color = this.activeMarkerColor;
+//       this.activeMarkerColor = "";
+//       this.focusedPost = "";
+//     },
+//     handleOnClickMap() {
+//       this.activePost = null;
+//     },
+//     togglePreview() {
+//       this.postPreviewVisible = !this.postPreviewVisible;
+//     },
+//     fitBounds() {
+//       this.$refs.gmap.$mapPromise.then((map) => {
+//         // eslint-disable-next-line no-undef
+//         var bounds = new google.maps.LatLngBounds();
+//         Object.values(this.markers)
+//           .reverse()
+//           .forEach((marker) => {
+//             bounds.extend(
+//               // eslint-disable-next-line no-undef
+//               new google.maps.LatLng(
+//                 marker.location_point.latitude,
+//                 marker.location_point.longitude
+//               )
+//             );
+//           });
+//         map.fitBounds(bounds);
+//       });
+//     },
+//     handleOnExpandPost() {
+//       this.postExpandedVisible = true;
+//     },
+//     handleOnClosePostExpanded() {
+//       this.postExpandedVisible = false;
+//     },
+//     zoomIn() {
+//       const currentZoom = this.$refs.gmap.$mapObject.zoom;
+
+//       if (currentZoom < MAX_ZOOM) {
+//         this.mapOptions = { ...this.mapOptions, zoom: currentZoom + 1 };
+//       }
+//     },
+//     zoomOut() {
+//       const currentZoom = this.$refs.gmap.$mapObject.zoom;
+
+//       if (currentZoom > MIN_ZOOM) {
+//         this.mapOptions = { ...this.mapOptions, zoom: currentZoom - 1 };
+//       }
+//     },
+//   },
+// };
+</script>
+
+<script lang="ts">
+import { Vue, Component, Watch } from "vue-property-decorator";
+import { getPosts } from "@/api";
+import { Placeholder, PostInfo, Color } from "@/definitions/mapView";
+import { PostPopup, MapControl, PostPreview, PostExpanded } from "./components";
 import {
   defaultLatLngBounds,
   viewportLatLngBounds,
@@ -75,136 +221,153 @@ import {
   DEFAULT_CENTER,
   MIN_ZOOM,
   MAX_ZOOM,
-} from './mapProperty';
-import { getPosts } from '@/api';
+} from "./mapProperty";
 
-export default {
-  name: 'map-view',
+type Marker = {
+  id: string;
+  is_post_visible: boolean;
+  color: string;
+};
+
+type Markers = {
+  [key: string]: Marker;
+};
+
+@Component({
   components: {
-    'post-popup': PostPopup,
-    'map-control': MapControl,
-    'post-preview': PostPreview,
-    'post-expanded': PostExpanded,
+    "post-popup": PostPopup,
+    "map-control": MapControl,
+    "post-preview": PostPreview,
+    "post-expanded": PostExpanded,
   },
-  data() {
-    return {
-      initialZoom: MIN_ZOOM,
-      center: DEFAULT_CENTER,
-      postPreviewVisible: false,
-      postExpandedVisible: false,
-      mapControlVisible: false,
-      markers: {},
-      mapOptions: null,
-      activePost: null,
-      activeMarkerColor: '',
-      focusedPost: '',
+})
+export default class MapView extends Vue {
+  private initialZoom = MIN_ZOOM;
+  private center = DEFAULT_CENTER;
+  private postPreviewVisible = false;
+  private postExpandedVisible = false;
+  private mapControlVisible = false;
+  private markers: Markers = {};
+  private mapOptions = options;
+  private activePost: string = "";
+  private activeMarkerColor = "";
+  private focusedPost = "";
+
+  @Watch("activePost")
+  async onactivePostChanged(newPostId: string, oldPostId: string) {
+    const restriction = {
+      ...this.mapOptions.restriction,
+      latLngBounds: viewportLatLngBounds,
     };
-  },
-  watch: {
-    activePost(newPostId, oldPostId) {
-      const restriction = {
-        ...this.mapOptions.restriction,
-        latLngBounds: viewportLatLngBounds,
-      };
-      // Hide old post
-      if (oldPostId) {
-        this.markers[oldPostId].is_post_visible = false;
-      }
-      // Hide current post and update map bounds to fit the viewport when click its marker
-      if (!newPostId) {
-        this.mapOptions = { ...this.mapOptions, restriction };
-        return;
-      }
-      // Show post and change map bounds to default when click a marker
-      this.markers[newPostId].is_post_visible = true;
-      restriction.latLngBounds = defaultLatLngBounds;
+    // Hide old post
+    if (oldPostId) {
+      this.markers[oldPostId].is_post_visible = false;
+    }
+    // Hide current post and update map bounds to fit the viewport when click its marker
+    if (!newPostId) {
       this.mapOptions = { ...this.mapOptions, restriction };
-    },
-  },
+      return;
+    }
+    // Show post and change map bounds to default when click a marker
+    this.markers[newPostId].is_post_visible = true;
+    restriction.latLngBounds = defaultLatLngBounds;
+    this.mapOptions = { ...this.mapOptions, restriction };
+  }
+
   created() {
     this.mapOptions = options;
-  },
+  }
+
   async mounted() {
     await this.fetchPosts();
     await this.$gmapApiPromiseLazy();
     this.fitBounds();
     this.mapControlVisible = true;
-  },
-  methods: {
-    async fetchPosts() {
-      const data = await getPosts();
-      const markers = {};
+  }
 
-      for (let item of data) {
-        markers[item.id] = { ...item.attributes, is_post_visible: false };
-      }
-      this.markers = markers;
-    },
-    handleOnClick(postId) {
-      if (this.activePost === postId) {
-        this.activePost = null;
-        return;
-      }
-      this.activePost = postId;
-    },
-    handleOnMouseOver(postId) {
-      if (postId !== this.focusedPost) {
-        const PLACEHOLDER_PREFIX = 'ph_';
-        this.focusedPost = postId;
-        this.activeMarkerColor = this.markers[postId].color;
-        this.markers[postId].color =
-          PLACEHOLDER_PREFIX + this.markers[postId].color;
-      }
-    },
-    handleOnMouseOut(postId) {
-      this.markers[postId].color = this.activeMarkerColor;
-      this.activeMarkerColor = '';
-      this.focusedPost = '';
-    },
-    handleOnClickMap() {
-      this.activePost = null;
-    },
-    togglePreview() {
-      this.postPreviewVisible = !this.postPreviewVisible;
-    },
-    fitBounds() {
-      this.$refs.gmap.$mapPromise.then((map) => {
-        // eslint-disable-next-line no-undef
-        var bounds = new google.maps.LatLngBounds();
-        Object.values(this.markers)
-          .reverse()
-          .forEach((marker) => {
-            bounds.extend(
-              // eslint-disable-next-line no-undef
-              new google.maps.LatLng(
-                marker.location_point.latitude,
-                marker.location_point.longitude,
-              ),
-            );
-          });
-        map.fitBounds(bounds);
-      });
-    },
-    handleOnExpandPost() {
-      this.postExpandedVisible = true;
-    },
-    handleOnClosePostExpanded() {
-      this.postExpandedVisible = false;
-    },
-    zoomIn() {
-      const currentZoom = this.$refs.gmap.$mapObject.zoom;
+  async fetchPosts() {
+    const data = await getPosts();
+    const markers: Markers = {};
 
-      if (currentZoom < MAX_ZOOM) {
-        this.mapOptions = { ...this.mapOptions, zoom: currentZoom + 1 };
-      }
-    },
-    zoomOut() {
-      const currentZoom = this.$refs.gmap.$mapObject.zoom;
+    for (let item of data) {
+      markers[item.id] = { ...item.attributes, is_post_visible: false };
+    }
+    this.markers = markers;
+  }
 
-      if (currentZoom > MIN_ZOOM) {
-        this.mapOptions = { ...this.mapOptions, zoom: currentZoom - 1 };
-      }
-    },
-  },
-};
+  handleOnClick(postId: string) {
+    if (this.activePost === postId) {
+      this.activePost = "";
+      return;
+    }
+    this.activePost = postId;
+  }
+
+  handleOnMouseOver(postId: string) {
+    if (postId !== this.focusedPost) {
+      const PLACEHOLDER_PREFIX = "ph_";
+      this.focusedPost = postId;
+      this.activeMarkerColor = this.markers[postId].color;
+      this.markers[postId].color =
+        PLACEHOLDER_PREFIX + this.markers[postId].color;
+    }
+  }
+
+  handleOnMouseOut(postId: string) {
+    this.markers[postId].color = this.activeMarkerColor;
+    this.activeMarkerColor = "";
+    this.focusedPost = "";
+  }
+
+  handleOnClickMap() {
+    this.activePost = "";
+  }
+
+  togglePreview() {
+    this.postPreviewVisible = !this.postPreviewVisible;
+  }
+
+  fitBounds() {
+    this.$refs.gmap.$mapPromise.then((map) => {
+      // eslint-disable-next-line no-undef
+      var bounds = new google.maps.LatLngBounds();
+      Object.values(this.markers)
+        .reverse()
+        .forEach((marker) => {
+          bounds.extend(
+            // eslint-disable-next-line no-undef
+            new google.maps.LatLng(
+              marker.location_point.latitude,
+              marker.location_point.longitude
+            )
+          );
+        });
+      map.fitBounds(bounds);
+    });
+  }
+
+  handleOnExpandPost() {
+    this.postExpandedVisible = true;
+  }
+
+  handleOnClosePostExpanded() {
+    this.postExpandedVisible = false;
+  }
+
+  zoomIn() {
+    const currentZoom = this.$refs.gmap.$mapObject.zoom;
+
+    if (currentZoom < MAX_ZOOM) {
+      this.mapOptions = { ...this.mapOptions, zoom: currentZoom + 1 };
+    }
+  }
+
+  zoomOut() {
+    const currentZoom = this.$refs.gmap.$mapObject.zoom;
+
+    if (currentZoom > MIN_ZOOM) {
+      this.mapOptions = { ...this.mapOptions, zoom: currentZoom - 1 };
+    }
+  }
+}
 </script>

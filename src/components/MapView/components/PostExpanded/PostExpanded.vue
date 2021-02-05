@@ -57,31 +57,9 @@ import {
   calculatePlaceholderHeight,
   generateSrcSet,
 } from "@/shares/utils";
+import { Placeholder, PostInfo } from "@/definitions/mapView";
 import PostContent from "../PostContent";
 import { Spinner } from "./components";
-
-type Placeholder = {
-  bgColor: string;
-  height: number;
-};
-
-type Color = {
-  color: [number, number, number];
-  weight: number;
-};
-
-type PreviewImage = {
-  url: string;
-  colors: [Color];
-  dominant_color: [number, number, number];
-  width: number;
-  height: number;
-};
-
-type PostInfo = {
-  preview_image: PreviewImage;
-  attachment: string;
-};
 
 const PostExpandedProps = Vue.extend({
   props: {
@@ -89,13 +67,14 @@ const PostExpandedProps = Vue.extend({
     posts: Array,
     onClose: Function,
   },
+});
+
+@Component({
   components: {
     spinner: Spinner,
     "post-content": PostContent,
   },
-});
-
-@Component
+})
 export default class PostExpanded extends mixins(Vue, PostExpandedProps) {
   private postInfo: PostInfo = {
     preview_image: {

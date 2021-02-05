@@ -1,3 +1,15 @@
+export type LatLngBound = {
+  north: number
+  south: number
+  west: number
+  east: number
+}
+export type Restriction = {
+  latLngBounds: LatLngBound
+  strictBounds: boolean
+}
+
+
 const defaultLatLngBounds = {
   north: 180,
   south: -180,
@@ -5,7 +17,7 @@ const defaultLatLngBounds = {
   east: 180,
 };
 
-const viewportLatLngBounds = { north: 85, south: -85, west: -180, east: 180 };
+const viewportLatLngBounds: LatLngBound = { north: 85, south: -85, west: -180, east: 180 };
 
 const styles = [
   {
@@ -145,7 +157,7 @@ const styles = [
   },
 ];
 
-const restriction = {
+const restriction: Restriction = {
   latLngBounds: viewportLatLngBounds,
   strictBounds: true,
 };
